@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DETEKTIF LITERASI 28 — Misi Kisi-Kisi Bahasa Indonesia Kelas 8</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0f172a; color: #f8fafc; }
+    .evidence-highlight { background-color: #fef08a; color: #0f172a; padding: 2px 5px; border-radius: 4px; font-weight: 700; box-shadow: 0 0 0 2px #eab308; transition: all 0.3s ease; }
+    .glass-card { background: rgba(30, 41, 59, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(148, 163, 184, 0.18); }
+    .btn-hover { transition: transform 0.15s ease, box-shadow 0.15s ease; }
+    .btn-hover:active { transform: scale(0.98); }
+    @keyframes pulseGlow { 0%, 100% { box-shadow: 0 0 12px rgba(56, 189, 248, 0.35); } 50% { box-shadow: 0 0 22px rgba(56, 189, 248, 0.75); } }
+    .glow-active { animation: pulseGlow 2.2s infinite; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- TOP NAVBAR -->
+  <header class="sticky top-0 z-40 bg-slate-900/95 border-b border-slate-800 px-4 py-3">
+    <div class="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center font-extrabold text-white shadow-lg">28</div>
+        <div>
+          <h1 class="text-sm sm:text-base font-extrabold tracking-tight text-white">DETEKTIF LITERASI 28</h1>
+          <p class="text-[11px] text-slate-400">Kisi-Kisi ASAS Bahasa Indonesia VIII • Sinkronisasi Spreadsheet</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 text-xs">
+        <span id="nav-student-badge" class="hidden inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sky-950/90 border border-sky-400/50 text-sky-200 text-sm sm:text-base font-extrabold shadow-md"></span>
+        <button onclick="openConfigModal()" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 font-medium" title="Pengaturan URL Google Apps Script">
+          ⚙️ Sinkronisasi
+        </button>
+        <button onclick="goHome()" class="px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-bold">
+          Peta Misi
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="flex-1 max-w-5xl w-full mx-auto px-4 py-6">
+
+    <!-- VIEW 1: LOGIN / IDENTITAS SISWA & PETA MISI -->
+    <section id="view-home" class="space-y-6">
+      <!-- Identity Card -->
+      <div class="glass-card rounded-2xl p-5 sm:p-6 shadow-xl">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-sky-500/20 text-sky-300 border border-sky-500/30 mb-2">SMP NEGERI 28 BANDUNG</span>
+            <h2 class="text-xl sm:text-2xl font-extrabold text-white">Misi Menguak Fakta &amp; Makna (40 Soal Latihan)</h2>
+            <p class="text-xs sm:text-sm text-slate-300 mt-1">Isi identitasmu terlebih dahulu agar skor, rincian jawaban per nomor, dan status ketuntasan otomatis tercatat ke Spreadsheet Guru.</p>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 w-full md:w-auto min-w-[300px]">
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-400 mb-1">Nama Lengkap Siswa</label>
+              <input id="input-nama" type="text" placeholder="Contoh: Almeera Zahra" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-sky-500" oninput="saveIdentity()" />
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-400 mb-1">Kelas</label>
+              <select id="input-kelas" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-sky-500" onchange="saveIdentity()">
+                <option value="">-- Pilih Kelas --</option>
+                <option value="8-A">8-A</option><option value="8-B">8-B</option><option value="8-C">8-C</option>
+                <option value="8-D">8-D</option><option value="8-E">8-E</option><option value="8-F">8-F</option>
+                <option value="8-G">8-G</option><option value="8-H">8-H</option><option value="8-I">8-I</option><option value="8-J">8-J</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div id="sync-status-banner" class="mt-4 pt-3 border-t border-slate-700/70 flex flex-wrap items-center justify-between gap-2 text-xs">
+          <span id="sync-indicator" class="text-emerald-400 font-medium">● Siap merekam progres lokal &amp; Spreadsheet</span>
+          <button onclick="openReportView()" class="px-3 py-1.5 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/40 text-emerald-300 font-bold">
+            📊 Lihat Rapor &amp; Sertifikat
+          </button>
+        </div>
+      </div>
+
+      <!-- 4 Level Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="level-grid"></div>
+    </section>
+
+    <!-- VIEW 2: ARENA SOAL INTERAKTIF -->
+    <section id="view-quiz" class="hidden space-y-5">
+      <!-- Progress Bar -->
+      <div class="glass-card rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <span id="quiz-level-tag" class="text-[11px] font-bold uppercase tracking-wider text-sky-400"></span>
+          <h3 id="quiz-progress-text" class="text-base font-extrabold text-white">Soal 1 dari 10</h3>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="text-right">
+            <span class="block text-[10px] text-slate-400">SKOR SEMENTARA</span>
+            <span id="quiz-live-score" class="text-base font-extrabold text-emerald-400">0</span>
+          </div>
+          <button onclick="useHint()" id="btn-hint" class="px-3 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 text-xs font-bold">
+            🔍 Kaca Pembesar (Hint)
+          </button>
+        </div>
+        <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+          <div id="quiz-progress-bar" class="bg-gradient-to-r from-sky-400 to-indigo-500 h-full transition-all duration-300" style="width: 10%"></div>
+        </div>
+      </div>
+
+      <!-- Hint Box -->
+      <div id="hint-box" class="hidden rounded-2xl bg-amber-950/60 border border-amber-500/40 p-4 text-xs sm:text-sm text-amber-200">
+        <strong class="text-amber-400 block mb-1">💡 Petunjuk Analisis Detektif:</strong>
+        <span id="hint-text"></span>
+      </div>
+
+      <!-- Stimulus Card -->
+      <div class="glass-card rounded-2xl p-5 space-y-4">
+        <div class="flex items-center justify-between">
+          <span id="stim-badge" class="px-2.5 py-1 rounded-lg bg-indigo-500/20 text-indigo-300 text-xs font-bold border border-indigo-500/30"></span>
+          <span id="q-type-badge" class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 text-xs font-semibold"></span>
+        </div>
+        <div id="stim-svg-container" class="hidden rounded-xl overflow-hidden border border-slate-700 bg-slate-950 p-2"></div>
+        <div id="stim-text-box" class="text-xs sm:text-sm leading-relaxed text-slate-200 bg-slate-900/80 p-4 rounded-xl border border-slate-800 space-y-2"></div>
+      </div>
+
+      <!-- Question & Interactive Options Card -->
+      <div class="glass-card rounded-2xl p-5 space-y-4">
+        <p id="question-stem" class="text-sm sm:text-base font-bold text-white leading-snug"></p>
+        <div id="options-container" class="space-y-2.5"></div>
+
+        <div class="pt-3 flex flex-wrap items-center justify-between gap-3 border-t border-slate-800">
+          <button id="btn-submit-answer" onclick="submitAnswer()" class="px-5 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-sm font-extrabold shadow-lg btn-hover">
+            🔒 Kunci &amp; Periksa Jawaban
+          </button>
+          <button id="btn-next-question" onclick="nextQuestion()" class="hidden px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-extrabold shadow-lg btn-hover">
+            Lanjut Soal Berikutnya ➡️
+          </button>
+        </div>
+      </div>
+
+      <!-- Interactive Debrief / Pembahasan -->
+      <div id="debrief-box" class="hidden rounded-2xl p-5 border space-y-3">
+        <div class="flex items-center gap-2">
+          <span id="debrief-icon" class="text-xl"></span>
+          <h4 id="debrief-title" class="text-base font-extrabold"></h4>
+        </div>
+        <p id="debrief-explanation" class="text-xs sm:text-sm text-slate-200 leading-relaxed"></p>
+        <div class="bg-slate-950/70 rounded-xl p-3 border border-slate-800 text-xs text-slate-300">
+          <strong class="text-sky-400 block mb-1">🎯 Kunci &amp; Alasan Analisis:</strong>
+          <span id="debrief-key-detail"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 3: LEVEL SUMMARY & SPREADSHEET SYNC RESULT -->
+    <section id="view-level-result" class="hidden glass-card rounded-2xl p-6 space-y-5">
+      <div class="text-center space-y-2">
+        <div id="res-trophy" class="text-5xl">🏆</div>
+        <h2 id="res-level-title" class="text-2xl font-extrabold text-white">Misi Selesai!</h2>
+        <div class="inline-block mt-1 px-5 py-2 rounded-2xl bg-sky-500/15 border border-sky-400/40 shadow-sm"><p id="res-student-info" class="text-lg sm:text-2xl font-extrabold text-sky-300 tracking-wide"></p></div>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+        <div class="bg-slate-900/90 p-3.5 rounded-xl border border-slate-800">
+          <span class="block text-[11px] text-slate-400">SKOR AKHIR</span>
+          <span id="res-score" class="text-2xl font-extrabold text-sky-400">0</span>
+        </div>
+        <div class="bg-slate-900/90 p-3.5 rounded-xl border border-slate-800">
+          <span class="block text-[11px] text-slate-400">BENAR</span>
+          <span id="res-correct" class="text-2xl font-extrabold text-emerald-400">0</span>
+        </div>
+        <div class="bg-slate-900/90 p-3.5 rounded-xl border border-slate-800">
+          <span class="block text-[11px] text-slate-400">SALAH</span>
+          <span id="res-wrong" class="text-2xl font-extrabold text-rose-400">0</span>
+        </div>
+        <div class="bg-slate-900/90 p-3.5 rounded-xl border border-slate-800">
+          <span class="block text-[11px] text-slate-400">STATUS</span>
+          <span id="res-status" class="text-lg font-extrabold text-amber-400">-</span>
+        </div>
+      </div>
+
+      <!-- Cloud Sync Status Box -->
+      <div id="cloud-sync-box" class="rounded-xl p-4 bg-slate-900 border border-slate-700 flex flex-wrap items-center justify-between gap-3 text-xs">
+        <div>
+          <strong class="text-white block">Status Pengiriman Data ke Google Sheets:</strong>
+          <span id="cloud-sync-msg" class="text-slate-300">Menunggu sinkronisasi...</span>
+        </div>
+        <div class="flex gap-2">
+          <button onclick="retrySyncLastLevel()" class="px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-bold">🔄 Kirim Ulang</button>
+          <button onclick="downloadCSVResult()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-600 text-slate-200 font-bold">⬇️ Unduh CSV</button>
+        </div>
+      </div>
+
+      <!-- Rincian Jawaban Per Nomor (Mirip Struktur Kolom Spreadsheet) -->
+      <div class="space-y-2">
+        <h4 class="text-sm font-bold text-slate-200">Rincian Jawaban &amp; Status Per Butir Soal:</h4>
+        <div class="overflow-x-auto rounded-xl border border-slate-800">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-900 text-slate-400 uppercase">
+              <tr>
+                <th class="px-3 py-2">No</th>
+                <th class="px-3 py-2">Tipe</th>
+                <th class="px-3 py-2">Jawaban Siswa</th>
+                <th class="px-3 py-2">Kunci</th>
+                <th class="px-3 py-2">Status</th>
+              </tr>
+            </thead>
+            <tbody id="res-detail-tbody" class="divide-y divide-slate-800 bg-slate-950/50"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-3 pt-2">
+        <button onclick="goHome()" class="px-5 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-sm">Kembali ke Peta Misi</button>
+        <button onclick="openReportView()" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm">Lihat Rapor Keseluruhan</button>
+      </div>
+    </section>
+
+    <!-- VIEW 4: RAPOR KESELURUHAN & SERTIFIKAT -->
+    <section id="view-report" class="hidden glass-card rounded-2xl p-6 space-y-6">
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-4">
+        <div>
+          <h2 class="text-xl font-extrabold text-white">Rapor Analitik Kesiapan ASAS</h2>
+          <p id="rep-identity" class="text-base sm:text-lg font-extrabold text-sky-300 mt-1"></p>
+        </div>
+        <button onclick="goHome()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-white">← Kembali</button>
+      </div>
+      <div id="rep-levels-summary" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+      <div class="bg-gradient-to-br from-slate-900 to-indigo-950 border border-indigo-500/30 rounded-2xl p-6 text-center space-y-2">
+        <span class="text-xs uppercase tracking-widest text-indigo-300 font-bold">Sertifikat Penyelesaian Kisi-Kisi</span>
+        <h3 id="cert-name" class="text-3xl sm:text-4xl font-extrabold text-sky-300 tracking-tight">Nama Siswa</h3>
+        <p id="cert-desc" class="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto"></p>
+        <div class="pt-3">
+          <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold">🖨️ Cetak / Simpan PDF Rapor</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL PENGATURAN GOOGLE APPS SCRIPT URL -->
+  <div id="config-modal" class="hidden fixed inset-0 z-50 bg-black/75 flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-lg w-full p-5 space-y-4">
+      <div class="flex items-center justify-between">
+        <h3 class="text-base font-extrabold text-white">⚙️ Koneksi Google Sheets (Apps Script)</h3>
+        <button onclick="closeConfigModal()" class="text-slate-400 hover:text-white text-lg">✕</button>
+      </div>
+      <p class="text-xs text-slate-300 leading-relaxed">
+        Tempelkan URL Web App dari <strong>Google Apps Script</strong> Anda di bawah ini agar setiap hasil pengerjaan siswa otomatis masuk ke Google Sheets untuk dianalisis pada Dashboard Analytic Anda.
+      </p>
+      <div>
+        <label class="block text-xs font-bold text-slate-400 mb-1">URL Endpoint Google Apps Script (/exec)</label>
+        <input id="input-gas-url" type="url" placeholder="https://script.google.com/macros/s/XXXXX/exec" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-sky-500" />
+      </div>
+      <div class="flex justify-end gap-2">
+        <button onclick="closeConfigModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-xs font-bold text-slate-300">Batal</button>
+        <button onclick="saveGasUrl()" class="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-xs font-bold text-white">Simpan URL</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+// ============================================================================
+// KONFIGURASI ENDPOINT GOOGLE APPS SCRIPT (Bisa diisi langsung di sini atau via tombol Pengaturan)
+// ============================================================================
+const DEFAULT_GAS_URL = "https://script.google.com/macros/s/AKfycbx0q8nmxtLPlcHgYqQfB8-7f754kLnE2sktEvEC-beig-R-73z4RH4iO_o4sUim_pIb/exec"; // <-- Guru dapat menempelkan URL Web App Apps Script di sini sebelum upload ke GitHub
+
+// ============================================================================
+// SVG VISUAL STIMULI (4 POSTER & INFOGRAFIK MANDIRI)
+// ============================================================================
+const SVG_POSTER_AIR = `
+<svg viewBox="0 0 640 250" class="w-full h-auto rounded-lg">
+  <rect width="640" height="250" rx="12" fill="#0c4a6e"/>
+  <rect x="16" y="16" width="608" height="218" rx="10" fill="#0369a1" stroke="#38bdf8" stroke-width="2"/>
+  <text x="320" y="52" text-anchor="middle" fill="#fde047" font-size="20" font-weight="800">SATU TETES AIR, SEJUTA KEHIDUPAN</text>
+  <text x="320" y="76" text-anchor="middle" fill="#e0f2fe" font-size="13" font-weight="600">Tutup Keran Rapat-Rapat Setelah Cuci Tangan &amp; Wudu!</text>
+  <rect x="40" y="96" width="265" height="114" rx="8" fill="#082f49"/>
+  <text x="172" y="122" text-anchor="middle" fill="#f87171" font-size="13" font-weight="800">FAKTA PEMBOROSAN AIR</text>
+  <text x="172" y="146" text-anchor="middle" fill="#f1f5f9" font-size="11.5">• Keran menetes membuang 15 liter/hari</text>
+  <text x="172" y="168" text-anchor="middle" fill="#f1f5f9" font-size="11.5">• Cadangan air tanah menurun tiap kemarau</text>
+  <text x="172" y="190" text-anchor="middle" fill="#f1f5f9" font-size="11.5">• 100% air bersih butuh energi penyaringan</text>
+  <rect x="335" y="96" width="265" height="114" rx="8" fill="#064e3b"/>
+  <text x="467" y="122" text-anchor="middle" fill="#4ade80" font-size="13" font-weight="800">AKSI HEMAT AIR SEKOLAH</text>
+  <text x="467" y="146" text-anchor="middle" fill="#ecfdf5" font-size="11.5">✓ Gunakan gelas takar saat menyikat gigi</text>
+  <text x="467" y="168" text-anchor="middle" fill="#ecfdf5" font-size="11.5">✓ Tampung air bekas wudu untuk menyiram</text>
+  <text x="467" y="190" text-anchor="middle" fill="#ecfdf5" font-size="11.5">✓ Lapor segera jika ada pipa bocor di kelas</text>
+</svg>`;
+
+const SVG_POSTER_SEPEDA = `
+<svg viewBox="0 0 640 250" class="w-full h-auto rounded-lg">
+  <rect width="640" height="250" rx="12" fill="#14532d"/>
+  <rect x="16" y="16" width="608" height="218" rx="10" fill="#166534" stroke="#4ade80" stroke-width="2"/>
+  <text x="320" y="52" text-anchor="middle" fill="#ffffff" font-size="20" font-weight="800">KAYUH SEPEDAMU, BERSIHKAN LANGIT KOTA!</text>
+  <text x="320" y="76" text-anchor="middle" fill="#bbf7d0" font-size="13" font-weight="600">Gerakan Jumat Bersepeda ke Sekolah — Bebas Emisi &amp; Tubuh Bugar</text>
+  <circle cx="145" cy="152" r="52" fill="#052e16" stroke="#fde047" stroke-width="3"/>
+  <text x="145" y="148" text-anchor="middle" fill="#fde047" font-size="22" font-weight="800">-2,4 kg</text>
+  <text x="145" y="170" text-anchor="middle" fill="#dcfce7" font-size="11">Emisi CO2 / 10 km</text>
+  <rect x="230" y="100" width="365" height="106" rx="8" fill="#052e16"/>
+  <text x="412" y="125" text-anchor="middle" fill="#86efac" font-size="13" font-weight="800">Mengapa Memilih Bersepeda ke Sekolah?</text>
+  <text x="412" y="148" text-anchor="middle" fill="#f0fdf4" font-size="11.5">1. Mengurangi kemacetan di gerbang sekolah pada pagi hari.</text>
+  <text x="412" y="169" text-anchor="middle" fill="#f0fdf4" font-size="11.5">2. Membakar 250 kalori &amp; meningkatkan fokus belajar di kelas.</text>
+  <text x="412" y="190" text-anchor="middle" fill="#f0fdf4" font-size="11.5">3. Tersedia parkir sepeda beratap &amp; poin reward Adiwiyata!</text>
+</svg>`;
+
+const SVG_INFOGRAFIK_GULA = `
+<svg viewBox="0 0 640 255" class="w-full h-auto rounded-lg">
+  <rect width="640" height="255" rx="12" fill="#f8fafc"/>
+  <text x="320" y="32" text-anchor="middle" fill="#0f172a" font-size="14" font-weight="800">INFOGRAFIK: DAMPAK MINUMAN BERPEMANIS PADA PELAJAR (SURVEI 2026)</text>
+  <text x="35" y="72" fill="#1e293b" font-size="12" font-weight="700">Konsumsi Minuman Kemasan &gt; 2 Botol/Hari</text>
+  <rect x="315" y="56" width="230" height="22" rx="4" fill="#f97316"/><text x="553" y="72" fill="#0f172a" font-size="12" font-weight="800">58%</text>
+  <text x="35" y="114" fill="#1e293b" font-size="12" font-weight="700">Mudah Mengantuk (Sugar Crash) di Kelas</text>
+  <rect x="315" y="98" width="256" height="22" rx="4" fill="#ef4444"/><text x="579" y="114" fill="#0f172a" font-size="12" font-weight="800">64%</text>
+  <text x="35" y="156" fill="#1e293b" font-size="12" font-weight="700">Penurunan Daya Ingat &amp; Fokus Berhitung</text>
+  <rect x="315" y="140" width="180" height="22" rx="4" fill="#eab308"/><text x="503" y="156" fill="#0f172a" font-size="12" font-weight="800">45%</text>
+  <text x="35" y="198" fill="#1e293b" font-size="12" font-weight="700">Risiko Karies Gigi &amp; Obesitas Dini</text>
+  <rect x="315" y="182" width="156" height="22" rx="4" fill="#3b82f6"/><text x="479" y="198" fill="#0f172a" font-size="12" font-weight="800">39%</text>
+  <text x="320" y="236" text-anchor="middle" fill="#475569" font-size="11" font-style="italic">Batas aman konsumsi gula harian remaja menurut Kemenkes: maksimal 4 sendok makan (50 gram).</text>
+</svg>`;
+
+const SVG_POSTER_ANTRE = `
+<svg viewBox="0 0 640 245" class="w-full h-auto rounded-lg">
+  <rect width="640" height="245" rx="12" fill="#312e81"/>
+  <rect x="16" y="16" width="608" height="213" rx="10" fill="#3730a3" stroke="#a5b4fc" stroke-width="2"/>
+  <text x="320" y="52" text-anchor="middle" fill="#fde047" font-size="20" font-weight="800">BUDAYA ANTRE CERMIN KECERDASAN BANGSA</text>
+  <text x="320" y="76" text-anchor="middle" fill="#e0e7ff" font-size="13" font-weight="600">Tertib di Kantin, Perpustakaan, dan Gerbang Sekolah</text>
+  <rect x="45" y="98" width="550" height="110" rx="8" fill="#1e1b4b"/>
+  <text x="320" y="124" text-anchor="middle" fill="#93c5fd" font-size="13" font-weight="800">3 Prinsip Emas Budaya Antre SMPN 28:</text>
+  <text x="320" y="148" text-anchor="middle" fill="#f8fafc" font-size="12">1. Datang lebih awal, berdiri di belakang garis batas tanpa menyerobot.</text>
+  <text x="320" y="170" text-anchor="middle" fill="#f8fafc" font-size="12">2. Menghargai hak sesama teman, guru, dan petugas layanan sekolah.</text>
+  <text x="320" y="192" text-anchor="middle" fill="#f8fafc" font-size="12">3. Antrean tertib mempercepat layanan hingga 40% lebih efisien!</text>
+</svg>`;
+
+// ============================================================================
+// BANK 40 SOAL BARU ("SERUPA TAPI TAK SAMA") BERBASIS KISI-KISI ASAS BINDO 8
+// ============================================================================
+const LEVELS = [
+  {
+    id: 1,
+    title: "Level 1: Lab Ekosistem",
+    subtitle: "Teks Laporan Hasil Observasi (LHO)",
+    badge: "MATERI 1 • 10 SOAL",
+    color: "from-emerald-500 to-teal-600",
+    questions: [
+      {
+        no: 1, type: "PG", stimTitle: "TEKS LHO — KONSERVASI MANGROVE PESISIR",
+        stimText: "Hutan Mangrove Muara Indah merupakan kawasan penyangga pesisir seluas 12 hektare. Berdasarkan pemantauan tim peneliti pada Oktober 2026, kawasan ini didominasi oleh jenis bakau Rhizophora mucronata dan api-api (Avicennia alba). Sistem perakaran tunjang mangrove mampu meredam energi gelombang pasang hingga 65% serta menurunkan laju abrasi pantai sebesar 2,4 meter per tahun.",
+        highlight: "mampu meredam energi gelombang pasang hingga 65% serta menurunkan laju abrasi pantai sebesar 2,4 meter per tahun",
+        stem: "Fakta kuantitatif yang membuktikan fungsi ekologis Hutan Mangrove Muara Indah berdasarkan teks observasi di atas adalah...",
+        options: [
+          "Memiliki luas 25 hektare dengan koleksi seratus spesies anggrek langka.",
+          "Menghasilkan kayu bakar komersial yang diekspor ke berbagai negara tetangga.",
+          "Meredam energi gelombang pasang hingga 65% dan menekan abrasi 2,4 meter per tahun.",
+          "Menyimpan cadangan air tawar untuk seluruh kebutuhan minum warga kabupaten."
+        ],
+        answer: 2,
+        hint: "Cari angka persentase atau ukuran konkret yang menunjukkan dampak perlindungan pantai.",
+        explanation: "Teks LHO menyajikan fakta terukur berupa persentase redaman gelombang 65% dan penurunan abrasi 2,4 meter per tahun."
+      },
+      {
+        no: 2, type: "PGK", stimTitle: "TEKS LHO — GREENHOUSE HIDROPONIK SEKOLAH",
+        stimText: "Greenhouse hidroponik sekolah menerapkan sistem Nutrient Film Technique (NFT) dengan 8 pipa paralon bertingkat yang menampung 160 lubang tanam pakcoy. Larutan nutrisi AB Mix dialirkan tipis secara sirkulasi menggunakan pompa listrik 25 watt. Suhu di dalam greenhouse dijaga stabil pada kisaran 26°C menggunakan jaring paranet peneduh 60%.",
+        highlight: "menampung 160 lubang tanam pakcoy. Larutan nutrisi AB Mix dialirkan tipis secara sirkulasi",
+        stem: "Pilihlah TIGA simpulan kondisi teknis yang SESUAI dengan data observasi greenhouse hidroponik tersebut!",
+        options: [
+          "Setiap pipa paralon rata-rata memiliki kapasitas 20 lubang tanam pakcoy.",
+          "Jaring paranet berfungsi mengatur intensitas cahaya agar suhu ruang tetap 26°C.",
+          "Seluruh tanaman pakcoy ditanam menggunakan media tanah liat padat tanpa air.",
+          "Sirkulasi larutan nutrisi AB Mix digerakkan oleh pompa berdaya listrik 25 watt."
+        ],
+        answer: [0, 1, 3],
+        hint: "Hitung pembagian 160 lubang dibagi 8 pipa, lalu cocokkan fungsi jaring paranet dan daya pompa.",
+        explanation: "160 lubang / 8 pipa = 20 lubang/pipa (A benar), paranet menjaga suhu 26°C (B benar), pompa 25 watt mengalirkan nutrisi (D benar). C salah karena sistemnya hidroponik tanpa tanah."
+      },
+      {
+        no: 3, type: "BS", stimTitle: "TEKS LHO — ANALISIS OBJEKTIVITAS LAPORAN",
+        stimText: "Kelelawar pemakan buah (Cynopterus brachyotis) berperan penting sebagai pemencar biji alami di hutan tropis. Dalam satu malam, seekor kelelawar mampu menjelajah sejauh 15 kilometer dan menyebarkan ratusan biji tanaman pionir melalui kotorannya.",
+        highlight: "Kelelawar pemakan buah (Cynopterus brachyotis) berperan penting sebagai pemencar biji alami",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap analisis kebahasaan teks LHO di atas!",
+        rows: [
+          "Teks didominasi oleh rasa takut dan kebencian subjektif penulis terhadap kelelawar.",
+          "Pencantuman nama ilmiah Cynopterus brachyotis memperkuat sifat ilmiah laporan.",
+          "Jarak jelajah 15 kilometer merupakan data faktual hasil pengamatan terukur."
+        ],
+        answer: ["S", "B", "B"],
+        hint: "Periksa apakah teks berisi perasaan pribadi penulis atau data ilmiah objektif.",
+        explanation: "Pernyataan 1 Salah karena teks netral/objektif; Pernyataan 2 & 3 Benar karena memakai istilah taksonomi dan angka terukur."
+      },
+      {
+        no: 4, type: "PG", stimTitle: "TEKS LHO — STRUKTUR TEKS OBSERVASI",
+        stimText: "(1) Terumbu karang adalah ekosistem bawah laut yang dibangun oleh koloni hewan kecil bernama polip penghasil kalsium karbonat. (2) Di Taman Laut Bunaken, terumbu karang tepi tumbuh subur pada kedalaman 3 hingga 15 meter dengan kejernihan air mencapai 20 meter. (3) Selain menjadi tempat pemijahan ribuan spesies ikan hias, terumbu karang juga menjadi benteng alami pemecah ombak laut.",
+        highlight: "(1) Terumbu karang adalah ekosistem bawah laut yang dibangun oleh koloni hewan kecil",
+        stem: "Kalimat nomor (1) dalam kutipan teks LHO di atas menempati bagian struktur dan jenis kalimat...",
+        options: [
+          "Deskripsi manfaat yang menjelaskan keuntungan sektor pariwisata bahari.",
+          "Pernyataan umum (klasifikasi) yang menggunakan kalimat definisi kopula 'adalah'.",
+          "Simpulan evaluatif penulis mengenai kerusakan ekosistem laut akibat limbah.",
+          "Deskripsi bagian yang merinci ukuran diameter polip pembentuk karang."
+        ],
+        answer: 1,
+        hint: "Perhatikan kata penghubung 'adalah' di awal paragraf yang mendefinisikan objek secara umum.",
+        explanation: "Kalimat (1) memperkenalkan definisi umum objek dengan kopula 'adalah', sehingga merupakan bagian Pernyataan Umum."
+      },
+      {
+        no: 5, type: "PGK", stimTitle: "TEKS LHO — TELAAH AFIKSASI & KELAS KATA",
+        stimText: "Petugas taman menyaring air kolam, membersihkan lumut di dinding batu, dan mengukur kadar oksigen terlarut setiap pagi agar ekosistem perairan tetap seimbang.",
+        highlight: "menyaring air kolam, membersihkan lumut di dinding batu, dan mengukur kadar oksigen",
+        stem: "Pilihlah TIGA pernyataan kaidah kebahasaan yang TEPAT berdasarkan kalimat observasi di atas!",
+        options: [
+          "Kata 'menyaring', 'membersihkan', dan 'mengukur' merupakan verba material (aksi fisik).",
+          "Penulisan preposisi 'di dinding' sudah tepat dipisah karena menyatakan keterangan tempat.",
+          "Kata 'terlarut' merupakan kata benda abstrak yang tidak memiliki kata dasar.",
+          "Kata 'ekosistem' merupakan istilah teknis bidang ilmu biologi dan lingkungan."
+        ],
+        answer: [0, 1, 3],
+        hint: "Verba material menunjukkan tindakan fisik nyata; kata depan 'di' tempat selalu ditulis terpisah.",
+        explanation: "Menyaring/membersihkan/mengukur adalah verba material (A), 'di dinding' dipisah karena tempat (B), 'ekosistem' istilah biologi (D)."
+      },
+      {
+        no: 6, type: "BS", stimTitle: "TEKS LHO — PENYUNTINGAN EJAAN PUEBI",
+        stimText: "Observasi dilakukan disekitar area waduk. Hasilnya menunjukkan bahwa aktifitas nelayan keramba jaring apung sangat tinggi sekali pada pagi hari.",
+        highlight: "disekitar area waduk. Hasilnya menunjukkan bahwa aktifitas nelayan",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap analisis penyuntingan bahasa pada kutipan di atas!",
+        rows: [
+          "Penulisan 'disekitar' keliru karena 'di' sebagai kata depan harus ditulis terpisah ('di sekitar').",
+          "Kata 'aktifitas' sudah sesuai dengan ejaan baku Kamus Besar Bahasa Indonesia (KBBI).",
+          "Frasa 'sangat tinggi sekali' tidak efektif karena mengandung pemborosan kata (pleonasme)."
+        ],
+        answer: ["B", "S", "B"],
+        hint: "Ingat bentuk baku dari 'aktif' saat mendapat akhiran -itas adalah 'aktivitas' (pakai huruf v).",
+        explanation: "'Di sekitar' harus dipisah (Benar); bentuk bakunya adalah 'aktivitas' bukan 'aktifitas' (Salah); 'sangat ... sekali' boros kata (Benar)."
+      },
+      {
+        no: 7, type: "PG", stimTitle: "TEKS LHO — MEMBEDAKAN FAKTA & OPINI",
+        stimText: "(1) Bambu petung (Dendrocalamus asper) memiliki diameter batang mencapai 18 sentimeter dengan tinggi rumpun hingga 25 meter. (2) Serat batangnya memiliki kuat tarik tinggi sehingga kerap dimanfaatkan sebagai bahan konstruksi jembatan ramah lingkungan. (3) Menurut pandangan saya, rumpun bambu di tepi sungai itu terlihat sangat mistis dan menakutkan saat angin bertiup.",
+        highlight: "(3) Menurut pandangan saya, rumpun bambu di tepi sungai itu terlihat sangat mistis",
+        stem: "Kalimat yang mengandung opini subjektif sehingga perlu disunting agar sesuai kaidah teks LHO adalah kalimat nomor...",
+        options: [
+          "Kalimat nomor (3), karena memuat penilaian perasaan pribadi yang tidak dapat diukur secara ilmiah.",
+          "Kalimat nomor (1), karena mencantumkan satuan ukuran sentimeter dan meter secara rinci.",
+          "Kalimat nomor (2), karena menjelaskan fungsi serat batang bambu dalam bidang konstruksi.",
+          "Kalimat nomor (1) dan (2), karena menggunakan nama latin tumbuhan dari bahasa asing."
+        ],
+        answer: 0,
+        hint: "Cari kalimat yang diawali penanda sudut pandang pribadi seperti 'Menurut pandangan saya...'.",
+        explanation: "Kalimat (3) memuat penilaian emosional subjektif ('terlihat sangat mistis dan menakutkan'), bukan fakta observasi."
+      },
+      {
+        no: 8, type: "PGK", stimTitle: "TEKS LHO — SUMUR RESAPAN VERTIKAL",
+        stimText: "Sumur resapan berdiameter 80 sentimeter dengan kedalaman 3 meter dibangun di sudut lapangan sekolah. Dinding sumur dilapisi pasangan bata berongga dan diisi lapisan batu kerikil serta ijuk penyaring. Saat hujan deras mengguyur selama satu jam, genangan air seluas 200 meter persegi mampu terserap habis dalam waktu 25 menit.",
+        highlight: "diisi lapisan batu kerikil serta ijuk penyaring. Saat hujan deras mengguyur",
+        stem: "Pilihlah TIGA informasi faktual yang sesuai dengan isi laporan sumur resapan tersebut!",
+        options: [
+          "Ijuk dan batu kerikil berfungsi sebagai lapisan penyaring partikel kotoran air hujan.",
+          "Sumur resapan mampu menuntaskan genangan air hujan 200 m² dalam waktu 25 menit.",
+          "Dinding sumur dicor beton kedap air rapat agar air hujan tidak meresap ke tanah.",
+          "Dimensi sumur memiliki ukuran kedalaman 3 meter dan diameter 80 sentimeter."
+        ],
+        answer: [0, 1, 3],
+        hint: "Cocokkan ukuran dimensi sumur, bahan penyaring, dan waktu serap genangan air.",
+        explanation: "A, B, dan D sesuai dengan fakta pada teks. C salah karena dinding menggunakan bata berongga agar air meresap."
+      },
+      {
+        no: 9, type: "BS", stimTitle: "TEKS LHO — SISTEMATIKA PAPARAN",
+        stimText: "Perpustakaan Digital SMPN 28 memiliki luas 120 m² dengan kapasitas 60 pengunjung. Ruangan dilengkapi 15 unit komputer akses katalog, 4 rak buku referensi cetak, serta pendingin udara bersuhu 22°C. Tingkat kunjungan harian mencapai 78% dari total rombongan belajar.",
+        highlight: "memiliki luas 120 m² dengan kapasitas 60 pengunjung. Ruangan dilengkapi 15 unit komputer",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap analisis sistematika laporan berikut!",
+        rows: [
+          "Urutan pemaparan bergerak dari ukuran ruang umum menuju rincian fasilitas dan data kunjungan.",
+          "Angka persentase 78% menunjukkan data kuantitatif pemanfaatan fasilitas sekolah.",
+          "Teks tersebut termasuk jenis teks prosedur karena berisi langkah-langkah meminjam buku."
+        ],
+        answer: ["B", "B", "S"],
+        hint: "Perhatikan apakah teks berisi langkah-langkah instruksi atau deskripsi hasil pengamatan.",
+        explanation: "Pernyataan 1 & 2 Benar; Pernyataan 3 Salah karena teks ini adalah Laporan Hasil Observasi, bukan teks prosedur."
+      },
+      {
+        no: 10, type: "MJD", stimTitle: "TEKS LHO — PASANGKAN UNSUR KEBAHASAAN",
+        stimText: "Evaluasilah kutipan kalimat dari laporan observasi lingkungan sekolah berikut!",
+        highlight: "Pohon trembesi mampu menyerap hingga 28 ton gas karbon dioksida setiap tahunnya.",
+        stem: "Pasangkanlah kutipan/istilah pada Kolom Kiri dengan kategori kebahasaan yang tepat pada Kolom Kanan!",
+        left: [
+          "Pohon trembesi mampu menyerap 28 ton gas CO2 per tahun.",
+          "Suasana taman terasa amat sangat sejuk sekali di pagi hari.",
+          "Kata 'mengobservasi' dan 'mencatat' dalam laporan.",
+          "Penulisan istilah latin 'Oryza sativa' dalam teks."
+        ],
+        right: [
+          "Kalimat tidak efektif (pleonasme)",
+          "Fakta kuantitatif terukur",
+          "Wajib dicetak miring (italic)",
+          "Verba material (tindakan)"
+        ],
+        answer: [1, 0, 3, 2],
+        hint: "Cocokkan angka terukur dengan fakta, kata berlebihan dengan pleonasme, dan nama ilmiah dengan cetak miring.",
+        explanation: "1-B (fakta angka), 2-A (pemborosan kata 'amat sangat... sekali'), 3-D (verba aksi), 4-C (aturan penulisan nama ilmiah)."
+      }
+    ]
+  },
+  {
+    id: 2,
+    title: "Level 2: Studio Kampanye",
+    subtitle: "Iklan, Slogan, dan Poster",
+    badge: "MATERI 2 • 10 SOAL",
+    color: "from-sky-500 to-blue-600",
+    questions: [
+      {
+        no: 1, type: "PG", stimTitle: "POSTER KAMPANYE — HEMAT AIR BERSIH",
+        svg: SVG_POSTER_AIR,
+        stimText: "Poster layanan masyarakat di atas dipasang di seluruh area keran cuci tangan dan tempat wudu sekolah untuk membangun kesadaran konservasi air bersih.",
+        highlight: "Keran menetes membuang 15 liter/hari",
+        stem: "Berdasarkan poster visual di atas, pesan utama dan bukti fakta yang digunakan untuk menggugah kesadaran pembaca adalah...",
+        options: [
+          "Larangan mencuci tangan di sekolah karena keran air membuang 15 liter setiap menit.",
+          "Ajakan menutup keran rapat-rapat disertai fakta bahwa keran menetes membuang 15 liter air per hari.",
+          "Promosi penjualan keran otomatis merek terbaru dengan potongan harga khusus siswa.",
+          "Instruksi menguras seluruh tandon air sekolah setiap hari Jumat pagi."
+        ],
+        answer: 1,
+        hint: "Baca bagian judul poster dan kotak merah 'Fakta Pemborosan Air'.",
+        explanation: "Poster mengajak menutup keran rapat-rapat dengan bukti faktual bahwa kebocoran tetesan membuang 15 liter air/hari."
+      },
+      {
+        no: 2, type: "PGK", stimTitle: "POSTER KAMPANYE — ANALISIS VISUAL & PERSUASIF",
+        svg: SVG_POSTER_AIR,
+        stimText: "Perhatikan kembali perpaduan warna, tipografi, dan kalimat persuasif pada poster 'Satu Tetes Air, Sejuta Kehidupan' di atas.",
+        highlight: "SATU TETES AIR, SEJUTA KEHIDUPAN",
+        stem: "Pilihlah TIGA pernyataan yang TEPAT mengenai kekuatan bahasa dan visual poster tersebut!",
+        options: [
+          "Judul 'Satu Tetes Air, Sejuta Kehidupan' menggunakan majas hiperbola/metafora untuk menekankan nilai vital air.",
+          "Penggunaan kontras warna kuning cerah pada latar biru tua membuat judul utama mudah terbaca dari jauh.",
+          "Kotak hijau menyajikan solusi tindakan nyata yang mudah dipraktikkan siswa di lingkungan sekolah.",
+          "Poster tersebut ditujukan khusus bagi perusahaan pengeboran minyak lepas pantai."
+        ],
+        answer: [0, 1, 2],
+        hint: "Amati fungsi kontras warna judul, majas pada slogan, serta isi kotak hijau.",
+        explanation: "A, B, dan C tepat menjelaskan efektivitas majas, tipografi kontras, dan solusi praktis pada poster."
+      },
+      {
+        no: 3, type: "BS", stimTitle: "POSTER — JUMAT BERSEPEDA KE SEKOLAH",
+        svg: SVG_POSTER_SEPEDA,
+        stimText: "Amati data dan pesan ajakan pada poster 'Kayuh Sepedamu, Bersihkan Langit Kota!' di atas.",
+        highlight: "-2,4 kg Emisi CO2 / 10 km",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap klaim manfaat pada poster bersepeda di atas!",
+        rows: [
+          "Bersepeda sejauh 10 km diklaim mampu menekan emisi gas karbon dioksida sebesar 2,4 kg.",
+          "Poster menyebutkan bahwa bersepeda ke sekolah akan menyebabkan kemacetan parah di gerbang.",
+          "Penyediaan parkir sepeda beratap merupakan bentuk dukungan fasilitas terhadap pesan poster."
+        ],
+        answer: ["B", "S", "B"],
+        hint: "Cek lingkaran kuning di sisi kiri dan poin nomor 1 serta nomor 3 pada kotak kanan.",
+        explanation: "Pernyataan 1 Benar (-2,4 kg CO2); Pernyataan 2 Salah (justru mengurangi kemacetan); Pernyataan 3 Benar."
+      },
+      {
+        no: 4, type: "PG", stimTitle: "IKLAN NIAGA VS POSTER LAYANAN MASYARAKAT",
+        stimText: "Teks 1 (Iklan Minuman Herbal): 'Segarnya Jahe Merah Instan Nusantara! Hangatkan Tenggorokan, Tingkatkan Imunitas Tubuh. Beli 2 Gratis 1 di Kantin Sehat!' — Teks 2 (Poster Sosial): 'Setetes Darahmu, Nyawa Bagi Sesama. Mari Sukseskan Aksi Donor Darah Palang Merah Remaja!'",
+        highlight: "Beli 2 Gratis 1 di Kantin Sehat!",
+        stem: "Perbedaan mendasar tujuan komunikasi antara Teks 1 dan Teks 2 di atas adalah...",
+        options: [
+          "Teks 1 bertujuan komersial menawarkan produk dagang, sedangkan Teks 2 bertujuan sosial mengajak aksi kemanusiaan.",
+          "Teks 1 merupakan laporan hasil penelitian medis, sedangkan Teks 2 merupakan berita kriminalitas.",
+          "Teks 1 melarang masyarakat mengonsumsi tanaman herbal, sedangkan Teks 2 menjual kantong darah.",
+          "Teks 1 dan Teks 2 sama-sama bertujuan mencari keuntungan finansial bagi perusahaan swasta."
+        ],
+        answer: 0,
+        hint: "Perhatikan promo 'Beli 2 Gratis 1' pada Teks 1 dibandingkan ajakan donor sukarela pada Teks 2.",
+        explanation: "Teks 1 adalah iklan komersial/niaga (menawarkan promo pembelian), sedangkan Teks 2 adalah poster layanan masyarakat."
+      },
+      {
+        no: 5, type: "PGK", stimTitle: "SLOGAN — MAKNA KIASAN & FUNGSI PERSUASIF",
+        stimText: "Slogan Dinding Sekolah: (1) 'Sampahmu Tanggung Jawabmu: Kelas Bersih, Belajar Nyaman!' (2) 'Prestasi Hebat Lahir dari Keringat Disiplin, Bukan Jalan Pintas.'",
+        highlight: "Prestasi Hebat Lahir dari Keringat Disiplin, Bukan Jalan Pintas.",
+        stem: "Pilihlah TIGA penafsiran makna yang TEPAT dari kedua slogan sekolah tersebut!",
+        options: [
+          "Frasa 'keringat disiplin' melambangkan kerja keras dan ketekunan belajar secara jujur.",
+          "Frasa 'jalan pintas' menyindir perilaku curang seperti menyontek saat ujian berlangsung.",
+          "Slogan (1) menanamkan kesadaran tanggung jawab pribadi terhadap kebersihan ruang kelas.",
+          "Slogan (2) menganjurkan siswa agar berolahraga lari maraton setiap jam istirahat."
+        ],
+        answer: [0, 1, 2],
+        hint: "Pahami makna kiasan 'keringat disiplin' dan 'jalan pintas' dalam konteks belajar siswa.",
+        explanation: "A, B, dan C tepat menafsirkan makna kiasan kejujuran belajar dan tanggung jawab kebersihan."
+      },
+      {
+        no: 6, type: "BS", stimTitle: "IKLAN LAYANAN MASYARAKAT — ANTI PERUNDUNGAN",
+        stimText: "Teks Poster: 'Jempolmu Harimaumu! Sebelum Mengetik Komentar Pedas, Pikirkan Perasaan Temanmu. Hentikan Cyberbullying Mulai dari Layar Ponselmu!'",
+        highlight: "Jempolmu Harimaumu! Sebelum Mengetik Komentar Pedas",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap analisis kebahasaan poster di atas!",
+        rows: [
+          "Ungkapan 'Jempolmu Harimaumu' mengadaptasi peribahasa untuk mengingatkan bahaya ketikan di media sosial.",
+          "Kalimat 'Hentikan Cyberbullying Mulai dari Layar Ponselmu!' tergolong kalimat imperatif ajakan tegas.",
+          "Poster tersebut mengajak siswa untuk saling membalas komentar kebencian di grup kelas."
+        ],
+        answer: ["B", "B", "S"],
+        hint: "Perhatikan tanda seru pada kalimat perintah/ajakan dan makna kiasan 'Jempolmu Harimaumu'.",
+        explanation: "Pernyataan 1 & 2 Benar; Pernyataan 3 Salah karena poster justru melarang perundungan siber."
+      },
+      {
+        no: 7, type: "PG", stimTitle: "IKLAN — KALIMAT INTEROGATIF RETORIS",
+        stimText: "Teks Iklan Kesehatan Mata: 'Masih Sanggup Menatap Layar Ponsel 8 Jam Tanpa Henti? Jangan Tunggu Matamu Lelah dan Kabur! Terapkan Aturan 20-20-20: Setiap 20 Menit, Tatap Objek Sejauh 20 Kaki Selama 20 Detik!'",
+        highlight: "Masih Sanggup Menatap Layar Ponsel 8 Jam Tanpa Henti?",
+        stem: "Fungsi penggunaan kalimat tanya di awal teks iklan ('Masih Sanggup Menatap Layar Ponsel 8 Jam Tanpa Henti?') adalah...",
+        options: [
+          "Mengumpulkan data sensus jumlah kepemilikan ponsel pintar di kalangan pelajar SMP.",
+          "Menggugah kesadaran pembaca secara retoris agar merenungkan kebiasaan buruk yang merusak mata.",
+          "Meminta izin kepada orang tua siswa untuk memperpanjang jam bermain gim daring di rumah.",
+          "Menawarkan jasa pemeriksaan mata gratis bagi seluruh pedagang di sekitar sekolah."
+        ],
+        answer: 1,
+        hint: "Pertanyaan retoris dalam iklan tidak butuh jawaban lisan, melainkan menyentuh kesadaran pembaca.",
+        explanation: "Kalimat interogatif retoris dipakai untuk menyentil kebiasaan pembaca dan membangun urgensi menjaga kesehatan mata."
+      },
+      {
+        no: 8, type: "PGK", stimTitle: "IKLAN PRODUK — CIRI KEBAHASAAN PERSUASIF",
+        stimText: "Iklan Tas Sekolah 'Ransel Tangguh 28': 'Bahan Kanvas Anti-Air, Jahitan Ganda Super Kuat, Garansi Resleting 2 Tahun! Ringan di Punggung, Nyaman Melangkah ke Sekolah. Dapatkan Diskon 20% Khusus Pelajar!'",
+        highlight: "Bahan Kanvas Anti-Air, Jahitan Ganda Super Kuat, Garansi Resleting 2 Tahun!",
+        stem: "Pilihlah TIGA unsur daya tarik persuasif yang digunakan dalam iklan produk tersebut!",
+        options: [
+          "Menonjolkan keunggulan spesifikasi teknis produk (anti-air dan jahitan ganda).",
+          "Memberikan jaminan kepercayaan konsumen berupa garansi resleting selama 2 tahun.",
+          "Menawarkan insentif potongan harga khusus sebesar 20% bagi segmen pelajar.",
+          "Mencantumkan ancaman sanksi denda bagi siswa yang tidak membeli tas merek tersebut."
+        ],
+        answer: [0, 1, 2],
+        hint: "Identifikasi keunggulan kualitas, garansi, dan promo diskon yang tertulis di dalam iklan.",
+        explanation: "A, B, dan C adalah strategi persuasi positif dalam iklan niaga."
+      },
+      {
+        no: 9, type: "BS", stimTitle: "POSTER — EVALUASI KELAYAKAN DESAIN",
+        stimText: "Sebuah poster kampanye kebersihan sekolah dicetak menggunakan huruf sambung tipis berwarna kuning muda di atas latar belakang putih bersih, serta memuat 12 paragraf panjang tanpa satu pun gambar ilustrasi.",
+        highlight: "huruf sambung tipis berwarna kuning muda di atas latar belakang putih bersih",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap evaluasi kualitas poster di atas!",
+        rows: [
+          "Kombinasi huruf kuning muda di atas latar putih memiliki kontras rendah sehingga sulit terbaca.",
+          "Pemuatan 12 paragraf panjang melanggar prinsip poster yang seharusnya ringkas dan padat.",
+          "Desain poster tersebut sudah sangat ideal untuk dipasang di papan pengumuman koridor sekolah."
+        ],
+        answer: ["B", "B", "S"],
+        hint: "Ingat syarat poster yang baik: kontras warna tinggi, tipografi jelas, serta teks ringkas.",
+        explanation: "Kuning muda di atas putih sangat sulit dibaca (Benar), 12 paragraf terlalu panjang untuk poster (Benar), sehingga tidak ideal (Salah)."
+      },
+      {
+        no: 10, type: "MJD", stimTitle: "IKLAN & POSTER — PASANGKAN JENIS & CONTOH",
+        stimText: "Cermati beragam jenis media persuasif dan ciri kebahasaan berikut!",
+        highlight: "Kalimat singkat, padat, berima, dan mudah diingat untuk membangkitkan semangat.",
+        stem: "Pasangkanlah istilah pada Kolom Kiri dengan definisi atau contoh penerapannya pada Kolom Kanan!",
+        left: [
+          "Slogan",
+          "Iklan Komersial",
+          "Poster Layanan Masyarakat",
+          "Kalimat Imperatif Persuasif"
+        ],
+        right: [
+          "Pesan ajakan sosial di ruang publik memadukan gambar dan teks singkat",
+          "Pemberitahuan yang bertujuan menawarkan barang/jasa untuk keuntungan",
+          "Perkataan atau kalimat pendek yang menarik dan mudah diingat",
+          "'Mari pilah sampah plastik dan organik mulai dari kelas kita!'"
+        ],
+        answer: [2, 1, 0, 3],
+        hint: "Cocokkan pengertian Slogan, Iklan Komersial, Poster Sosial, dan kalimat ajakan.",
+        explanation: "1-C (Slogan), 2-B (Iklan Komersial), 3-A (Poster Sosial), 4-D (Kalimat ajakan 'Mari...')."
+      }
+    ]
+  },
+  {
+    id: 3,
+    title: "Level 3: Ruang Redaksi",
+    subtitle: "Artikel Ilmiah Populer",
+    badge: "MATERI 3 • 10 SOAL",
+    color: "from-violet-500 to-purple-600",
+    questions: [
+      {
+        no: 1, type: "PG", stimTitle: "INFOGRAFIK ARTIKEL — DAMPAK MINUMAN BERPEMANIS",
+        svg: SVG_INFOGRAFIK_GULA,
+        stimText: "Konsumsi minuman berpemanis dalam kemasan yang tinggi di kalangan remaja memicu lonjakan kadar glukosa darah secara drastis, yang diikuti penurunan energi secara tiba-tiba (sugar crash) sehingga siswa mudah mengantuk saat pelajaran berlangsung.",
+        highlight: "Mudah Mengantuk (Sugar Crash) di Kelas 64%",
+        stem: "Berdasarkan diagram infografik riset 2026 di atas, dampak paling dominan yang dialami pelajar akibat konsumsi minuman berpemanis berlebih adalah...",
+        options: [
+          "Risiko karies gigi dan obesitas dini sebesar 39%.",
+          "Penurunan daya ingat dan fokus berhitung sebesar 45%.",
+          "Mudah mengantuk (sugar crash) saat pelajaran di kelas sebesar 64%.",
+          "Konsumsi minuman kemasan melebihi dua botol per hari sebesar 58%."
+        ],
+        answer: 2,
+        hint: "Lihat batang diagram yang paling panjang dan memiliki angka persentase tertinggi.",
+        explanation: "Batang tertinggi pada infografik adalah keluhan mudah mengantuk (sugar crash) di kelas sebesar 64%."
+      },
+      {
+        no: 2, type: "PGK", stimTitle: "INFOGRAFIK ARTIKEL — INTERPRETASI DATA EMPIRIS",
+        svg: SVG_INFOGRAFIK_GULA,
+        stimText: "Perhatikan kembali keseluruhan data persentase dan catatan batas aman konsumsi gula harian pada infografik di atas.",
+        highlight: "maksimal 4 sendok makan (50 gram)",
+        stem: "Pilihlah TIGA simpulan analitis yang TEPAT berdasarkan informasi pada infografik tersebut!",
+        options: [
+          "Lebih dari separuh pelajar responden (58%) mengonsumsi minuman kemasan lebih dari 2 botol per hari.",
+          "Batas aman konsumsi gula harian remaja menurut Kemenkes adalah maksimal 50 gram atau 4 sendok makan.",
+          "Hampir separuh pelajar (45%) mengalami penurunan daya ingat dan konsentrasi saat berhitung.",
+          "Infografik menyimpulkan bahwa pelajar wajib meminum 5 botol minuman manis agar tetap bugar."
+        ],
+        answer: [0, 1, 2],
+        hint: "Bandingkan angka 58%, 45%, dan keterangan teks miring di bagian bawah infografik.",
+        explanation: "A (58% > separuh), B (50 gram / 4 sdm), dan C (45%) sesuai dengan data pada infografik."
+      },
+      {
+        no: 3, type: "BS", stimTitle: "ARTIKEL ILMIAH POPULER — EVALUASI KREDIBILITAS",
+        svg: SVG_INFOGRAFIK_GULA,
+        stimText: "Artikel ilmiah populer yang baik memadukan data kuantitatif lembaga resmi dengan bahasa yang mudah dipahami pembaca awam.",
+        highlight: "Batas aman konsumsi gula harian remaja menurut Kemenkes",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap penilaian kualitas penyajian artikel di atas!",
+        rows: [
+          "Rujukan batas aman gula dari Kemenkes meningkatkan kredibilitas ilmiah artikel.",
+          "Istilah 'sugar crash' dijelaskan secara kontekstual sebagai penurunan energi mendadak.",
+          "Grafik batang horizontal pada infografik menyulitkan pembaca membandingkan persentase."
+        ],
+        answer: ["B", "B", "S"],
+        hint: "Grafik batang justru mempermudah perbandingan data secara visual.",
+        explanation: "Pernyataan 1 & 2 Benar; Pernyataan 3 Salah karena diagram batang memudahkan perbandingan visual."
+      },
+      {
+        no: 4, type: "PG", stimTitle: "ARTIKEL POPULER — GAGASAN POKOK & MAKNA ISTILAH",
+        stimText: "Fenomena Fear of Missing Out (FOMO) atau kecemasan tertinggal tren digital membuat banyak remaja terus-menerus memeriksa notifikasi gawai. Secara neurologis, setiap notifikasi memicu pelepasan hormon dopamin—senyawa kimia di otak yang memberikan sensasi senang sesaat—sehingga menciptakan siklus ketergantungan psikologis yang mengganggu produktivitas belajar.",
+        highlight: "hormon dopamin—senyawa kimia di otak yang memberikan sensasi senang sesaat",
+        stem: "Berdasarkan konteks kalimat dalam teks artikel di atas, makna istilah ilmiah 'hormon dopamin' adalah...",
+        options: [
+          "Zat racun berbahaya dari layar ponsel yang merusak saraf retina mata secara permanen.",
+          "Senyawa kimia alami di otak yang memicu rasa senang sesaat dan mendorong kebiasaan berulang.",
+          "Enzim pencernaan di lambung yang mempercepat penyerapan nutrisi makanan bergizi.",
+          "Obat penenang medis yang diberikan dokter untuk mengatasi gangguan insomnia akut."
+        ],
+        answer: 1,
+        hint: "Perhatikan aposisi (keterangan tambahan) setelah tanda pisah (—) pada kalimat kedua.",
+        explanation: "Teks secara eksplisit menjelaskan dopamin sebagai 'senyawa kimia di otak yang memberikan sensasi senang sesaat'."
+      },
+      {
+        no: 5, type: "PGK", stimTitle: "ARTIKEL POPULER — ALUR SEBAB-AKIBAT",
+        stimText: "Pembangkit Listrik Tenaga Bayu (PLTB) memanfaatkan energi kinetik angin untuk memutar bilah turbin raksasa. Putaran turbin tersebut diteruskan ke generator untuk menghasilkan energi listrik bersih tanpa emisi karbon. Namun, fluktuasi kecepatan angin menuntut integrasi sistem baterai penyimpan daya berkapasitas besar agar pasokan listrik ke rumah warga tetap stabil.",
+        highlight: "fluktuasi kecepatan angin menuntut integrasi sistem baterai penyimpan daya",
+        stem: "Pilihlah TIGA hubungan sebab-akibat yang BENAR berdasarkan isi artikel ilmiah populer tersebut!",
+        options: [
+          "Energi kinetik angin menggerakkan bilah turbin yang terhubung dengan generator penghasil listrik.",
+          "Pembangkit listrik tenaga angin menghasilkan energi bersih karena tidak melepaskan emisi karbon.",
+          "Kecepatan angin yang berubah-ubah menyebabkan perlunya baterai penyimpan daya untuk menjaga stabilitas.",
+          "Turbin angin hanya dapat beroperasi optimal apabila dibakar menggunakan batu bara setiap malam."
+        ],
+        answer: [0, 1, 2],
+        hint: "Telusuri urutan kerja turbin angin hingga alasan perlunya sistem baterai penyimpan.",
+        explanation: "A, B, dan C sesuai dengan penjelasan ilmiah pada paragraf tersebut."
+      },
+      {
+        no: 6, type: "BS", stimTitle: "ARTIKEL POPULER — KONJUNGSI KAUSALITAS",
+        stimText: "Penebangan hutan bakau di kawasan pesisir secara masif merusak habitat alami kepiting dan udang. Akibatnya, hasil tangkapan nelayan tradisional menurun drastis hingga 50% dalam tiga tahun terakhir. Oleh karena itu, rehabilitasi ekosistem pesisir menjadi prioritas mendesak.",
+        highlight: "Akibatnya, hasil tangkapan nelayan tradisional menurun drastis",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap analisis kebahasaan artikel di atas!",
+        rows: [
+          "Kata 'Akibatnya' berfungsi sebagai konjungsi antarkalimat yang menyatakan hubungan sebab-akibat.",
+          "Frasa 'Oleh karena itu' digunakan penulis untuk mengantarkan kalimat simpulan atau rekomendasi.",
+          "Teks tersebut sama sekali tidak memiliki hubungan logis antara kerusakan hutan dan ekonomi nelayan."
+        ],
+        answer: ["B", "B", "S"],
+        hint: "Perhatikan kata hubung di awal kalimat kedua dan ketiga.",
+        explanation: "Pernyataan 1 & 2 Benar; Pernyataan 3 Salah karena hubungan kausalitasnya sangat jelas."
+      },
+      {
+        no: 7, type: "PG", stimTitle: "PERBANDINGAN ARTIKEL — FAKTA EMPIRIS VS OPINI",
+        stimText: "Teks A: 'Data Kementerian Pertanian 2026 menunjukkan bahwa diversifikasi pangan lokal seperti sorgum dan singkong mampu menekan ketergantungan impor gandum sebesar 22% dengan kandungan serat 3 kali lebih tinggi.' — Teks B: 'Menurut perasaan saya, makan singkong atau jagung terasa kurang bergengsi dibandingkan makan roti gandum atau makanan cepat saji kekinian.'",
+        highlight: "Data Kementerian Pertanian 2026 menunjukkan bahwa diversifikasi pangan lokal",
+        stem: "Perbedaan mendasar landasan argumen antara Teks A dan Teks B dalam menyikapi pangan lokal adalah...",
+        options: [
+          "Teks A disusun berdasarkan data riset gizi dan statistik resmi, sedangkan Teks B hanya berdasar gengsi dan opini subjektif.",
+          "Teks A ditulis menggunakan bahasa daerah kuno, sedangkan Teks B merupakan kutipan undang-undang negara.",
+          "Teks A melarang masyarakat mengonsumsi sayuran hijau, sedangkan Teks B mempromosikan pertanian organik.",
+          "Teks A dan Teks B sama-sama menyajikan hasil uji laboratorium mengenai kadar protein tanaman sorgum."
+        ],
+        answer: 0,
+        hint: "Bandingkan rujukan 'Data Kementerian Pertanian 2026' pada Teks A dengan 'Menurut perasaan saya' pada Teks B.",
+        explanation: "Teks A berbasis fakta empiris terverifikasi, sedangkan Teks B didominasi asumsi gengsi pribadi."
+      },
+      {
+        no: 8, type: "PGK", stimTitle: "ARTIKEL POPULER — EVALUASI SOLUSI PENULIS",
+        stimText: "Limbah minyak jelantah rumah tangga yang dibuang sembarangan ke saluran air dapat menyumbat pipa dan mencemari ekosistem sungai. Inovasi pengolahan minyak jelantah menjadi biodiesel ramah lingkungan serta sabun cuci padat melalui bank sampah komunitas terbukti mampu mengubah limbah berbahaya menjadi bernilai ekonomi.",
+        highlight: "pengolahan minyak jelantah menjadi biodiesel ramah lingkungan serta sabun cuci padat",
+        stem: "Pilihlah TIGA simpulan yang LOGIS berdasarkan paparan solusi dalam artikel tersebut!",
+        options: [
+          "Pembuangan minyak jelantah ke selokan menimbulkan dampak ganda berupa penyumbatan dan pencemaran air.",
+          "Konversi minyak jelantah menjadi biodiesel dan sabun merupakan penerapan prinsip ekonomi sirkular.",
+          "Keterlibatan bank sampah komunitas mempermudah pengumpulan limbah rumah tangga secara terorganisir.",
+          "Minyak jelantah bekas menggoreng sebaiknya diminum langsung untuk meningkatkan stamina tubuh."
+        ],
+        answer: [0, 1, 2],
+        hint: "Pilih pernyataan yang mendukung kelestarian lingkungan dan nilai guna ulang limbah.",
+        explanation: "A, B, dan C adalah kesimpulan ilmiah dan ekologis yang tepat dari teks."
+      },
+      {
+        no: 9, type: "BS", stimTitle: "ARTIKEL POPULER — STRUKTUR TEKS",
+        stimText: "(1) Krisis air bersih di kota-kota besar kian mengkhawatirkan seiring menyempitnya ruang terbuka hijau. (2) Riset hidrologi mencatat penurunan muka air tanah mencapai 1,5 meter per tahun akibat masifnya betonisasi. (3) Pemerintah daerah perlu mewajibkan pembuatan biopori dan pemanenan air hujan di setiap bangunan gedung.",
+        highlight: "(1) Krisis air bersih di kota-kota besar kian mengkhawatirkan",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap identifikasi struktur artikel populer di atas!",
+        rows: [
+          "Kalimat (1) merupakan bagian pendahuluan yang mengenalkan isu atau persoalan utama.",
+          "Kalimat (2) berfungsi sebagai argumen pembuktian yang didukung oleh data riset hidrologi.",
+          "Kalimat (3) merupakan glosarium daftar istilah asing yang diletakkan di sampul belakang buku."
+        ],
+        answer: ["B", "B", "S"],
+        hint: "Kalimat (3) berisi saran/rekomendasi penutup, bukan glosarium.",
+        explanation: "Pernyataan 1 (Pendahuluan) & 2 (Isi/Argumen) Benar; Pernyataan 3 Salah karena kalimat (3) adalah penutup/rekomendasi."
+      },
+      {
+        no: 10, type: "MJD", stimTitle: "ARTIKEL ILMIAH POPULER — CIRI KEBAHASAAN",
+        stimText: "Analisis unsur kebahasaan yang membuat artikel ilmiah populer mudah dipahami oleh masyarakat luas!",
+        highlight: "Notifikasi ponsel bertindak layaknya 'magnet perhatian' yang mencuri fokus belajar.",
+        stem: "Pasangkanlah unsur kebahasaan pada Kolom Kiri dengan contoh penerapannya pada Kolom Kanan!",
+        left: [
+          "Analogi / Metafora Populer",
+          "Istilah Teknis Sains",
+          "Data Kuantitatif Empiris",
+          "Rekomendasi Persuasif"
+        ],
+        right: [
+          "'neurologis', 'fluktuasi', 'hidrologi'",
+          "'penurunan muka air tanah 1,5 meter/tahun'",
+          "'notifikasi bertindak layaknya magnet perhatian'",
+          "'Mari terapkan detoks digital sebelum tidur!'"
+        ],
+        answer: [2, 0, 1, 3],
+        hint: "Cocokkan gaya bahasa kiasan, istilah keilmuan, angka riset, dan kalimat ajakan.",
+        explanation: "1-C (metafora magnet perhatian), 2-A (istilah sains), 3-B (angka 1,5 meter/tahun), 4-D (ajakan rekomendasi)."
+      }
+    ]
+  },
+  {
+    id: 4,
+    title: "Level 4: Ujian Akhir Detektif",
+    subtitle: "Tantangan Sintesis Lintas Materi",
+    badge: "BOSS LEVEL • 10 SOAL",
+    color: "from-amber-500 to-rose-600",
+    questions: [
+      {
+        no: 1, type: "PG", stimTitle: "POSTER KAMPANYE — BUDAYA ANTRE SEKOLAH",
+        svg: SVG_POSTER_ANTRE,
+        stimText: "Poster budaya tertib antre di atas dipasang di depan loket kantin dan meja sirkulasi perpustakaan sekolah untuk melatih kedisiplinan sosial siswa.",
+        highlight: "Antrean tertib mempercepat layanan hingga 40% lebih efisien!",
+        stem: "Berdasarkan poster 'Budaya Antre Cermin Kecerdasan Bangsa' di atas, dampak terukur dari penerapan antrean yang tertib adalah...",
+        options: [
+          "Menambah waktu tunggu siswa di depan kantin hingga dua jam pelajaran.",
+          "Mempercepat proses layanan publik hingga 40% lebih efisien dan menghargai hak sesama.",
+          "Menghapuskan seluruh jam istirahat sekolah agar siswa fokus belajar di kelas.",
+          "Mewajibkan siswa membayar biaya tambahan saat meminjam buku di perpustakaan."
+        ],
+        answer: 1,
+        hint: "Lihat poin nomor 3 pada kotak bagian bawah poster.",
+        explanation: "Poin 3 menyatakan bahwa antrean tertib mempercepat layanan hingga 40% lebih efisien."
+      },
+      {
+        no: 2, type: "PGK", stimTitle: "POSTER BUDAYA ANTRE — EVALUASI PESAN & VISUAL",
+        svg: SVG_POSTER_ANTRE,
+        stimText: "Cermati kembali nilai karakter dan struktur pesan persuasif pada poster budaya antre di atas.",
+        highlight: "BUDAYA ANTRE CERMIN KECERDASAN BANGSA",
+        stem: "Pilihlah TIGA pernyataan yang TEPAT mengenai nilai edukasi dan desain poster tersebut!",
+        options: [
+          "Judul poster mengaitkan kebiasaan antre sehari-hari dengan tingkat peradaban dan kecerdasan bangsa.",
+          "Prinsip kedua menanamkan nilai empati serta penghormatan terhadap hak orang lain.",
+          "Kontras huruf kuning keemasan di atas latar biru indigo memudahkan pembacaan dari jarak jauh.",
+          "Poster tersebut bertujuan mempromosikan penjualan pagar pembatas antrean berbahan besi."
+        ],
+        answer: [0, 1, 2],
+        hint: "Periksa keterkaitan judul, nilai empati pada prinsip 2, dan warna tipografi.",
+        explanation: "A, B, dan C tepat menggambarkan pesan moral dan keunggulan visual poster."
+      },
+      {
+        no: 3, type: "BS", stimTitle: "SINTESIS LHO — BANK SAMPAH DIGITAL SEKOLAH",
+        stimText: "Bank Sampah Digital 'Hijau 28' mencatat setiap setoran sampah terpilah siswa melalui aplikasi pemindai kode QR. Selama semester gasal, terkumpul 420 kg botol PET dan 310 kg kertas kardus yang dikonversi menjadi saldo tabungan koperasi siswa.",
+        highlight: "terkumpul 420 kg botol PET dan 310 kg kertas kardus",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap analisis fakta pada teks LHO di atas!",
+        rows: [
+          "Total akumulasi sampah botol PET dan kertas kardus yang terkumpul mencapai 730 kg.",
+          "Penggunaan pemindai kode QR menunjukkan integrasi teknologi digital dalam pengelolaan sampah.",
+          "Teks tersebut berisi keluhan subjektif petugas karena tidak ada siswa yang mau menyetor sampah."
+        ],
+        answer: ["B", "B", "S"],
+        hint: "Jumlahkan 420 kg + 310 kg dan periksa nada penyampaian teks.",
+        explanation: "420 + 310 = 730 kg (Benar), memakai kode QR (Benar), nada teks objektif bukan keluhan (Salah)."
+      },
+      {
+        no: 4, type: "PG", stimTitle: "KALIMAT DEFINISI VS KALIMAT DESKRIPSI",
+        stimText: "(1) Literasi digital adalah kecakapan menggunakan media digital secara etis, bijak, dan bertanggung jawab untuk memperoleh informasi. (2) Peserta didik kelas VIII mengaplikasikan kecakapan ini dengan memeriksa keaslian sumber berita sebelum membagikannya ke grup diskusi. (3) Selain itu, mereka mengatur kata sandi berlapis untuk melindungi privasi akun belajar.",
+        highlight: "(1) Literasi digital adalah kecakapan menggunakan media digital secara etis",
+        stem: "Kalimat yang berfungsi mendefinisikan konsep dasar objek pembahasan dalam paragraf di atas adalah kalimat nomor...",
+        options: [
+          "Kalimat nomor (1), ditandai penggunaan kata kopula 'adalah' yang menjelaskan batasan makna.",
+          "Kalimat nomor (2), karena memuat contoh tindakan nyata siswa saat memeriksa sumber berita.",
+          "Kalimat nomor (3), karena menjelaskan langkah teknis pengamanan kata sandi akun belajar.",
+          "Kalimat nomor (2) dan (3), karena diawali oleh kata hubung antarkalimat."
+        ],
+        answer: 0,
+        hint: "Kalimat definisi umumnya menggunakan verba kopula seperti 'adalah', 'ialah', atau 'merupakan'.",
+        explanation: "Kalimat (1) merupakan kalimat definisi karena menjelaskan pengertian 'Literasi digital' dengan kopula 'adalah'."
+      },
+      {
+        no: 5, type: "PGK", stimTitle: "PENYUNTINGAN BAHASA BAKU & EFEKTIF",
+        stimText: "Kalimat Mentah: 'Para siswa-siswa diharapkan agar supaya hadir tepat waktu di aula sekolah untuk mengikuti sosialisasi anti hoaks.'",
+        highlight: "Para siswa-siswa diharapkan agar supaya hadir tepat waktu",
+        stem: "Pilihlah TIGA perbaikan ejaan dan keefektifan kalimat yang TEPAT sesuai kaidah bahasa Indonesia baku!",
+        options: [
+          "Mengubah 'Para siswa-siswa' menjadi 'Para siswa' agar tidak terjadi pengulangan bentuk jamak.",
+          "Menghilangkan salah satu konjungsi pada 'agar supaya' menjadi 'agar' saja demi kehematan kata.",
+          "Menuliskan bentuk gabungan terikat 'antihoaks' secara serangkai sesuai kaidah PUEBI.",
+          "Mengubah penulisan 'di aula' menjadi 'diaula' karena menyatakan tempat pelaksanaan kegiatan."
+        ],
+        answer: [0, 1, 2],
+        hint: "Ingat: 'para' sudah bermakna jamak; 'agar' dan 'supaya' bersinonim; 'anti-' ditulis serangkai dengan kata dasar.",
+        explanation: "A (hilangkan jamak ganda), B (hemat konjungsi), dan C ('antihoaks' serangkai) adalah aturan PUEBI yang tepat. D salah karena 'di aula' tempat harus dipisah."
+      },
+      {
+        no: 6, type: "PG", stimTitle: "ARTIKEL POPULER — ANALISIS TUJUAN PENULIS",
+        stimText: "Membaca buku cetak selama 20 menit sebelum tidur terbukti menurunkan tingkat stres hingga 68% menurut riset Universitas Sussex. Berbeda dengan layar gawai yang memancarkan cahaya biru pemicu insomnia, lembaran kertas buku memberikan ketenangan visual sehingga otak lebih siap memasuki fase tidur nyenyak.",
+        highlight: "menurunkan tingkat stres hingga 68% menurut riset Universitas Sussex",
+        stem: "Tujuan utama penulis menyertakan hasil riset Universitas Sussex dalam artikel populer di atas adalah...",
+        options: [
+          "Mempromosikan penjualan buku cetak terbitan universitas luar negeri dengan harga diskon.",
+          "Memberikan landasan bukti ilmiah empiris agar pembaca yakin akan manfaat membaca buku sebelum tidur.",
+          "Melarang seluruh sekolah menggunakan perangkat komputer dalam kegiatan asesmen berbasis digital.",
+          "Menjelaskan sejarah berdirinya perpustakaan nasional di berbagai negara maju."
+        ],
+        answer: 1,
+        hint: "Data penelitian dalam artikel ilmiah populer berfungsi memperkuat argumen penulis secara objektif.",
+        explanation: "Penyertaan angka riset 68% bertujuan membangun kredibilitas argumen berbasis bukti nyata."
+      },
+      {
+        no: 7, type: "PGK", stimTitle: "SINTESIS IKLAN & POSTER — DIKSI & GAYA BAHASA",
+        stimText: "Slogan Lingkungan: 'Satu Pohon Ditanam Hari Ini, Sejuta Oksigen Dihirup Anak Cucu Nanti. Jangan Biarkan Bumi Merintih Kehausan!'",
+        highlight: "Jangan Biarkan Bumi Merintih Kehausan!",
+        stem: "Pilihlah TIGA analisis kebahasaan yang BENAR dari kutipan slogan lingkungan tersebut!",
+        options: [
+          "Kalimat 'Jangan Biarkan Bumi Merintih Kehausan!' menggunakan majas personifikasi (menginsankan bumi).",
+          "Kata 'Jangan' menandai bentuk kalimat imperatif larangan yang menggugah empati ekologis.",
+          "Kontras waktu 'Hari Ini' dan 'Nanti' menekankan dampak jangka panjang bagi generasi penerus.",
+          "Slogan tersebut berisi instruksi teknis cara mencangkok pohon mangga dalam pot plastik."
+        ],
+        answer: [0, 1, 2],
+        hint: "Bumi digambarkan seolah-olah manusia yang bisa 'merintih kehausan' (majas personifikasi).",
+        explanation: "A (personifikasi), B (imperatif larangan), dan C (kontras waktu) tepat."
+      },
+      {
+        no: 8, type: "BS", stimTitle: "EVALUASI KRITIS — FAKTA VS ASUMSI",
+        stimText: "Teks 1: 'Berdasarkan audit energi sekolah, penggantian 40 lampu neon lama menjadi lampu LED hemat daya menurunkan tagihan listrik bulanan sebesar Rp1.250.000.' — Teks 2: 'Sepertinya lampu LED kurang terang dan mungkin akan cepat rusak dalam dua hari.'",
+        highlight: "menurunkan tagihan listrik bulanan sebesar Rp1.250.000",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap perbandingan kedua teks di atas!",
+        rows: [
+          "Teks 1 menyajikan fakta objektif karena didukung angka penghematan rupiah hasil audit.",
+          "Kata 'Sepertinya' dan 'mungkin' pada Teks 2 menandai pernyataan asumsi/opini yang belum teruji.",
+          "Teks 2 lebih dapat dipercaya sebagai laporan pertanggungjawaban keuangan daripada Teks 1."
+        ],
+        answer: ["B", "B", "S"],
+        hint: "Perhatikan penanda ketidakpastian ('sepertinya', 'mungkin') pada Teks 2.",
+        explanation: "Pernyataan 1 & 2 Benar; Pernyataan 3 Salah karena Teks 1 berbasis audit terukur."
+      },
+      {
+        no: 9, type: "MJD", stimTitle: "SINTESIS KISI-KISI — STRUKTUR & KAIDAH TEKS",
+        stimText: "Uji pemahamanmu dalam membedakan karakteristik utama ketiga jenis teks pada ASAS Bahasa Indonesia Kelas VIII!",
+        highlight: "Menggambarkan objek pengamatan secara objektif, faktual, dan sistematis.",
+        stem: "Pasangkanlah jenis teks/unsur pada Kolom Kiri dengan ciri utamanya pada Kolom Kanan!",
+        left: [
+          "Teks Laporan Hasil Observasi",
+          "Iklan Layanan Masyarakat",
+          "Artikel Ilmiah Populer",
+          "Fakta Objektif"
+        ],
+        right: [
+          "Tulisan ilmiah yang dikemas dengan bahasa komunikatif bagi pembaca umum",
+          "Media persuasif nonkomersial yang mengajak masyarakat melakukan aksi sosial",
+          "Pernyataan yang dapat dibuktikan kebenarannya melalui data dan pengukuran",
+          "Teks yang memaparkan hasil pengamatan objek secara faktual dan sistematis"
+        ],
+        answer: [3, 1, 0, 2],
+        hint: "Cocokkan masing-masing jenis teks dengan fungsi utamanya.",
+        explanation: "1-D (LHO), 2-B (Iklan Layanan Masyarakat), 3-A (Artikel Ilmiah Populer), 4-C (Fakta Objektif)."
+      },
+      {
+        no: 10, type: "MJD", stimTitle: "SINTESIS AKHIR — PENYUNTINGAN PUEBI",
+        stimText: "Selesaikan misi terakhir dengan menyunting empat bentuk kesalahan ejaan yang sering muncul dalam ujian!",
+        highlight: "Penulisan kata depan, kata baku, gabungan kata, dan istilah asing.",
+        stem: "Pasangkanlah bentuk tidak baku pada Kolom Kiri dengan perbaikan baku yang tepat pada Kolom Kanan!",
+        left: [
+          "dilaboratorium (keterangan tempat)",
+          "analisa dan praktek",
+          "pasca panen (gabungan terikat)",
+          "download (istilah asing dalam teks)"
+        ],
+        right: [
+          "pascapanen (ditulis serangkai)",
+          "di laboratorium (ditulis terpisah)",
+          "download (dicetak miring / italic)",
+          "analisis dan praktik (bentuk baku KBBI)"
+        ],
+        answer: [1, 3, 0, 2],
+        hint: "Ingat: 'di' tempat dipisah; bentuk baku adalah 'analisis' dan 'praktik'; 'pasca-' ditulis serangkai.",
+        explanation: "1-B ('di laboratorium'), 2-D ('analisis dan praktik'), 3-A ('pascapanen'), 4-C (dicetak miring)."
+      }
+    ]
+  }
+];
+
+// ============================================================================
+// STATE MANAGEMENT & LOCAL STORAGE
+// ============================================================================
+let state = {
+  nama: localStorage.getItem("dl28_nama") || "",
+  kelas: localStorage.getItem("dl28_kelas") || "",
+  gasUrl: localStorage.getItem("dl28_gas_url") || DEFAULT_GAS_URL,
+  completedLevels: JSON.parse(localStorage.getItem("dl28_completed") || "{}"),
+  currentLevelId: null,
+  currentQIdx: 0,
+  liveScore: 0,
+  levelAnswers: [],
+  hintUsedForCurrent: false,
+  lastFinishedPayload: null
+};
+
+// Audio FX
+function playTone(freq, type = "sine", dur = 0.14) {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = type;
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(0.08, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + dur);
+  } catch (e) {}
+}
+
+function initApp() {
+  document.getElementById("input-nama").value = state.nama;
+  document.getElementById("input-kelas").value = state.kelas;
+  updateStudentBadge();
+  updateSyncIndicator();
+  renderLevelGrid();
+}
+
+function saveIdentity() {
+  state.nama = document.getElementById("input-nama").value.trim();
+  state.kelas = document.getElementById("input-kelas").value;
+  localStorage.setItem("dl28_nama", state.nama);
+  localStorage.setItem("dl28_kelas", state.kelas);
+  updateStudentBadge();
+}
+
+function updateStudentBadge() {
+  const badge = document.getElementById("nav-student-badge");
+  if (state.nama && state.kelas) {
+    badge.textContent = `👤 ${state.nama} (${state.kelas})`;
+    badge.classList.remove("hidden");
+  } else {
+    badge.classList.add("hidden");
+  }
+}
+
+function updateSyncIndicator() {
+  const el = document.getElementById("sync-indicator");
+  if (state.gasUrl) {
+    el.innerHTML = `● <span class="text-emerald-400">Terhubung ke Google Sheets (Auto-Sync Aktif)</span>`;
+  } else {
+    el.innerHTML = `● <span class="text-amber-300">Mode Offline / Lokal (Klik ⚙️ Sinkronisasi untuk tempel URL Google Sheets)</span>`;
+  }
+}
+
+function openConfigModal() {
+  document.getElementById("input-gas-url").value = state.gasUrl;
+  document.getElementById("config-modal").classList.remove("hidden");
+}
+function closeConfigModal() {
+  document.getElementById("config-modal").classList.add("hidden");
+}
+function saveGasUrl() {
+  state.gasUrl = document.getElementById("input-gas-url").value.trim();
+  localStorage.setItem("dl28_gas_url", state.gasUrl);
+  updateSyncIndicator();
+  closeConfigModal();
+}
+
+function renderLevelGrid() {
+  const grid = document.getElementById("level-grid");
+  grid.innerHTML = "";
+  LEVELS.forEach(lvl => {
+    const done = state.completedLevels[lvl.id];
+    const scoreBadge = done
+      ? `<span class="px-2.5 py-1 rounded-full text-xs font-extrabold ${done.skor >= 75 ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40' : 'bg-amber-500/20 text-amber-300 border border-amber-500/40'}">Skor: ${done.skor} (${done.status})</span>`
+      : `<span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-800 text-slate-400">Belum Dikerjakan</span>`;
+
+    const card = document.createElement("div");
+    card.className = "glass-card rounded-2xl p-5 flex flex-col justify-between gap-4 hover:border-sky-500/50 transition";
+    card.innerHTML = `
+      <div class="space-y-2">
+        <div class="flex items-center justify-between gap-2">
+          <span class="px-2.5 py-0.5 rounded-md text-[10px] font-extrabold bg-gradient-to-r ${lvl.color} text-white">${lvl.badge}</span>
+          ${scoreBadge}
+        </div>
+        <h3 class="text-lg font-extrabold text-white">${lvl.title}</h3>
+        <p class="text-xs text-slate-300">${lvl.subtitle}</p>
+      </div>
+      <button onclick="startLevel(${lvl.id})" class="w-full py-2.5 rounded-xl bg-gradient-to-r ${lvl.color} text-white text-sm font-extrabold shadow-md btn-hover">
+        ${done ? "🔄 Ulangi Misi" : "🚀 Mulai Misi"}
+      </button>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function showView(viewId) {
+  ["view-home", "view-quiz", "view-level-result", "view-report"].forEach(id => {
+    document.getElementById(id).classList.add("hidden");
+  });
+  document.getElementById(viewId).classList.remove("hidden");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function goHome() {
+  renderLevelGrid();
+  showView("view-home");
+}
+
+// ============================================================================
+// QUIZ ENGINE
+// ============================================================================
+function startLevel(levelId) {
+  if (!state.nama || !state.kelas) {
+    alert("Silakan isi Nama Lengkap dan pilih Kelas terlebih dahulu sebelum memulai misi agar hasilmu terekam!");
+    document.getElementById("input-nama").focus();
+    return;
+  }
+  state.currentLevelId = levelId;
+  state.currentQIdx = 0;
+  state.liveScore = 0;
+  state.levelAnswers = [];
+  showView("view-quiz");
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const lvl = LEVELS.find(l => l.id === state.currentLevelId);
+  const q = lvl.questions[state.currentQIdx];
+  state.hintUsedForCurrent = false;
+
+  document.getElementById("quiz-level-tag").textContent = lvl.title;
+  document.getElementById("quiz-progress-text").textContent = `Soal ${state.currentQIdx + 1} dari ${lvl.questions.length}`;
+  document.getElementById("quiz-live-score").textContent = state.liveScore;
+  document.getElementById("quiz-progress-bar").style.width = `${((state.currentQIdx + 1) / lvl.questions.length) * 100}%`;
+
+  document.getElementById("hint-box").classList.add("hidden");
+  document.getElementById("debrief-box").classList.add("hidden");
+  document.getElementById("btn-submit-answer").classList.remove("hidden");
+  document.getElementById("btn-next-question").classList.add("hidden");
+
+  document.getElementById("stim-badge").textContent = q.stimTitle;
+  const typeLabels = {
+    PG: "Pilihan Ganda (1 Jawaban)",
+    PGK: "PG Kompleks (Pilih 3 Jawaban Benar)",
+    BS: "Benar / Salah (3 Pernyataan)",
+    MJD: "Menjodohkan (4 Pasangan)"
+  };
+  document.getElementById("q-type-badge").textContent = typeLabels[q.type];
+
+  const svgBox = document.getElementById("stim-svg-container");
+  if (q.svg) {
+    svgBox.innerHTML = q.svg;
+    svgBox.classList.remove("hidden");
+  } else {
+    svgBox.innerHTML = "";
+    svgBox.classList.add("hidden");
+  }
+
+  document.getElementById("stim-text-box").innerHTML = `<p>${q.stimText}</p>`;
+  document.getElementById("question-stem").textContent = `${state.currentQIdx + 1}. ${q.stem}`;
+
+  const optContainer = document.getElementById("options-container");
+  optContainer.innerHTML = "";
+
+  const letters = ["A", "B", "C", "D"];
+  if (q.type === "PG") {
+    q.options.forEach((opt, idx) => {
+      const label = document.createElement("label");
+      label.className = "flex items-start gap-3 p-3.5 rounded-xl bg-slate-900/90 border border-slate-700 hover:border-sky-500 cursor-pointer transition";
+      label.innerHTML = `
+        <input type="radio" name="pg_opt" value="${idx}" class="mt-1 accent-sky-500 w-4 h-4" />
+        <span class="text-xs sm:text-sm text-slate-200"><strong class="text-sky-400 mr-1.5">${letters[idx]}.</strong> ${opt}</span>
+      `;
+      optContainer.appendChild(label);
+    });
+  } else if (q.type === "PGK") {
+    q.options.forEach((opt, idx) => {
+      const label = document.createElement("label");
+      label.className = "flex items-start gap-3 p-3.5 rounded-xl bg-slate-900/90 border border-slate-700 hover:border-sky-500 cursor-pointer transition";
+      label.innerHTML = `
+        <input type="checkbox" name="pgk_opt" value="${idx}" class="mt-1 accent-sky-500 w-4 h-4 rounded" />
+        <span class="text-xs sm:text-sm text-slate-200"><strong class="text-sky-400 mr-1.5">[${letters[idx]}]</strong> ${opt}</span>
+      `;
+      optContainer.appendChild(label);
+    });
+  } else if (q.type === "BS") {
+    q.rows.forEach((rowTxt, rIdx) => {
+      const div = document.createElement("div");
+      div.className = "p-3.5 rounded-xl bg-slate-900/90 border border-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-3";
+      div.innerHTML = `
+        <span class="text-xs sm:text-sm text-slate-200 flex-1"><strong class="text-sky-400 mr-1">${rIdx + 1}.</strong> ${rowTxt}</span>
+        <div class="flex gap-2 shrink-0">
+          <label class="px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-600 text-xs font-bold cursor-pointer flex items-center gap-1.5">
+            <input type="radio" name="bs_${rIdx}" value="B" class="accent-emerald-500" /> Benar
+          </label>
+          <label class="px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-600 text-xs font-bold cursor-pointer flex items-center gap-1.5">
+            <input type="radio" name="bs_${rIdx}" value="S" class="accent-rose-500" /> Salah
+          </label>
+        </div>
+      `;
+      optContainer.appendChild(div);
+    });
+  } else if (q.type === "MJD") {
+    q.left.forEach((leftTxt, lIdx) => {
+      const div = document.createElement("div");
+      div.className = "p-3.5 rounded-xl bg-slate-900/90 border border-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-3";
+      let optsHtml = `<option value="">-- Pilih Pasangan --</option>`;
+      q.right.forEach((rTxt, rIdx) => {
+        optsHtml += `<option value="${rIdx}">${letters[rIdx]}. ${rTxt}</option>`;
+      });
+      div.innerHTML = `
+        <span class="text-xs sm:text-sm text-slate-200 flex-1"><strong class="text-sky-400 mr-1">${lIdx + 1}.</strong> ${leftTxt}</span>
+        <select id="mjd_${lIdx}" class="sm:w-64 px-3 py-2 rounded-lg bg-slate-950 border border-slate-600 text-xs text-white focus:border-sky-500">
+          ${optsHtml}
+        </select>
+      `;
+      optContainer.appendChild(div);
+    });
+  }
+}
+
+function useHint() {
+  const lvl = LEVELS.find(l => l.id === state.currentLevelId);
+  const q = lvl.questions[state.currentQIdx];
+  state.hintUsedForCurrent = true;
+  document.getElementById("hint-text").textContent = q.hint;
+  document.getElementById("hint-box").classList.remove("hidden");
+  playTone(520, "triangle", 0.12);
+}
+
+function submitAnswer() {
+  const lvl = LEVELS.find(l => l.id === state.currentLevelId);
+  const q = lvl.questions[state.currentQIdx];
+  const letters = ["A", "B", "C", "D"];
+
+  let isCorrect = false;
+  let studentAnsStr = "";
+  let keyAnsStr = "";
+
+  if (q.type === "PG") {
+    const sel = document.querySelector('input[name="pg_opt"]:checked');
+    if (!sel) { alert("Pilih salah satu opsi A, B, C, atau D terlebih dahulu!"); return; }
+    const val = parseInt(sel.value);
+    isCorrect = (val === q.answer);
+    studentAnsStr = letters[val];
+    keyAnsStr = letters[q.answer];
+  } else if (q.type === "PGK") {
+    const sels = Array.from(document.querySelectorAll('input[name="pgk_opt"]:checked')).map(el => parseInt(el.value)).sort();
+    if (sels.length === 0) { alert("Centang minimal satu pernyataan yang menurutmu benar!"); return; }
+    const sortedKey = [...q.answer].sort();
+    isCorrect = (sels.length === sortedKey.length && sels.every((v, i) => v === sortedKey[i]));
+    studentAnsStr = sels.map(i => letters[i]).join(",");
+    keyAnsStr = sortedKey.map(i => letters[i]).join(",");
+  } else if (q.type === "BS") {
+    const picked = [];
+    for (let i = 0; i < q.rows.length; i++) {
+      const r = document.querySelector(`input[name="bs_${i}"]:checked`);
+      if (!r) { alert(`Tentukan Benar atau Salah untuk pernyataan nomor ${i + 1}!`); return; }
+      picked.push(r.value);
+    }
+    isCorrect = picked.every((v, i) => v === q.answer[i]);
+    studentAnsStr = picked.map((v, i) => `${i + 1}-${v}`).join(", ");
+    keyAnsStr = q.answer.map((v, i) => `${i + 1}-${v}`).join(", ");
+  } else if (q.type === "MJD") {
+    const picked = [];
+    for (let i = 0; i < q.left.length; i++) {
+      const sel = document.getElementById(`mjd_${i}`).value;
+      if (sel === "") { alert(`Pilih pasangan jawaban untuk baris nomor ${i + 1}!`); return; }
+      picked.push(parseInt(sel));
+    }
+    isCorrect = picked.every((v, i) => v === q.answer[i]);
+    studentAnsStr = picked.map((v, i) => `${i + 1}-${letters[v]}`).join(", ");
+    keyAnsStr = q.answer.map((v, i) => `${i + 1}-${letters[v]}`).join(", ");
+  }
+
+  // Disable inputs after locking
+  document.querySelectorAll("#options-container input, #options-container select").forEach(el => el.disabled = true);
+
+  // Highlight evidence inside stimulus text
+  const stimBox = document.getElementById("stim-text-box");
+  if (q.highlight && stimBox.innerHTML.includes(q.highlight)) {
+    stimBox.innerHTML = stimBox.innerHTML.replace(q.highlight, `<span class="evidence-highlight">${q.highlight}</span>`);
+  }
+
+  // Update score (10 pts per question, -1 if hint used and correct)
+  if (isCorrect) {
+    const earned = state.hintUsedForCurrent ? 9 : 10;
+    state.liveScore += earned;
+    playTone(660, "sine", 0.12);
+    setTimeout(() => playTone(880, "sine", 0.18), 110);
+  } else {
+    playTone(220, "sawtooth", 0.25);
+  }
+  document.getElementById("quiz-live-score").textContent = state.liveScore;
+
+  // Record detail for Spreadsheet & Analytics
+  state.levelAnswers.push({
+    no: state.currentQIdx + 1,
+    tipe: q.type,
+    jawaban: studentAnsStr,
+    kunci: keyAnsStr,
+    status: isCorrect ? "Benar" : "Salah"
+  });
+
+  // Show Interactive Debrief
+  const debrief = document.getElementById("debrief-box");
+  debrief.classList.remove("hidden", "bg-emerald-950/60", "border-emerald-500/40", "bg-rose-950/60", "border-rose-500/40");
+  if (isCorrect) {
+    debrief.classList.add("bg-emerald-950/60", "border-emerald-500/40");
+    document.getElementById("debrief-icon").textContent = "✅";
+    document.getElementById("debrief-title").textContent = "Analisis Tepat! Bukti Ditemukan.";
+    document.getElementById("debrief-title").className = "text-base font-extrabold text-emerald-300";
+  } else {
+    debrief.classList.add("bg-rose-950/60", "border-rose-500/40");
+    document.getElementById("debrief-icon").textContent = "❌";
+    document.getElementById("debrief-title").textContent = "Kurang Tepat — Perhatikan Sorotan Bukti di Atas!";
+    document.getElementById("debrief-title").className = "text-base font-extrabold text-rose-300";
+  }
+  document.getElementById("debrief-explanation").textContent = q.explanation;
+  document.getElementById("debrief-key-detail").textContent = `Jawabanmu: [${studentAnsStr}] • Kunci Seharusnya: [${keyAnsStr}]`;
+
+  document.getElementById("btn-submit-answer").classList.add("hidden");
+  document.getElementById("btn-next-question").classList.remove("hidden");
+  document.getElementById("btn-next-question").textContent =
+    state.currentQIdx + 1 < lvl.questions.length ? "Lanjut Soal Berikutnya ➡️" : "🏁 Selesaikan Misi & Kirim Hasil";
+}
+
+function nextQuestion() {
+  const lvl = LEVELS.find(l => l.id === state.currentLevelId);
+  if (state.currentQIdx + 1 < lvl.questions.length) {
+    state.currentQIdx++;
+    renderQuestion();
+  } else {
+    finishLevel();
+  }
+}
+
+// ============================================================================
+// FINISH LEVEL, RENDER DETAIL TABLE & AUTO-SYNC TO GOOGLE SHEETS
+// ============================================================================
+function finishLevel() {
+  const lvl = LEVELS.find(l => l.id === state.currentLevelId);
+  const totalBenar = state.levelAnswers.filter(a => a.status === "Benar").length;
+  const totalSalah = lvl.questions.length - totalBenar;
+  const skorAkhir = Math.round(state.liveScore);
+  const statusLulus = skorAkhir >= 75 ? "TUNTAS" : "REMEDIAL";
+
+  const payload = {
+    nama: state.nama,
+    kelas: state.kelas,
+    level: lvl.title,
+    skor: skorAkhir,
+    benar: totalBenar,
+    salah: totalSalah,
+    status: statusLulus,
+    details: state.levelAnswers
+  };
+
+  state.lastFinishedPayload = payload;
+  state.completedLevels[lvl.id] = payload;
+  localStorage.setItem("dl28_completed", JSON.stringify(state.completedLevels));
+
+  document.getElementById("res-level-title").textContent = `${lvl.title} Selesai!`;
+  document.getElementById("res-student-info").textContent = `Peserta: ${state.nama} • Kelas: ${state.kelas}`;
+  document.getElementById("res-score").textContent = skorAkhir;
+  document.getElementById("res-correct").textContent = totalBenar;
+  document.getElementById("res-wrong").textContent = totalSalah;
+  const stEl = document.getElementById("res-status");
+  stEl.textContent = statusLulus;
+  stEl.className = `text-lg font-extrabold ${statusLulus === "TUNTAS" ? "text-emerald-400" : "text-rose-400"}`;
+
+  // Render table of Q1..Q10 details
+  const tbody = document.getElementById("res-detail-tbody");
+  tbody.innerHTML = "";
+  state.levelAnswers.forEach(item => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td class="px-3 py-2 font-bold text-slate-300">No. ${item.no}</td>
+      <td class="px-3 py-2 text-slate-400">${item.tipe}</td>
+      <td class="px-3 py-2 font-mono text-sky-300">${item.jawaban}</td>
+      <td class="px-3 py-2 font-mono text-emerald-300">${item.kunci}</td>
+      <td class="px-3 py-2">
+        <span class="px-2 py-0.5 rounded text-[11px] font-bold ${item.status === 'Benar' ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'}">${item.status}</span>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  showView("view-level-result");
+  sendToGoogleSheets(payload);
+}
+
+async function sendToGoogleSheets(payload) {
+  const msgEl = document.getElementById("cloud-sync-msg");
+  if (!state.gasUrl) {
+    msgEl.innerHTML = `<span class="text-amber-300">URL Google Apps Script belum dipasang. Data tersimpan di browser &amp; siap diunduh sebagai CSV.</span>`;
+    return;
+  }
+  msgEl.innerHTML = `<span class="text-sky-300">⏳ Mengirim skor dan rincian jawaban ke Google Sheets...</span>`;
+  try {
+    await fetch(state.gasUrl, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+    msgEl.innerHTML = `<span class="text-emerald-400 font-bold">✅ Berhasil terkirim ke Google Sheets! Guru dapat langsung melihat hasilmu di Spreadsheet.</span>`;
+  } catch (err) {
+    msgEl.innerHTML = `<span class="text-rose-400">⚠️ Gagal mengirim otomatis (${err.message}). Silakan klik Kirim Ulang atau Unduh CSV.</span>`;
+  }
+}
+
+function retrySyncLastLevel() {
+  if (state.lastFinishedPayload) {
+    sendToGoogleSheets(state.lastFinishedPayload);
+  }
+}
+
+function downloadCSVResult() {
+  if (!state.lastFinishedPayload) return;
+  const p = state.lastFinishedPayload;
+  const headers = ["Nama_Siswa","Kelas","Level_Misi","Skor_Total","Benar_Total","Salah_Total","Status_Lulus",
+    ...p.details.map(d => `Q${d.no}_Status`), ...p.details.map(d => `Q${d.no}_Jawaban`)];
+  const row = [
+    `"${p.nama}"`, `"${p.kelas}"`, `"${p.level}"`, p.skor, p.benar, p.salah, `"${p.status}"`,
+    ...p.details.map(d => `"${d.status}"`), ...p.details.map(d => `"${d.jawaban}"`)
+  ];
+  const csv = headers.join(",") + "\n" + row.join(",");
+  const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = `Hasil_${p.nama.replace(/\s+/g, "_")}_${p.kelas}.csv`;
+  link.click();
+}
+
+function openReportView() {
+  document.getElementById("rep-identity").textContent = `Siswa: ${state.nama || "Belum diisi"} • Kelas: ${state.kelas || "-"}`;
+  const grid = document.getElementById("rep-levels-summary");
+  grid.innerHTML = "";
+  let totalScore = 0;
+  let countDone = 0;
+
+  LEVELS.forEach(lvl => {
+    const rec = state.completedLevels[lvl.id];
+    if (rec) { totalScore += rec.skor; countDone++; }
+    const box = document.createElement("div");
+    box.className = "bg-slate-900/90 p-4 rounded-xl border border-slate-800 flex items-center justify-between";
+    box.innerHTML = `
+      <div>
+        <h4 class="text-sm font-bold text-white">${lvl.title}</h4>
+        <p class="text-xs text-slate-400">${lvl.subtitle}</p>
+      </div>
+      <div class="text-right">
+        <span class="block text-lg font-extrabold ${rec ? (rec.skor >= 75 ? 'text-emerald-400' : 'text-amber-400') : 'text-slate-600'}">${rec ? rec.skor : "-"}</span>
+        <span class="text-[10px] font-bold text-slate-400">${rec ? rec.status : "BELUM"}</span>
+      </div>
+    `;
+    grid.appendChild(box);
+  });
+
+  const avg = countDone > 0 ? Math.round(totalScore / countDone) : 0;
+  document.getElementById("cert-name").textContent = state.nama || "Detektif Literasi SMPN 28";
+  document.getElementById("cert-desc").textContent =
+    `Telah menyelesaikan ${countDone} dari 4 Misi Kisi-Kisi ASAS Bahasa Indonesia Kelas VIII (Kelas ${state.kelas || "-"}) dengan rata-rata skor penguasaan materi sebesar ${avg}.`;
+  showView("view-report");
+}
+
+initApp();
+</script>
+</body>
+</html>
