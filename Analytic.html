@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Analitik Diagnostik — Detektif Literasi 28</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #090d16; color: #f8fafc; }
+    .panel { background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(148, 163, 184, 0.16); backdrop-filter: blur(10px); }
+    .badge-tuntas { background: rgba(16, 185, 129, 0.18); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.35); }
+    .badge-remedial { background: rgba(244, 63, 94, 0.18); color: #fda4af; border: 1px solid rgba(244, 63, 94, 0.35); }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- HEADER -->
+  <header class="sticky top-0 z-40 bg-slate-950/95 border-b border-slate-800 px-4 py-3.5">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-sky-600 flex items-center justify-center font-extrabold text-white shadow-lg">📊</div>
+        <div>
+          <h1 class="text-base sm:text-lg font-extrabold text-white tracking-tight">DASHBOARD ANALITIK DIAGNOSTIK ASAS</h1>
+          <p class="text-xs text-slate-400">Detektif Literasi 28 • SMPN 28 Bandung • Analisis Butir, Percobaan &amp; Profil Kognitif</p>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 text-xs">
+        <button onclick="loadDemoData()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-bold">
+          🧪 Muat Data Simulasi
+        </button>
+        <label class="px-3 py-2 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/40 text-emerald-300 font-bold cursor-pointer">
+          📂 Impor Excel/CSV
+          <input type="file" id="file-upload" accept=".xlsx,.xls,.csv" class="hidden" onchange="handleFileUpload(event)" />
+        </label>
+        <button onclick="openSyncModal()" class="px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-extrabold shadow-md">
+          🔄 Tarik Google Sheets
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-6 space-y-6">
+
+    <!-- FILTER BAR & ATTEMPT POLICY -->
+    <section class="panel rounded-2xl p-4 flex flex-wrap items-end justify-between gap-4">
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 flex-1 min-w-[280px]">
+        <div>
+          <label class="block text-[11px] font-bold text-slate-400 mb-1">Filter Kelas</label>
+          <select id="filter-kelas" onchange="applyFilters()" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white">
+            <option value="ALL">Semua Kelas</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-[11px] font-bold text-slate-400 mb-1">Filter Level / Materi</label>
+          <select id="filter-level" onchange="applyFilters()" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white">
+            <option value="ALL">Semua Level Misi</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-[11px] font-bold text-slate-400 mb-1">Mode Analisis Percobaan (Attempt)</label>
+          <select id="filter-attempt-mode" onchange="applyFilters()" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-sky-500/50 text-xs text-sky-200 font-semibold">
+            <option value="ALL_ATTEMPTS">Semua Riwayat Percobaan (Transaksional)</option>
+            <option value="FIRST_ATTEMPT">Hanya Percobaan ke-1 (Diagnostik Murni)</option>
+            <option value="LATEST_ATTEMPT">Hanya Percobaan Terakhir (Hasil Remedial)</option>
+            <option value="BEST_ATTEMPT">Skor Terbaik Siswa (Best Score)</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-[11px] font-bold text-slate-400 mb-1">Cari Nama Siswa</label>
+          <input id="filter-search" type="text" oninput="applyFilters()" placeholder="Ketik nama..." class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white" />
+        </div>
+      </div>
+
+      <div class="text-right text-xs">
+        <span id="data-source-label" class="block text-slate-400">Sumber: Data Simulasi Bawaan</span>
+        <button onclick="exportExecutiveReport()" class="mt-1.5 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold">
+          📥 Ekspor Laporan Diagnostik (.xlsx)
+        </button>
+      </div>
+    </section>
+
+    <!-- KPI CARDS -->
+    <section class="grid grid-cols-2 lg:grid-cols-5 gap-3.5">
+      <div class="panel rounded-2xl p-4">
+        <span class="text-[11px] font-bold text-slate-400 uppercase">Total Percobaan / Siswa</span>
+        <div class="mt-1 flex items-baseline gap-2">
+          <span id="kpi-total-records" class="text-2xl font-extrabold text-white">0</span>
+          <span id="kpi-unique-students" class="text-xs text-sky-400 font-semibold">(0 siswa unik)</span>
+        </div>
+      </div>
+      <div class="panel rounded-2xl p-4">
+        <span class="text-[11px] font-bold text-slate-400 uppercase">Rata-Rata Skor</span>
+        <div class="mt-1 flex items-baseline gap-2">
+          <span id="kpi-avg-score" class="text-2xl font-extrabold text-sky-400">0.0</span>
+          <span class="text-xs text-slate-400">/ 100</span>
+        </div>
+      </div>
+      <div class="panel rounded-2xl p-4">
+        <span class="text-[11px] font-bold text-slate-400 uppercase">Ketuntasan (≥ 75)</span>
+        <div class="mt-1 flex items-baseline gap-2">
+          <span id="kpi-pass-rate" class="text-2xl font-extrabold text-emerald-400">0%</span>
+          <span id="kpi-pass-count" class="text-xs text-slate-400">(0 tuntas)</span>
+        </div>
+      </div>
+      <div class="panel rounded-2xl p-4">
+        <span class="text-[11px] font-bold text-slate-400 uppercase">Pertumbuhan Remedial</span>
+        <div class="mt-1 flex items-baseline gap-2">
+          <span id="kpi-growth" class="text-2xl font-extrabold text-amber-400">+0.0</span>
+          <span class="text-xs text-slate-400">poin (Ke-1 → Akhir)</span>
+        </div>
+      </div>
+      <div class="panel rounded-2xl p-4 col-span-2 lg:col-span-1">
+        <span class="text-[11px] font-bold text-slate-400 uppercase">Kelemahan Kognitif Utama</span>
+        <div class="mt-1">
+          <span id="kpi-weakest-skill" class="text-sm font-extrabold text-rose-400 leading-tight block">-</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- AUTO-GENERATED CLASS DIAGNOSTIC NARRATIVE -->
+    <section class="panel rounded-2xl p-5 border-l-4 border-l-sky-500 space-y-3">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-2">
+          <span class="text-lg">🧠</span>
+          <h2 class="text-sm sm:text-base font-extrabold text-white">Sintesis Narasi Diagnostik Klasikal (Otomatis Berbasis Karakter Soal &amp; Pola Percobaan)</h2>
+        </div>
+        <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-sky-500/15 text-sky-300 border border-sky-500/30 font-semibold">Rule-Based Psychometric Engine</span>
+      </div>
+      <div id="class-narrative-box" class="text-xs sm:text-sm text-slate-200 leading-relaxed space-y-2 bg-slate-950/60 p-4 rounded-xl border border-slate-800"></div>
+    </section>
+
+    <!-- CHARTS ROW -->
+    <section class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+      <div class="panel rounded-2xl p-5 space-y-3">
+        <h3 class="text-sm font-extrabold text-white">📈 Ketuntasan Per Butir Soal (Q1 – Q10) &amp; Karakter Kognitif</h3>
+        <div class="h-64">
+          <canvas id="chart-items"></canvas>
+        </div>
+      </div>
+      <div class="panel rounded-2xl p-5 space-y-3">
+        <h3 class="text-sm font-extrabold text-white">🎯 Profil Penguasaan Tipe Soal &amp; Progres Percobaan</h3>
+        <div class="h-64">
+          <canvas id="chart-types"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- ITEM CHARACTER MATRIX TABLE -->
+    <section class="panel rounded-2xl p-5 space-y-3">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <h3 class="text-sm sm:text-base font-extrabold text-white">🔬 Peta Karakteristik Butir Soal &amp; Diagnosis Miskonsepsi</h3>
+        <span class="text-xs text-slate-400">Memetakan `Detail_Jawaban_JSON` ke Indikator Kisi-Kisi</span>
+      </div>
+      <div class="overflow-x-auto rounded-xl border border-slate-800">
+        <table class="w-full text-left text-xs">
+          <thead class="bg-slate-950 text-slate-400 uppercase">
+            <tr>
+              <th class="px-3 py-2.5">Butir</th>
+              <th class="px-3 py-2.5">Bentuk</th>
+              <th class="px-3 py-2.5">Karakter Kognitif &amp; Indikator Kisi-Kisi</th>
+              <th class="px-3 py-2.5 text-center">% Benar</th>
+              <th class="px-3 py-2.5">Pengecoh Dominan</th>
+              <th class="px-3 py-2.5">Diagnosis &amp; Rekomendasi Intervensi Guru</th>
+            </tr>
+          </thead>
+          <tbody id="item-matrix-tbody" class="divide-y divide-slate-800 bg-slate-900/50"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- STUDENT ATTEMPT & INDIVIDUAL DIAGNOSTIC TABLE -->
+    <section class="panel rounded-2xl p-5 space-y-3">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div>
+          <h3 class="text-sm sm:text-base font-extrabold text-white">🧑‍🎓 Daftar Hasil Uji Siswa &amp; Analisis Percobaan Individu</h3>
+          <p class="text-xs text-slate-400">Klik tombol <strong>"Bedah Diagnostik"</strong> pada baris siswa untuk membaca narasi evaluasi otomatis berdasarkan JSON jawabannya.</p>
+        </div>
+      </div>
+      <div class="overflow-x-auto rounded-xl border border-slate-800">
+        <table class="w-full text-left text-xs">
+          <thead class="bg-slate-950 text-slate-400 uppercase">
+            <tr>
+              <th class="px-3 py-2.5">Nama Siswa</th>
+              <th class="px-3 py-2.5">Kelas</th>
+              <th class="px-3 py-2.5">Level Misi</th>
+              <th class="px-3 py-2.5 text-center">Percobaan</th>
+              <th class="px-3 py-2.5 text-center">Skor</th>
+              <th class="px-3 py-2.5 text-center">Tren</th>
+              <th class="px-3 py-2.5 text-center">Status</th>
+              <th class="px-3 py-2.5 text-right">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="student-tbody" class="divide-y divide-slate-800 bg-slate-900/50"></tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL: INDIVIDUAL STUDENT DIAGNOSTIC REPORT -->
+  <div id="student-modal" class="hidden fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6 space-y-5">
+      <div class="flex items-start justify-between gap-3 border-b border-slate-800 pb-4">
+        <div>
+          <span id="modal-attempt-badge" class="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-sky-500/20 text-sky-300 border border-sky-500/40"></span>
+          <h3 id="modal-student-name" class="text-xl font-extrabold text-white mt-1.5">Nama Siswa</h3>
+          <p id="modal-student-meta" class="text-xs text-slate-400"></p>
+        </div>
+        <button onclick="closeStudentModal()" class="text-slate-400 hover:text-white text-xl font-bold">✕</button>
+      </div>
+
+      <!-- Auto-Generated Individual Narrative -->
+      <div class="rounded-xl bg-indigo-950/50 border border-indigo-500/40 p-4 space-y-2">
+        <h4 class="text-xs font-extrabold uppercase tracking-wider text-indigo-300">🧠 Narasi Evaluasi Kognitif Otomatis (Berdasarkan JSON Jawaban &amp; Riwayat Percobaan)</h4>
+        <div id="modal-narrative" class="text-xs sm:text-sm text-slate-200 leading-relaxed space-y-2"></div>
+      </div>
+
+      <!-- Item-by-Item Breakdown -->
+      <div class="space-y-2">
+        <h4 class="text-xs font-extrabold uppercase tracking-wider text-slate-400">Rincian Jawaban Per Nomor Soal (Parsing dari `Detail_Jawaban_JSON`)</h4>
+        <div class="overflow-x-auto rounded-xl border border-slate-800">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-950 text-slate-400">
+              <tr>
+                <th class="px-3 py-2">No</th>
+                <th class="px-3 py-2">Karakter Soal</th>
+                <th class="px-3 py-2">Jawaban Siswa</th>
+                <th class="px-3 py-2">Kunci</th>
+                <th class="px-3 py-2">Status</th>
+              </tr>
+            </thead>
+            <tbody id="modal-items-tbody" class="divide-y divide-slate-800 bg-slate-950/60"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="flex justify-end">
+        <button onclick="closeStudentModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-white">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: GOOGLE SHEETS SYNC -->
+  <div id="sync-modal" class="hidden fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-lg w-full p-5 space-y-4">
+      <div class="flex items-center justify-between">
+        <h3 class="text-base font-extrabold text-white">🔄 Tarik Data Langsung dari Google Sheets</h3>
+        <button onclick="closeSyncModal()" class="text-slate-400 hover:text-white text-lg">✕</button>
+      </div>
+      <p class="text-xs text-slate-300 leading-relaxed">
+        Masukkan URL Web App Google Apps Script (<code class="text-sky-300">/exec</code>) yang memiliki fungsi <code class="text-sky-300">doGet(e)</code> untuk memuat seluruh data siswa dan kolom <code class="text-sky-300">Detail_Jawaban_JSON</code> secara langsung.
+      </p>
+      <div>
+        <label class="block text-xs font-bold text-slate-400 mb-1">URL Web App Google Apps Script</label>
+        <input id="gas-url-input" type="url" placeholder="https://script.google.com/macros/s/XXXXX/exec" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white" />
+      </div>
+      <div id="sync-modal-status" class="text-xs text-amber-300 hidden"></div>
+      <div class="flex justify-end gap-2">
+        <button onclick="closeSyncModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-xs font-bold text-slate-300">Batal</button>
+        <button onclick="fetchFromGoogleSheets()" class="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-xs font-bold text-white">Tarik Data Sekarang</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+// ============================================================================
+// 1. METADATA KARAKTER SOAL PER LEVEL & NOMOR (BLUEPRINT PSIKOMETRIK)
+// ============================================================================
+const ITEM_BLUEPRINT = {
+  "Level 1: Lab Ekosistem": [
+    { no: 1, tipe: "PG", skill: "Identifikasi Fakta Kuantitatif LHO", domain: "Literasi Data & Fakta", remediation: "Latih siswa memindai angka/satuan terukur dalam paragraf deskripsi." },
+    { no: 2, tipe: "PGK", skill: "Kalkulasi & Sintesis Hubungan Teknis LHO", domain: "Penalaran Kuantitatif", remediation: "Biasakan siswa melakukan verifikasi silang antar-kalimat sebelum mencentang multi-opsi." },
+    { no: 3, tipe: "BS", skill: "Evaluasi Objektivitas & Istilah Ilmiah", domain: "Analisis Kritis Teks", remediation: "Tegaskan perbedaan bahasa netral ilmiah vs ungkapan emosional penulis." },
+    { no: 4, tipe: "PG", skill: "Struktur LHO & Kalimat Definisi (Kopula)", domain: "Struktur & Kebahasaan", remediation: "Perkuat identifikasi verba kopula ('adalah', 'merupakan') pada bagian Pernyataan Umum." },
+    { no: 5, tipe: "PGK", skill: "Kelas Kata (Verba Material) & Preposisi", domain: "Kaidah Kebahasaan", remediation: "Latih pemilahan kata kerja tindakan fisik vs kata benda serta penulisan 'di' tempat." },
+    { no: 6, tipe: "BS", skill: "Penyuntingan Ejaan PUEBI & Pleonasme", domain: "Penyuntingan Bahasa", remediation: "Ingatkan bentuk baku KBBI ('aktivitas') dan penghilangan kata mubazir ('sangat... sekali')." },
+    { no: 7, tipe: "PG", skill: "Deteksi Opini Subjektif dalam Teks LHO", domain: "Analisis Kritis Teks", remediation: "Ajarkan penanda subjektivitas ('menurut saya', 'terlihat mistis') yang harus dihindari di LHO." },
+    { no: 8, tipe: "PGK", skill: "Inferensi Mekanisme Kerja Objek Observasi", domain: "Pemahaman Mendalam", remediation: "Latih pemetaan fungsi komponen fisik (misal: ijuk/kerikil sebagai penyaring)." },
+    { no: 9, tipe: "BS", skill: "Sistematika Pemaparan & Genre Teks", domain: "Struktur & Kebahasaan", remediation: "Bedakan teks LHO (deskripsi hasil amatan) dengan teks prosedur (langkah instruksi)." },
+    { no: 10, tipe: "MJD", skill: "Klasifikasi Kaidah Kebahasaan LHO", domain: "Kaidah Kebahasaan", remediation: "Ulangi pemetaan aturan cetak miring nama latin, verba aksi, dan kalimat efektif." }
+  ],
+  "Level 2: Studio Kampanye": [
+    { no: 1, tipe: "PG", skill: "Pesan Pokok & Bukti Faktual Poster", domain: "Pemahaman Visual-Verbal", remediation: "Latih siswa menghubungkan judul ajakan poster dengan kotak data pendukungnya." },
+    { no: 2, tipe: "PGK", skill: "Analisis Majas, Kontras Warna & Solusi Poster", domain: "Analisis Persuasif", remediation: "Bahas fungsi kontras tipografi dan majas hiperbola/metafora dalam menarik perhatian." },
+    { no: 3, tipe: "BS", skill: "Verifikasi Klaim Kuantitatif Media Poster", domain: "Literasi Data & Fakta", remediation: "Biasakan mencocokkan setiap pernyataan dengan angka yang tertera di infografik/poster." },
+    { no: 4, tipe: "PG", skill: "Perbedaan Iklan Niaga vs Poster Sosial", domain: "Analisis Genre Persuasif", remediation: "Tekankan ciri iklan komersial (promo harga/produk) vs layanan masyarakat (aksi sosial)." },
+    { no: 5, tipe: "PGK", skill: "Penafsiran Makna Kiasan Slogan", domain: "Pemahaman Makna Tersirat", remediation: "Latih membedah makna simbolis frasa kiasan seperti 'keringat disiplin' dan 'jalan pintas'." },
+    { no: 6, tipe: "BS", skill: "Adaptasi Peribahasa & Kalimat Imperatif", domain: "Kaidah Kebahasaan", remediation: "Perkuat pengenalan kalimat perintah/ajakan bertanda seru dan makna peribahasa." },
+    { no: 7, tipe: "PG", skill: "Fungsi Kalimat Interogatif Retoris Iklan", domain: "Analisis Persuasif", remediation: "Jelaskan bahwa pertanyaan retoris bertujuan menyentuh kesadaran, bukan meminta jawaban." },
+    { no: 8, tipe: "PGK", skill: "Identifikasi Daya Tarik Iklan Produk", domain: "Analisis Persuasif", remediation: "Petakan 3 pilar iklan produk: keunggulan spesifikasi, jaminan garansi, dan insentif harga." },
+    { no: 9, tipe: "BS", skill: "Evaluasi Kelayakan Tipografi & Desain Poster", domain: "Evaluasi Media Visual", remediation: "Tekankan syarat keterbacaan poster: kontras tinggi dan teks ringkas (bukan paragraf panjang)." },
+    { no: 10, tipe: "MJD", skill: "Klasifikasi Jenis Media & Kalimat Persuasif", domain: "Struktur & Kebahasaan", remediation: "Latih pembedaan definisi Slogan, Iklan Komersial, Poster Sosial, dan kalimat ajakan." }
+  ],
+  "Level 3: Ruang Redaksi": [
+    { no: 1, tipe: "PG", skill: "Pembacaan Data Dominan Infografik", domain: "Literasi Data & Fakta", remediation: "Latih siswa membandingkan panjang batang grafik dan persentase tertinggi." },
+    { no: 2, tipe: "PGK", skill: "Sintesis Multi-Data & Batas Aman Infografik", domain: "Penalaran Kuantitatif", remediation: "Biasakan membaca seluruh elemen infografik termasuk catatan kaki batas konsumsi." },
+    { no: 3, tipe: "BS", skill: "Evaluasi Kredibilitas Sumber & Istilah Sains", domain: "Analisis Kritis Teks", remediation: "Perkuat pemahaman fungsi rujukan lembaga resmi (Kemenkes) dalam membangun kepercayaan." },
+    { no: 4, tipe: "PG", skill: "Makna Istilah Teknis via Konteks Aposisi", domain: "Pemahaman Kosakata Sains", remediation: "Ajarkan teknik membaca keterangan setelah tanda pisah (—) untuk memahami istilah asing." },
+    { no: 5, tipe: "PGK", skill: "Pemetaan Alur Sebab-Akibat Ilmiah", domain: "Penalaran Kausalitas", remediation: "Latih siswa membuat bagan alur proses kerja teknologi (sebab → akibat → solusi)." },
+    { no: 6, tipe: "BS", skill: "Fungsi Konjungsi Kausalitas Antarkalimat", domain: "Kaidah Kebahasaan", remediation: "Tegaskan peran kata hubung 'Akibatnya' dan 'Oleh karena itu' dalam mengikat argumen." },
+    { no: 7, tipe: "PG", skill: "Komparasi Argumen Empiris vs Opini Pribadi", domain: "Analisis Kritis Teks", remediation: "Bandingkan kalimat berbasis data riset resmi dengan kalimat yang diawali 'Menurut perasaan saya'." },
+    { no: 8, tipe: "PGK", skill: "Evaluasi Kelogisan Solusi Ekonomi Sirkular", domain: "Pemahaman Mendalam", remediation: "Latih penilaian solusi berkelanjutan yang mengubah limbah menjadi produk bernilai." },
+    { no: 9, tipe: "BS", skill: "Identifikasi Struktur Artikel Ilmiah Populer", domain: "Struktur & Kebahasaan", remediation: "Petakan urutan artikel: Pendahuluan (isu) → Isi (bukti riset) → Penutup (rekomendasi)." },
+    { no: 10, tipe: "MJD", skill: "Pemetaan Ciri Kebahasaan Artikel Populer", domain: "Kaidah Kebahasaan", remediation: "Ulangi pembedaan analogi populer, istilah teknis sains, data kuantitatif, dan ajakan." }
+  ],
+  "Level 4: Ujian Akhir Detektif": [
+    { no: 1, tipe: "PG", skill: "Sintesis Dampak Terukur pada Poster Sosial", domain: "Pemahaman Visual-Verbal", remediation: "Fokuskan siswa mencari angka efisiensi/dampak pada poin-poin utama poster." },
+    { no: 2, tipe: "PGK", skill: "Evaluasi Nilai Karakter & Kontras Visual", domain: "Analisis Persuasif", remediation: "Latih menghubungkan pesan moral poster dengan pemilihan warna kontras yang komunikatif." },
+    { no: 3, tipe: "BS", skill: "Kalkulasi Akumulasi Data & Objektivitas LHO", domain: "Penalaran Kuantitatif", remediation: "Biasakan menjumlahkan dua data kuantitatif dalam bacaan sebelum menilai pernyataan." },
+    { no: 4, tipe: "PG", skill: "Pembedaan Kalimat Definisi vs Deskripsi", domain: "Struktur & Kebahasaan", remediation: "Perkuat pengenalan kalimat definisi (kopula 'adalah') di awal paragraf eksposisi/LHO." },
+    { no: 5, tipe: "PGK", skill: "Penyuntingan Jamak Ganda, Konjungsi & Gabungan Kata", domain: "Penyuntingan Bahasa", remediation: "Latih 3 kaidah PUEBI: 'para siswa', 'agar' (tanpa supaya), dan 'antihoaks' serangkai." },
+    { no: 6, tipe: "PG", skill: "Analisis Tujuan Penyertaan Data Riset", domain: "Analisis Kritis Teks", remediation: "Jelaskan fungsi kutipan riset universitas sebagai penguat argumen objektif penulis." },
+    { no: 7, tipe: "PGK", skill: "Identifikasi Majas Personifikasi & Imperatif", domain: "Analisis Persuasif", remediation: "Bahas contoh majas personifikasi ('Bumi merintih') dan kalimat larangan ('Jangan...')." },
+    { no: 8, tipe: "BS", skill: "Deteksi Penanda Asumsi vs Audit Faktual", domain: "Analisis Kritis Teks", remediation: "Soroti kata 'sepertinya' dan 'mungkin' sebagai ciri klaim yang belum teruji." },
+    { no: 9, tipe: "MJD", skill: "Sintesis Karakteristik Lintas Genre Teks", domain: "Struktur & Kebahasaan", remediation: "Bandingkan tujuan utama LHO, Iklan Layanan Masyarakat, Artikel Populer, dan Fakta." },
+    { no: 10, tipe: "MJD", skill: "Penyuntingan Komprehensif PUEBI & KBBI", domain: "Penyuntingan Bahasa", remediation: "Latih penulisan 'di laboratorium', 'analisis/praktik', 'pascapanen', dan cetak miring." }
+  ]
+};
+
+function getItemMeta(levelName, qNo, fallbackTipe = "PG") {
+  const list = ITEM_BLUEPRINT[levelName];
+  if (list && list[qNo - 1]) return list[qNo - 1];
+  return {
+    no: qNo,
+    tipe: fallbackTipe,
+    skill: `Indikator Soal Nomor ${qNo} (${fallbackTipe})`,
+    domain: "Pemahaman Bacaan & Kebahasaan",
+    remediation: "Tinjau kembali teks stimulus dan cocokkan bukti kalimat secara cermat."
+  };
+}
+
+// ============================================================================
+// 2. DATA STORE & SAMPLE DATASET (TERMASUK MULTI-PERCOBAAN / REMEDIAL)
+// ============================================================================
+let rawRecords = [];
+let enrichedRecords = [];
+let filteredRecords = [];
+let chartItemsInstance = null;
+let chartTypesInstance = null;
+
+function generateDemoDataset() {
+  const demo = [
+    {
+      Timestamp: "2026-11-17 08:05:12", Nama_Siswa: "Almeera Zahra", Kelas: "8-A", Level_Misi: "Level 1: Lab Ekosistem",
+      Skor_Total: 90, Benar_Total: 9, Salah_Total: 1, Status_Lulus: "TUNTAS",
+      Detail_Jawaban_JSON: [
+        { no: 1, tipe: "PG", jawaban: "C", kunci: "C", status: "Benar" },
+        { no: 2, tipe: "PGK", jawaban: "A,B,D", kunci: "A,B,D", status: "Benar" },
+        { no: 3, tipe: "BS", jawaban: "1-S, 2-B, 3-B", kunci: "1-S, 2-B, 3-B", status: "Benar" },
+        { no: 4, tipe: "PG", jawaban: "B", kunci: "B", status: "Benar" },
+        { no: 5, tipe: "PGK", jawaban: "A,B,D", kunci: "A,B,D", status: "Benar" },
+        { no: 6, tipe: "BS", jawaban: "1-B, 2-B, 3-B", kunci: "1-B, 2-S, 3-B", status: "Salah" },
+        { no: 7, tipe: "PG", jawaban: "A", kunci: "A", status: "Benar" },
+        { no: 8, tipe: "PGK", jawaban: "A,B,D", kunci: "A,B,D", status: "Benar" },
+        { no: 9, tipe: "BS", jawaban: "1-B, 2-B, 3-S", kunci: "1-B, 2-B, 3-S", status: "Benar" },
+        { no: 10, tipe: "MJD", jawaban: "1-B, 2-A, 3-D, 4-C", kunci: "1-B, 2-A, 3-D, 4-C", status: "Benar" }
+      ]
+    },
+    {
+      Timestamp: "2026-11-17 08:10:30", Nama_Siswa: "Raka Pratama", Kelas: "8-A", Level_Misi: "Level 1: Lab Ekosistem",
+      Skor_Total: 50, Benar_Total: 5, Salah_Total: 5, Status_Lulus: "REMEDIAL",
+      Detail_Jawaban_JSON: [
+        { no: 1, tipe: "PG", jawaban: "C", kunci: "C", status: "Benar" },
+        { no: 2, tipe: "PGK", jawaban: "A,B,C", kunci: "A,B,D", status: "Salah" },
+        { no: 3, tipe: "BS", jawaban: "1-S, 2-B, 3-B", kunci: "1-S, 2-B, 3-B", status: "Benar" },
+        { no: 4, tipe: "PG", jawaban: "D", kunci: "B", status: "Salah" },
+        { no: 5, tipe: "PGK", jawaban: "A,C,D", kunci: "A,B,D", status: "Salah" },
+        { no: 6, tipe: "BS", jawaban: "1-B, 2-B, 3-B", kunci: "1-B, 2-S, 3-B", status: "Salah" },
+        { no: 7, tipe: "PG", jawaban: "A", kunci: "A", status: "Benar" },
+        { no: 8, tipe: "PGK", jawaban: "A,B,D", kunci: "A,B,D", status: "Benar" },
+        { no: 9, tipe: "BS", jawaban: "1-B, 2-B, 3-B", kunci: "1-B, 2-B, 3-S", status: "Salah" },
+        { no: 10, tipe: "MJD", jawaban: "1-B, 2-A, 3-D, 4-C", kunci: "1-B, 2-A, 3-D, 4-C", status: "Benar" }
+      ]
+    },
+    {
+      Timestamp: "2026-11-17 08:25:18", Nama_Siswa: "Raka Pratama", Kelas: "8-A", Level_Misi: "Level 1: Lab Ekosistem",
+      Skor_Total: 80, Benar_Total: 8, Salah_Total: 2, Status_Lulus: "TUNTAS",
+      Detail_Jawaban_JSON: [
+        { no: 1, tipe: "PG", jawaban: "C", kunci: "C", status: "Benar" },
+        { no: 2, tipe: "PGK", jawaban: "A,B,D", kunci: "A,B,D", status: "Benar" },
+        { no: 3, tipe: "BS", jawaban: "1-S, 2-B, 3-B", kunci: "1-S, 2-B, 3-B", status: "Benar" },
+        { no: 4, tipe: "PG", jawaban: "B", kunci: "B", status: "Benar" },
+        { no: 5, tipe: "PGK", jawaban: "A,C,D", kunci: "A,B,D", status: "Salah" },
+        { no: 6, tipe: "BS", jawaban: "1-B, 2-B, 3-B", kunci: "1-B, 2-S, 3-B", status: "Salah" },
+        { no: 7, tipe: "PG", jawaban: "A", kunci: "A", status: "Benar" },
+        { no: 8, tipe: "PGK", jawaban: "A,B,D", kunci: "A,B,D", status: "Benar" },
+        { no: 9, tipe: "BS", jawaban: "1-B, 2-B, 3-S", kunci: "1-B, 2-B, 3-S", status: "Benar" },
+        { no: 10, tipe: "MJD", jawaban: "1-B, 2-A, 3-D, 4-C", kunci: "1-B, 2-A, 3-D, 4-C", status: "Benar" }
+      ]
+    },
+    {
+      Timestamp: "2026-11-17 08:14:05", Nama_Siswa: "Jalu Mahendra", Kelas: "8-B", Level_Misi: "Level 2: Studio Kampanye",
+      Skor_Total: 60, Benar_Total: 6, Salah_Total: 4, Status_Lulus: "REMEDIAL",
+      Detail_Jawaban_JSON: [
+        { no: 1, tipe: "PG", jawaban: "B", kunci: "B", status: "Benar" },
+        { no: 2, tipe: "PGK", jawaban: "A,B,D", kunci: "A,B,C", status: "Salah" },
+        { no: 3, tipe: "BS", jawaban: "1-B, 2-S, 3-B", kunci: "1-B, 2-S, 3-B", status: "Benar" },
+        { no: 4, tipe: "PG", jawaban: "A", kunci: "A", status: "Benar" },
+        { no: 5, tipe: "PGK", jawaban: "A,B,D", kunci: "A,B,C", status: "Salah" },
+        { no: 6, tipe: "BS", jawaban: "1-B, 2-B, 3-S", kunci: "1-B, 2-B, 3-S", status: "Benar" },
+        { no: 7, tipe: "PG", jawaban: "A", kunci: "B", status: "Salah" },
+        { no: 8, tipe: "PGK", jawaban: "A,B,C", kunci: "A,B,C", status: "Benar" },
+        { no: 9, tipe: "BS", jawaban: "1-B, 2-B, 3-B", kunci: "1-B, 2-B, 3-S", status: "Salah" },
+        { no: 10, tipe: "MJD", jawaban: "1-C, 2-B, 3-A, 4-D", kunci: "1-C, 2-B, 3-A, 4-D", status: "Benar" }
+      ]
+    },
+    {
+      Timestamp: "2026-11-17 08:32:50", Nama_Siswa: "Nadia Putri", Kelas: "8-B", Level_Misi: "Level 3: Ruang Redaksi",
+      Skor_Total: 70, Benar_Total: 7, Salah_Total: 3, Status_Lulus: "REMEDIAL",
+      Detail_Jawaban_JSON: [
+        { no: 1, tipe: "PG", jawaban: "C", kunci: "C", status: "Benar" },
+        { no: 2, tipe: "PGK", jawaban: "A,B,C", kunci: "A,B,C", status: "Benar" },
+        { no: 3, tipe: "BS", jawaban: "1-B, 2-B, 3-S", kunci: "1-B, 2-B, 3-S", status: "Benar" },
+        { no: 4, tipe: "PG", jawaban: "A", kunci: "B", status: "Salah" },
+        { no: 5, tipe: "PGK", jawaban: "A,B,D", kunci: "A,B,C", status: "Salah" },
+        { no: 6, tipe: "BS", jawaban: "1-B, 2-B, 3-S", kunci: "1-B, 2-B, 3-S", status: "Benar" },
+        { no: 7, tipe: "PG", jawaban: "A", kunci: "A", status: "Benar" },
+        { no: 8, tipe: "PGK", jawaban: "A,B,C", kunci: "A,B,C", status: "Benar" },
+        { no: 9, tipe: "BS", jawaban: "1-B, 2-B, 3-B", kunci: "1-B, 2-B, 3-S", status: "Salah" },
+        { no: 10, tipe: "MJD", jawaban: "1-C, 2-A, 3-B, 4-D", kunci: "1-C, 2-A, 3-B, 4-D", status: "Benar" }
+      ]
+    },
+    {
+      Timestamp: "2026-11-17 08:48:11", Nama_Siswa: "Nadia Putri", Kelas: "8-B", Level_Misi: "Level 3: Ruang Redaksi",
+      Skor_Total: 100, Benar_Total: 10, Salah_Total: 0, Status_Lulus: "TUNTAS",
+      Detail_Jawaban_JSON: [
+        { no: 1, tipe: "PG", jawaban: "C", kunci: "C", status: "Benar" },
+        { no: 2, tipe: "PGK", jawaban: "A,B,C", kunci: "A,B,C", status: "Benar" },
+        { no: 3, tipe: "BS", jawaban: "1-B, 2-B, 3-S", kunci: "1-B, 2-B, 3-S", status: "Benar" },
+        { no: 4, tipe: "PG", jawaban: "B", kunci: "B", status: "Benar" },
+        { no: 5, tipe: "PGK", jawaban: "A,B,C", kunci: "A,B,C", status: "Benar" },
+        { no: 6, tipe: "BS", jawaban: "1-B, 2-B, 3-S", kunci: "1-B, 2-B, 3-S", status: "Benar" },
+        { no: 7, tipe: "PG", jawaban: "A", kunci: "A", status: "Benar" },
+        { no: 8, tipe: "PGK", jawaban: "A,B,C", kunci: "A,B,C", status: "Benar" },
+        { no: 9, tipe: "BS", jawaban: "1-B, 2-B, 3-S", kunci: "1-B, 2-B, 3-S", status: "Benar" },
+        { no: 10, tipe: "MJD", jawaban: "1-C, 2-A, 3-B, 4-D", kunci: "1-C, 2-A, 3-B, 4-D", status: "Benar" }
+      ]
+    }
+  ];
+  return demo;
+}
+
+// ============================================================================
+// 3. ATTEMPT TRACKING & JSON NORMALIZATION ENGINE
+// ============================================================================
+function normalizeAndComputeAttempts(records) {
+  // Sort chronologically by Timestamp
+  const sorted = [...records].sort((a, b) => String(a.Timestamp || "").localeCompare(String(b.Timestamp || "")));
+
+  // Group by (Nama_Siswa + Kelas + Level_Misi) to track attempt sequence
+  const groups = {};
+  sorted.forEach((rec, idx) => {
+    const nama = String(rec.Nama_Siswa || "Anonim").trim();
+    const kelas = String(rec.Kelas || "-").trim();
+    const level = String(rec.Level_Misi || "-").trim();
+    const key = `${nama.toLowerCase()}||${kelas.toLowerCase()}||${level.toLowerCase()}`;
+
+    if (!groups[key]) groups[key] = [];
+
+    // Parse Detail_Jawaban_JSON safely (or reconstruct from Q1..Q10 columns if needed)
+    let details = [];
+    if (Array.isArray(rec.Detail_Jawaban_JSON)) {
+      details = rec.Detail_Jawaban_JSON;
+    } else if (typeof rec.Detail_Jawaban_JSON === "string" && rec.Detail_Jawaban_JSON.trim().startsWith("[")) {
+      try { details = JSON.parse(rec.Detail_Jawaban_JSON); } catch (e) {}
+    }
+    if (details.length === 0) {
+      for (let q = 1; q <= 10; q++) {
+        const st = rec[`Q${q}_Status`];
+        const jw = rec[`Q${q}_Jawaban`];
+        if (st && st !== "-") {
+          const meta = getItemMeta(level, q);
+          details.push({ no: q, tipe: meta.tipe, jawaban: String(jw || "-"), kunci: "-", status: String(st) });
+        }
+      }
+    }
+
+    const enriched = {
+      ...rec,
+      _uid: `rec_${idx}_${Math.random().toString(36).slice(2, 7)}`,
+      Nama_Siswa: nama,
+      Kelas: kelas,
+      Level_Misi: level,
+      Skor_Total: Number(rec.Skor_Total || 0),
+      Benar_Total: Number(rec.Benar_Total || 0),
+      Salah_Total: Number(rec.Salah_Total || 0),
+      Status_Lulus: Number(rec.Skor_Total || 0) >= 75 ? "TUNTAS" : "REMEDIAL",
+      details: details
+    };
+    groups[key].push(enriched);
+  });
+
+  // Annotate attempt number, total attempts, delta score from 1st attempt, and flags
+  const result = [];
+  Object.values(groups).forEach(arr => {
+    const firstScore = arr[0].Skor_Total;
+    const maxScore = Math.max(...arr.map(x => x.Skor_Total));
+    let bestAssigned = false;
+
+    arr.forEach((item, i) => {
+      item.attemptNo = i + 1;
+      item.totalAttempts = arr.length;
+      item.isFirst = (i === 0);
+      item.isLatest = (i === arr.length - 1);
+      item.isBest = (!bestAssigned && item.Skor_Total === maxScore);
+      if (item.isBest) bestAssigned = true;
+      item.deltaFromFirst = item.Skor_Total - firstScore;
+      item.firstScore = firstScore;
+      result.push(item);
+    });
+  });
+
+  return result;
+}
+
+// ============================================================================
+// 4. NATURAL LANGUAGE DIAGNOSTIC GENERATOR (INDIVIDU & KLASIKAL)
+// ============================================================================
+function generateIndividualNarrative(rec) {
+  const paragraphs = [];
+
+  // 1. Analisis Status & Riwayat Percobaan (Attempt Dynamics)
+  if (rec.totalAttempts === 1) {
+    if (rec.Status_Lulus === "TUNTAS") {
+      paragraphs.push(
+        `<strong>1. Status Ketuntasan &amp; Percobaan:</strong> <strong>${rec.Nama_Siswa}</strong> menyelesaikan <em>${rec.Level_Misi}</em> pada <strong>percobaan pertama (ke-1)</strong> dengan skor <strong>${rec.Skor_Total}</strong> (<span class="text-emerald-400 font-bold">TUNTAS</span>). Hal ini menunjukkan kesiapan konsep awal yang sudah sangat solid tanpa memerlukan pengulangan remedial.`
+      );
+    } else {
+      paragraphs.push(
+        `<strong>1. Status Ketuntasan &amp; Percobaan:</strong> Pada <strong>percobaan pertama (ke-1)</strong>, <strong>${rec.Nama_Siswa}</strong> memperoleh skor <strong>${rec.Skor_Total}</strong> (<span class="text-rose-400 font-bold">REMEDIAL</span>, terjawab benar ${rec.Benar_Total} dari 10 butir). Siswa belum melakukan percobaan ulang sehingga perlu diarahkan mempelajari pembahasan interaktif pada nomor yang keliru.`
+      );
+    }
+  } else {
+    const deltaStr = rec.deltaFromFirst > 0
+      ? `<span class="text-emerald-400 font-bold">meningkat +${rec.deltaFromFirst} poin</span> dibanding percobaan ke-1 (skor awal: ${rec.firstScore})`
+      : rec.deltaFromFirst === 0
+        ? `stagnan (tetap ${rec.firstScore}) dibanding percobaan ke-1`
+        : `<span class="text-rose-400 font-bold">turun ${rec.deltaFromFirst} poin</span> dibanding percobaan ke-1 (skor awal: ${rec.firstScore})`;
+
+    paragraphs.push(
+      `<strong>1. Dinamika Percobaan Remedial:</strong> Catatan ini merupakan <strong>percobaan ke-${rec.attemptNo} dari total ${rec.totalAttempts} kali percobaan</strong> pada <em>${rec.Level_Misi}</em>. Capaian skor saat ini (<strong>${rec.Skor_Total}</strong> — <strong>${rec.Status_Lulus}</strong>) tercatat ${deltaStr}. ${rec.deltaFromFirst > 0 ? "Siswa terbukti mampu memanfaatkan fitur pembahasan/hint untuk memperbaiki miskonsepsi sebelumnya." : "Perlu pendampingan guru karena pengulangan belum menghasilkan kenaikan skor."}`
+    );
+  }
+
+  // 2. Analisis Berdasarkan Karakter Soal (dari Detail_Jawaban_JSON)
+  const wrongItems = rec.details.filter(d => d.status === "Salah");
+  const rightItems = rec.details.filter(d => d.status === "Benar");
+
+  if (wrongItems.length === 0) {
+    paragraphs.push(
+      `<strong>2. Profil Penguasaan Karakter Soal:</strong> Luar biasa! Seluruh karakter soal—mulai dari <em>Pilihan Ganda</em>, <em>PG Kompleks (multi-jawaban)</em>, <em>Benar-Salah</em>, hingga <em>Menjodohkan</em>—berhasil dijawab dengan akurasi <strong>100%</strong>.`
+    );
+  } else {
+    // Group mistakes by question type & cognitive domain
+    const wrongByType = {};
+    const weakSkills = [];
+    wrongItems.forEach(w => {
+      wrongByType[w.tipe] = (wrongByType[w.tipe] || 0) + 1;
+      const meta = getItemMeta(rec.Level_Misi, w.no, w.tipe);
+      weakSkills.push(`<strong>No. ${w.no} (${w.tipe})</strong> pada aspek <em>${meta.skill}</em> [menjawab <code>${w.jawaban}</code>, seharusnya <code>${w.kunci}</code>]`);
+    });
+
+    const typeNames = {
+      PG: "Pilihan Ganda Tunggal",
+      PGK: "PG Kompleks (Multi-Jawaban)",
+      BS: "Benar-Salah (Analisis Pernyataan)",
+      MJD: "Menjodohkan (Pemetaan Konsep)"
+    };
+    const dominantWrongType = Object.entries(wrongByType).sort((a, b) => b[1] - a[1])[0];
+
+    paragraphs.push(
+      `<strong>2. Diagnosis Karakter Soal (Berdasarkan JSON Jawaban):</strong> Siswa mengalami kekeliruan pada <strong>${wrongItems.length} butir soal</strong>, dengan konsentrasi kesalahan tertinggi pada bentuk <strong>${typeNames[dominantWrongType[0]] || dominantWrongType[0]}</strong> (${dominantWrongType[1]} butir salah). Rincian butir yang meleset: ${weakSkills.join("; ")}.`
+    );
+
+    // 3. Rekomendasi Tindak Lanjut Spesifik
+    const firstWeakMeta = getItemMeta(rec.Level_Misi, wrongItems[0].no, wrongItems[0].tipe);
+    const pgkMistake = wrongItems.find(w => w.tipe === "PGK");
+    let extraTip = "";
+    if (pgkMistake) {
+      extraTip = ` Khusus pada soal <strong>PG Kompleks (No. ${pgkMistake.no})</strong>, siswa memilih <code>${pgkMistake.jawaban}</code> (kunci: <code>${pgkMistake.kunci}</code>), yang menandakan siswa terjebak pada 1 opsi pengecoh saat harus memverifikasi 3 pernyataan sekaligus.`;
+    }
+    paragraphs.push(
+      `<strong>3. Rekomendasi Intervensi Guru:</strong> ${firstWeakMeta.remediation}${extraTip}`
+    );
+  }
+
+  return paragraphs.map(p => `<p>${p}</p>`).join("");
+}
+
+function generateClassNarrative(records) {
+  if (records.length === 0) {
+    return `<p class="text-slate-400">Belum ada data rekaman pada filter yang dipilih.</p>`;
+  }
+
+  const totalRec = records.length;
+  const uniqueKeys = new Set(records.map(r => `${r.Nama_Siswa}||${r.Kelas}`));
+  const tuntasCount = records.filter(r => r.Status_Lulus === "TUNTAS").length;
+  const passPct = ((tuntasCount / totalRec) * 100).toFixed(1);
+  const avgScore = (records.reduce((s, r) => s + r.Skor_Total, 0) / totalRec).toFixed(1);
+
+  // Item & Type accuracy aggregation
+  const typeStats = {};
+  const skillStats = {};
+
+  records.forEach(r => {
+    r.details.forEach(d => {
+      if (!typeStats[d.tipe]) typeStats[d.tipe] = { total: 0, benar: 0 };
+      typeStats[d.tipe].total++;
+      if (d.status === "Benar") typeStats[d.tipe].benar++;
+
+      const meta = getItemMeta(r.Level_Misi, d.no, d.tipe);
+      if (!skillStats[meta.domain]) skillStats[meta.domain] = { total: 0, benar: 0 };
+      skillStats[meta.domain].total++;
+      if (d.status === "Benar") skillStats[meta.domain].benar++;
+    });
+  });
+
+  const sortedTypes = Object.entries(typeStats)
+    .map(([t, v]) => ({ tipe: t, pct: (v.benar / v.total) * 100 }))
+    .sort((a, b) => a.pct - b.pct);
+
+  const sortedDomains = Object.entries(skillStats)
+    .map(([dom, v]) => ({ domain: dom, pct: (v.benar / v.total) * 100 }))
+    .sort((a, b) => a.pct - b.pct);
+
+  const weakestType = sortedTypes[0];
+  const strongestType = sortedTypes[sortedTypes.length - 1];
+  const weakestDomain = sortedDomains[0];
+
+  const typeLabelMap = {
+    PG: "Pilihan Ganda Biasa (PG)",
+    PGK: "Pilihan Ganda Kompleks (PGK)",
+    BS: "Benar-Salah (BS)",
+    MJD: "Menjodohkan (MJD)"
+  };
+
+  // Multi-attempt remedial analysis
+  const repeaters = records.filter(r => r.attemptNo > 1);
+  let remedialText = "";
+  if (repeaters.length > 0) {
+    const avgGain = (repeaters.reduce((s, r) => s + r.deltaFromFirst, 0) / repeaters.length).toFixed(1);
+    remedialText = `Tercatat ada <strong>${repeaters.length} percobaan pengulangan (remedial mandiri)</strong> dengan rata-rata kenaikan skor sebesar <strong>+${avgGain} poin</strong> dibanding percobaan pertama, membuktikan efektivitas fitur umpan balik interaktif pada game.`;
+  } else {
+    remedialText = `Seluruh data yang ditampilkan saat ini merupakan <strong>percobaan tunggal/pertama</strong> (belum ada pengulangan misi pada filter aktif).`;
+  }
+
+  return `
+    <p><strong>1. Ringkasan Capaian &amp; Ketuntasan:</strong> Dari total <strong>${totalRec} rekaman uji</strong> (${uniqueKeys.size} siswa unik), rata-rata skor mencapai <strong>${avgScore}</strong> dengan tingkat ketuntasan klasikal sebesar <strong>${passPct}%</strong> (${tuntasCount} tuntas, ${totalRec - tuntasCount} remedial). ${remedialText}</p>
+    <p><strong>2. Analisis Karakteristik Bentuk Soal:</strong> Berdasarkan pemindaian kolom <code>Detail_Jawaban_JSON</code>, karakter soal yang paling menantang bagi siswa adalah <strong>${weakestType ? typeLabelMap[weakestType.tipe] : "-"}</strong> dengan tingkat akurasi hanya <strong>${weakestType ? weakestType.pct.toFixed(1) : 0}%</strong>, sedangkan performa tertinggi dicapai pada bentuk <strong>${strongestType ? typeLabelMap[strongestType.tipe] : "-"}</strong> (<strong>${strongestType ? strongestType.pct.toFixed(1) : 0}%</strong>).</p>
+    <p><strong>3. Fokus Penguatan Kisi-Kisi Menjelang ASAS:</strong> Domain kognitif yang paling membutuhkan penguatan di kelas adalah <strong>${weakestDomain ? weakestDomain.domain : "-"}</strong> (akurasi rata-rata <strong>${weakestDomain ? weakestDomain.pct.toFixed(1) : 0}%</strong>). Disarankan guru membahas kembali mekanisme eliminasi pengecoh pada soal multi-jawaban dan ketelitian membaca data stimulus sebelum ujian berlangsung.</p>
+  `;
+}
+
+// ============================================================================
+// 5. FILTERING, KPI, CHARTS & TABLE RENDERERS
+// ============================================================================
+function populateFilterDropdowns() {
+  const kelasSet = new Set(enrichedRecords.map(r => r.Kelas));
+  const levelSet = new Set(enrichedRecords.map(r => r.Level_Misi));
+
+  const selKelas = document.getElementById("filter-kelas");
+  const curK = selKelas.value;
+  selKelas.innerHTML = `<option value="ALL">Semua Kelas</option>`;
+  Array.from(kelasSet).sort().forEach(k => {
+    selKelas.innerHTML += `<option value="${k}">${k}</option>`;
+  });
+  if ([...kelasSet].includes(curK)) selKelas.value = curK;
+
+  const selLevel = document.getElementById("filter-level");
+  const curL = selLevel.value;
+  selLevel.innerHTML = `<option value="ALL">Semua Level Misi</option>`;
+  Array.from(levelSet).sort().forEach(l => {
+    selLevel.innerHTML += `<option value="${l}">${l}</option>`;
+  });
+  if ([...levelSet].includes(curL)) selLevel.value = curL;
+}
+
+function applyFilters() {
+  const fKelas = document.getElementById("filter-kelas").value;
+  const fLevel = document.getElementById("filter-level").value;
+  const fMode = document.getElementById("filter-attempt-mode").value;
+  const fSearch = document.getElementById("filter-search").value.trim().toLowerCase();
+
+  filteredRecords = enrichedRecords.filter(r => {
+    if (fKelas !== "ALL" && r.Kelas !== fKelas) return false;
+    if (fLevel !== "ALL" && r.Level_Misi !== fLevel) return false;
+    if (fMode === "FIRST_ATTEMPT" && !r.isFirst) return false;
+    if (fMode === "LATEST_ATTEMPT" && !r.isLatest) return false;
+    if (fMode === "BEST_ATTEMPT" && !r.isBest) return false;
+    if (fSearch && !r.Nama_Siswa.toLowerCase().includes(fSearch)) return false;
+    return true;
+  });
+
+  renderKPIs();
+  document.getElementById("class-narrative-box").innerHTML = generateClassNarrative(filteredRecords);
+  renderCharts();
+  renderItemMatrix();
+  renderStudentTable();
+}
+
+function renderKPIs() {
+  const n = filteredRecords.length;
+  const uniqueStudents = new Set(filteredRecords.map(r => `${r.Nama_Siswa}||${r.Kelas}`)).size;
+  const avg = n > 0 ? (filteredRecords.reduce((s, r) => s + r.Skor_Total, 0) / n) : 0;
+  const passCount = filteredRecords.filter(r => r.Status_Lulus === "TUNTAS").length;
+  const passPct = n > 0 ? (passCount / n) * 100 : 0;
+
+  // Growth calculation across multi-attempt records in filtered set (or global repeaters matching kelas/level)
+  const repeaters = filteredRecords.filter(r => r.attemptNo > 1);
+  const avgGrowth = repeaters.length > 0
+    ? (repeaters.reduce((s, r) => s + r.deltaFromFirst, 0) / repeaters.length)
+    : 0;
+
+  // Weakest cognitive domain
+  const domainMap = {};
+  filteredRecords.forEach(r => {
+    r.details.forEach(d => {
+      const meta = getItemMeta(r.Level_Misi, d.no, d.tipe);
+      if (!domainMap[meta.domain]) domainMap[meta.domain] = { t: 0, b: 0 };
+      domainMap[meta.domain].t++;
+      if (d.status === "Benar") domainMap[meta.domain].b++;
+    });
+  });
+  const weakest = Object.entries(domainMap)
+    .map(([k, v]) => ({ k, pct: (v.b / v.t) * 100 }))
+    .sort((a, b) => a.pct - b.pct)[0];
+
+  document.getElementById("kpi-total-records").textContent = n;
+  document.getElementById("kpi-unique-students").textContent = `(${uniqueStudents} siswa unik)`;
+  document.getElementById("kpi-avg-score").textContent = avg.toFixed(1);
+  document.getElementById("kpi-pass-rate").textContent = `${passPct.toFixed(0)}%`;
+  document.getElementById("kpi-pass-count").textContent = `(${passCount} tuntas)`;
+  document.getElementById("kpi-growth").textContent = `${avgGrowth >= 0 ? "+" : ""}${avgGrowth.toFixed(1)}`;
+  document.getElementById("kpi-weakest-skill").textContent = weakest ? `${weakest.k} (${weakest.pct.toFixed(0)}%)` : "-";
+}
+
+function renderCharts() {
+  // Chart 1: Accuracy per Item Q1..Q10
+  const itemCorrect = Array(10).fill(0);
+  const itemTotal = Array(10).fill(0);
+  filteredRecords.forEach(r => {
+    r.details.forEach(d => {
+      if (d.no >= 1 && d.no <= 10) {
+        itemTotal[d.no - 1]++;
+        if (d.status === "Benar") itemCorrect[d.no - 1]++;
+      }
+    });
+  });
+  const itemPcts = itemTotal.map((t, i) => t > 0 ? Math.round((itemCorrect[i] / t) * 100) : 0);
+
+  if (chartItemsInstance) chartItemsInstance.destroy();
+  chartItemsInstance = new Chart(document.getElementById("chart-items"), {
+    type: "bar",
+    data: {
+      labels: ["Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9", "Q10"],
+      datasets: [{
+        label: "% Ketuntasan Butir",
+        data: itemPcts,
+        backgroundColor: itemPcts.map(p => p >= 75 ? "#10b981" : p >= 50 ? "#38bdf8" : "#f43f5e"),
+        borderRadius: 6
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      scales: {
+        y: { beginAtZero: true, max: 100, ticks: { color: "#94a3b8" }, grid: { color: "rgba(148,163,184,0.1)" } },
+        x: { ticks: { color: "#cbd5e1" }, grid: { display: false } }
+      },
+      plugins: { legend: { display: false } }
+    }
+  });
+
+  // Chart 2: Accuracy by Question Type (PG, PGK, BS, MJD)
+  const types = ["PG", "PGK", "BS", "MJD"];
+  const typePcts = types.map(tp => {
+    let t = 0, b = 0;
+    filteredRecords.forEach(r => r.details.forEach(d => {
+      if (d.tipe === tp) { t++; if (d.status === "Benar") b++; }
+    }));
+    return t > 0 ? Math.round((b / t) * 100) : 0;
+  });
+
+  if (chartTypesInstance) chartTypesInstance.destroy();
+  chartTypesInstance = new Chart(document.getElementById("chart-types"), {
+    type: "radar",
+    data: {
+      labels: ["PG Biasa", "PG Kompleks (Multi)", "Benar-Salah", "Menjodohkan"],
+      datasets: [{
+        label: "Akurasi Kognitif (%)",
+        data: typePcts,
+        backgroundColor: "rgba(56, 189, 248, 0.22)",
+        borderColor: "#38bdf8",
+        pointBackgroundColor: "#38bdf8",
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      scales: {
+        r: {
+          beginAtZero: true, max: 100,
+          ticks: { display: false },
+          grid: { color: "rgba(148,163,184,0.18)" },
+          angleLines: { color: "rgba(148,163,184,0.18)" },
+          pointLabels: { color: "#e2e8f0", font: { size: 11, weight: "bold" } }
+        }
+      },
+      plugins: { legend: { display: false } }
+    }
+  });
+}
+
+function renderItemMatrix() {
+  const tbody = document.getElementById("item-matrix-tbody");
+  tbody.innerHTML = "";
+  const activeLevel = document.getElementById("filter-level").value;
+
+  for (let q = 1; q <= 10; q++) {
+    let total = 0, benar = 0;
+    const wrongDistractors = {};
+    let sampleType = "PG";
+
+    filteredRecords.forEach(r => {
+      const d = r.details.find(x => x.no === q);
+      if (d) {
+        total++;
+        sampleType = d.tipe;
+        if (d.status === "Benar") {
+          benar++;
+        } else {
+          wrongDistractors[d.jawaban] = (wrongDistractors[d.jawaban] || 0) + 1;
+        }
+      }
+    });
+
+    const pct = total > 0 ? (benar / total) * 100 : 0;
+    const meta = activeLevel !== "ALL"
+      ? getItemMeta(activeLevel, q, sampleType)
+      : { no: q, tipe: sampleType, skill: `Kompetensi Lintas Level Butir #${q} (${sampleType})`, remediation: "Gunakan filter Level Misi spesifik untuk melihat indikator butir secara mendetail." };
+
+    const topWrong = Object.entries(wrongDistractors).sort((a, b) => b[1] - a[1])[0];
+    const distractorBadge = topWrong
+      ? `<span class="px-2 py-0.5 rounded bg-rose-500/15 text-rose-300 font-mono">${topWrong[0]} (${topWrong[1]}x)</span>`
+      : `<span class="text-slate-500">-</span>`;
+
+    let diagText = "";
+    if (total === 0) diagText = "Belum ada data.";
+    else if (pct >= 80) diagText = `<span class="text-emerald-400 font-semibold">Sangat Dikuasai.</span> Siswa mampu mengekstraksi bukti teks dengan akurat.`;
+    else if (pct >= 55) diagText = `<span class="text-sky-300 font-semibold">Cukup Baik.</span> Sebagian kecil siswa masih kurang teliti pada detail pengecoh.`;
+    else diagText = `<span class="text-rose-400 font-semibold">Titik Rawan Miskonsepsi!</span> ${meta.remediation}`;
+
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td class="px-3 py-2.5 font-extrabold text-white">Q${q}</td>
+      <td class="px-3 py-2.5 font-mono text-sky-300">${meta.tipe}</td>
+      <td class="px-3 py-2.5 text-slate-200">${meta.skill}</td>
+      <td class="px-3 py-2.5 text-center font-extrabold ${pct >= 75 ? 'text-emerald-400' : pct >= 50 ? 'text-amber-300' : 'text-rose-400'}">${pct.toFixed(0)}%</td>
+      <td class="px-3 py-2.5">${distractorBadge}</td>
+      <td class="px-3 py-2.5 text-slate-300 leading-relaxed">${diagText}</td>
+    `;
+    tbody.appendChild(tr);
+  }
+}
+
+function renderStudentTable() {
+  const tbody = document.getElementById("student-tbody");
+  tbody.innerHTML = "";
+
+  filteredRecords.forEach(rec => {
+    const attemptBadge = rec.totalAttempts > 1
+      ? `<span class="px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 font-bold">Ke-${rec.attemptNo} / ${rec.totalAttempts}</span>`
+      : `<span class="px-2 py-0.5 rounded-full bg-slate-800 text-slate-400">Ke-1 (Tunggal)</span>`;
+
+    let trendHtml = `<span class="text-slate-500">Awal</span>`;
+    if (rec.attemptNo > 1) {
+      if (rec.deltaFromFirst > 0) trendHtml = `<span class="text-emerald-400 font-extrabold">▲ +${rec.deltaFromFirst}</span>`;
+      else if (rec.deltaFromFirst < 0) trendHtml = `<span class="text-rose-400 font-extrabold">▼ ${rec.deltaFromFirst}</span>`;
+      else trendHtml = `<span class="text-amber-300 font-bold">▬ 0</span>`;
+    }
+
+    const tr = document.createElement("tr");
+    tr.className = "hover:bg-slate-800/40 transition";
+    tr.innerHTML = `
+      <td class="px-3 py-2.5 font-bold text-white">${rec.Nama_Siswa}</td>
+      <td class="px-3 py-2.5 text-slate-300">${rec.Kelas}</td>
+      <td class="px-3 py-2.5 text-slate-300">${rec.Level_Misi}</td>
+      <td class="px-3 py-2.5 text-center">${attemptBadge}</td>
+      <td class="px-3 py-2.5 text-center font-extrabold text-sky-300">${rec.Skor_Total}</td>
+      <td class="px-3 py-2.5 text-center">${trendHtml}</td>
+      <td class="px-3 py-2.5 text-center">
+        <span class="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold ${rec.Status_Lulus === 'TUNTAS' ? 'badge-tuntas' : 'badge-remedial'}">${rec.Status_Lulus}</span>
+      </td>
+      <td class="px-3 py-2.5 text-right">
+        <button onclick="openStudentDiagnostic('${rec._uid}')" class="px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-bold">
+          🔍 Bedah Diagnostik
+        </button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// ============================================================================
+// 6. INDIVIDUAL STUDENT MODAL & DATA IMPORT / GOOGLE SHEETS FETCH
+// ============================================================================
+function openStudentDiagnostic(uid) {
+  const rec = enrichedRecords.find(r => r._uid === uid);
+  if (!rec) return;
+
+  document.getElementById("modal-attempt-badge").textContent =
+    `Percobaan ke-${rec.attemptNo} dari ${rec.totalAttempts} • ${rec.Level_Misi}`;
+  document.getElementById("modal-student-name").textContent = `${rec.Nama_Siswa} (${rec.Kelas})`;
+  document.getElementById("modal-student-meta").textContent =
+    `Waktu Kirim: ${rec.Timestamp || "-"} • Skor: ${rec.Skor_Total} (Benar: ${rec.Benar_Total}, Salah: ${rec.Salah_Total}) • Status: ${rec.Status_Lulus}`;
+
+  document.getElementById("modal-narrative").innerHTML = generateIndividualNarrative(rec);
+
+  const tbody = document.getElementById("modal-items-tbody");
+  tbody.innerHTML = "";
+  rec.details.forEach(d => {
+    const meta = getItemMeta(rec.Level_Misi, d.no, d.tipe);
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td class="px-3 py-2 font-bold text-slate-300">No. ${d.no}</td>
+      <td class="px-3 py-2 text-slate-200"><span class="font-mono text-sky-400 mr-1">[${d.tipe}]</span> ${meta.skill}</td>
+      <td class="px-3 py-2 font-mono text-amber-300">${d.jawaban}</td>
+      <td class="px-3 py-2 font-mono text-emerald-300">${d.kunci}</td>
+      <td class="px-3 py-2">
+        <span class="px-2 py-0.5 rounded text-[11px] font-bold ${d.status === 'Benar' ? 'badge-tuntas' : 'badge-remedial'}">${d.status}</span>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  document.getElementById("student-modal").classList.remove("hidden");
+}
+
+function closeStudentModal() {
+  document.getElementById("student-modal").classList.add("hidden");
+}
+
+function loadDataset(records, sourceLabel) {
+  rawRecords = records;
+  enrichedRecords = normalizeAndComputeAttempts(rawRecords);
+  document.getElementById("data-source-label").textContent = `Sumber: ${sourceLabel}`;
+  populateFilterDropdowns();
+  applyFilters();
+}
+
+function loadDemoData() {
+  loadDataset(generateDemoDataset(), "Data Simulasi Bawaan (6 Rekaman / Multi-Percobaan)");
+}
+
+function handleFileUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const data = new Uint8Array(e.target.result);
+    const workbook = XLSX.read(data, { type: "array" });
+    const sheetName = workbook.SheetNames.includes("Rekap_Hasil_Siswa") ? "Rekap_Hasil_Siswa" : workbook.SheetNames[0];
+    const jsonRows = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
+    loadDataset(jsonRows, `File Lokal (${file.name})`);
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+function openSyncModal() {
+  document.getElementById("gas-url-input").value = localStorage.getItem("dl28_gas_url") || "";
+  document.getElementById("sync-modal").classList.remove("hidden");
+}
+function closeSyncModal() {
+  document.getElementById("sync-modal").classList.add("hidden");
+}
+
+async function fetchFromGoogleSheets() {
+  const url = document.getElementById("gas-url-input").value.trim();
+  const statusEl = document.getElementById("sync-modal-status");
+  if (!url) { alert("Masukkan URL Web App Google Apps Script terlebih dahulu!"); return; }
+  localStorage.setItem("dl28_gas_url", url);
+  statusEl.classList.remove("hidden");
+  statusEl.textContent = "⏳ Menarik data JSON dari Google Sheets...";
+
+  try {
+    const resp = await fetch(url);
+    const data = await resp.json();
+    if (data.status === "success" && Array.isArray(data.records)) {
+      loadDataset(data.records, `Google Sheets Live (${data.records.length} baris)`);
+      statusEl.classList.add("hidden");
+      closeSyncModal();
+    } else {
+      statusEl.textContent = `⚠️ Respon tidak valid: ${data.message || "Pastikan doGet(e) aktif."}`;
+    }
+  } catch (err) {
+    statusEl.textContent = `⚠️ Gagal terhubung (${err.message}). Pastikan akses Web App diatur ke 'Anyone'.`;
+  }
+}
+
+function exportExecutiveReport() {
+  if (filteredRecords.length === 0) return;
+  const rows = filteredRecords.map(r => ({
+    Timestamp: r.Timestamp,
+    Nama_Siswa: r.Nama_Siswa,
+    Kelas: r.Kelas,
+    Level_Misi: r.Level_Misi,
+    Percobaan_Ke: r.attemptNo,
+    Total_Percobaan: r.totalAttempts,
+    Skor_Total: r.Skor_Total,
+    Selisih_Dari_Percobaan_1: r.deltaFromFirst,
+    Status_Lulus: r.Status_Lulus,
+    Narasi_Diagnostik_Otomatis: generateIndividualNarrative(r).replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()
+  }));
+  const ws = XLSX.utils.json_to_sheet(rows);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, "Laporan_Diagnostik_Siswa");
+  XLSX.writeFile(wb, "Laporan_Diagnostik_ASAS_Bahasa_Indonesia_8.xlsx");
+}
+
+// Initialize with built-in multi-attempt dataset
+loadDemoData();
+</script>
+</body>
+</html>
