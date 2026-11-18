@@ -383,7 +383,7 @@
     // =========================================================================
     // KONFIGURASI DEFAULT (TEMPEL URL /exec ANDA DI SINI SEBELUM DIBAGIKAN)
     // =========================================================================
-    const DEFAULT_GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyPIZwgX_xXSnuZbIKse__QIcP0ZVlypi1i2hk9evWMvTet7CaVPAHOBaS9FawK3uAa/exec";
+    const DEFAULT_GAS_WEB_APP_URL = "";
 
     const STIMULI_L1 = {
       S1: {
@@ -2043,7 +2043,7 @@
         lastPayload.peringatan_layar,
         lastPayload.terjawab,
         ...lastPayload.answers
-      ].join("	");
+      ].join("\t");
       navigator.clipboard.writeText(row).then(() => {
         alert(`1 baris lengkap Level ${lastPayload.level} berhasil disalin! Silakan tempel (Ctrl+V) pada baris kosong di tab Respon_Level_${lastPayload.level}.`);
       });
@@ -2063,8 +2063,7 @@
         lastPayload.terjawab,
         ...lastPayload.answers
       ].map(v => `"${String(v).replace(/"/g, '""')}"`);
-      const csv = headers.join(",") + "
-" + values.join(",");
+      const csv = headers.join(",") + "\n" + values.join(",");
       const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
