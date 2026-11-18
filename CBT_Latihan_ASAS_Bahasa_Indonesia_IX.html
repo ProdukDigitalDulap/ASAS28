@@ -1,0 +1,2077 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CBT Latihan Kisi-Kisi ASAS Bahasa Indonesia IX (Level 1 & Level 2) — SMPN 28 Bandung</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            serif: ['Georgia', 'Cambria', 'serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
+    body {
+      background-color: #0f172a;
+      color: #f8fafc;
+      background-image: radial-gradient(circle at 12% 15%, rgba(99, 102, 241, 0.14), transparent 36%),
+                        radial-gradient(circle at 88% 85%, rgba(245, 158, 11, 0.10), transparent 36%);
+    }
+    .glass-panel {
+      background: rgba(30, 41, 59, 0.82);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(148, 163, 184, 0.16);
+    }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.74);
+      border: 1px solid rgba(148, 163, 184, 0.15);
+    }
+    .no-copy {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 9999px; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-amber-500 selection:text-slate-950">
+
+  <!-- OVERLAY PROTEKSI SPLIT-SCREEN / PINDAH TAB -->
+  <div id="securityOverlay" class="hidden fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-xl flex items-center justify-center p-6 text-center">
+    <div class="max-w-md glass-panel rounded-2xl p-6 border border-rose-500/50 shadow-2xl">
+      <div class="w-14 h-14 rounded-2xl bg-rose-500/20 border border-rose-500/40 text-rose-400 flex items-center justify-center text-2xl mx-auto mb-4">
+        🛡️
+      </div>
+      <h3 class="text-lg font-extrabold text-white mb-2">Layar Soal Dikunci Sementara</h3>
+      <p id="securityReason" class="text-sm text-slate-300 leading-relaxed mb-4">
+        Terdeteksi perpindahan tab atau perubahan rasio layar (Split-Screen / Floating Window). Kembalikan layar ke mode penuh untuk melanjutkan.
+      </p>
+      <div class="text-xs font-mono text-rose-300 bg-rose-950/50 border border-rose-800/60 rounded-lg py-2 px-3 mb-4">
+        Catatan Pelanggaran Layar: <span id="overlayWarnCount" class="font-bold">0</span> kali (Terekam ke Spreadsheet)
+      </div>
+      <button onclick="dismissSecurityOverlay()" class="w-full py-2.5 px-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm cursor-pointer">
+        Kembali ke Layar Penuh & Lanjutkan
+      </button>
+    </div>
+  </div>
+
+  <!-- TOP NAVIGATION -->
+  <header class="sticky top-0 z-40 glass-panel border-b border-slate-800/80 px-4 py-3">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-amber-500 flex items-center justify-center font-extrabold text-slate-950 shadow-lg">
+          28
+        </div>
+        <div>
+          <h1 class="text-sm sm:text-base font-bold tracking-tight text-white">
+            CBT Latihan Kisi-Kisi ASAS Gasal — Bahasa Indonesia IX
+          </h1>
+          <p class="text-xs text-slate-400">SMP Negeri 28 Bandung • Level 1 (Wajib) & Level 2 (Pengayaan Nilai Tambah)</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 sm:gap-3">
+        <div id="levelPill" class="hidden px-3 py-1.5 rounded-lg text-xs font-extrabold bg-amber-500/20 border border-amber-400/40 text-amber-300">
+          LEVEL 1
+        </div>
+        <div id="syncBadge" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-900/90 border border-slate-700/70 text-slate-300">
+          <span id="syncDot" class="w-2 h-2 rounded-full bg-amber-400"></span>
+          <span id="syncText">Mode Lokal</span>
+        </div>
+        <button onclick="openModal('modalScript')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600/20 hover:bg-indigo-600/35 text-indigo-300 border border-indigo-500/40 transition cursor-pointer">
+          ⚙️ Setup Google Sheets
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-6">
+
+    <!-- VIEW 1: IDENTITAS PESERTA -->
+    <section id="viewLogin" class="max-w-2xl mx-auto mt-2">
+      <div class="glass-panel rounded-2xl p-6 sm:p-8 shadow-2xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-xs font-semibold mb-4">
+          <span>📋 Sistem 2 Level • Urutan Tetap Q01–Q30 per Level</span>
+        </div>
+        <h2 class="text-2xl font-extrabold text-white mb-2">Latihan Soal HOTS Berbasis Kisi-Kisi ASAS</h2>
+        <p class="text-sm text-slate-300 leading-relaxed mb-5">
+          Kerjakan terlebih dahulu <strong class="text-amber-300">Level 1 (30 Soal HOTS Utama)</strong> dan kirim jawabanmu. Setelah selesai, kamu dapat memilih apakah ingin mengambil tantangan <strong class="text-rose-300">Level 2 (30 Soal HOTS Tingkat Lanjut)</strong> secara opsional untuk mendapatkan nilai tambah.
+        </p>
+
+        <!-- Komposisi 2 Level -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+          <div class="glass-card rounded-xl p-4 border border-amber-500/30">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xs font-extrabold uppercase text-amber-400">Level 1 • Wajib</span>
+              <span class="text-[11px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300">30 Soal</span>
+            </div>
+            <p class="text-xs text-slate-300">4 PG Tunggal, 10 PG Kompleks, 8 Benar–Salah, 8 Menjodohkan (4 Bab Lengkap). Tersimpan ke tab <code class="text-amber-200">Respon_Level_1</code>.</p>
+          </div>
+          <div class="glass-card rounded-xl p-4 border border-rose-500/30">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xs font-extrabold uppercase text-rose-400">Level 2 • Opsional Nilai Lebih</span>
+              <span class="text-[11px] px-2 py-0.5 rounded bg-rose-500/20 text-rose-300">30 Soal</span>
+            </div>
+            <p class="text-xs text-slate-300">Pola sama (4 PG, 10 MCMA, 8 B-S, 8 Menjodohkan) dengan analisis lintas konsep tingkat lanjut. Tersimpan ke tab <code class="text-rose-200">Respon_Level_2</code>.</p>
+          </div>
+        </div>
+
+        <form id="loginForm" onsubmit="startLevel(1, event)" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Nama Lengkap Siswa / Kelompok</label>
+              <input type="text" id="inputNama" required placeholder="Contoh: Raka Pratama" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white text-sm focus:outline-none focus:border-amber-400" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Kelas</label>
+              <select id="inputKelas" required class="w-full px-4 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white text-sm focus:outline-none focus:border-amber-400">
+                <option value="">-- Pilih Kelas --</option>
+                <option value="IX-A">IX-A</option>
+                <option value="IX-B">IX-B</option>
+                <option value="IX-C">IX-C</option>
+                <option value="IX-D">IX-D</option>
+                <option value="IX-E">IX-E</option>
+                <option value="IX-F">IX-F</option>
+                <option value="IX-G">IX-G</option>
+                <option value="IX-H">IX-H</option>
+                <option value="IX-I">IX-I</option>
+                <option value="IX-J">IX-J</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Nomor Absen / NISN</label>
+              <input type="text" id="inputAbsen" required placeholder="Contoh: 14" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white text-sm focus:outline-none focus:border-amber-400" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Mode Pengerjaan</label>
+              <select id="inputMode" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white text-sm focus:outline-none focus:border-amber-400">
+                <option value="Diskusi Kelompok">Diskusi Kelompok</option>
+                <option value="Latihan Mandiri">Latihan Mandiri</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="pt-2">
+            <button type="submit" class="w-full py-3 px-6 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-slate-950 font-bold text-sm shadow-lg shadow-amber-500/20 transition cursor-pointer">
+              Mulai Level 1 (30 Soal Utama) →
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- VIEW 2: RUANG UJIAN CBT (NO-COPY PROTECTED) -->
+    <section id="viewExam" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-5 no-copy" oncontextmenu="return false;">
+      <!-- Kolom Kiri: Stimulus & Butir Soal (8 kolom) -->
+      <div class="lg:col-span-8 space-y-4">
+        <!-- Info Bar Soal -->
+        <div class="glass-panel rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3">
+          <div class="flex flex-wrap items-center gap-2">
+            <span id="badgeNo" class="px-3 py-1 rounded-lg bg-amber-500 text-slate-950 font-extrabold text-sm">SOAL 1 / 30</span>
+            <span id="badgeBab" class="px-2.5 py-1 rounded-lg bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 text-xs font-semibold">Bab 1: Teks Deskripsi</span>
+            <span id="badgeTipe" class="px-2.5 py-1 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 text-xs font-semibold">PG Tunggal</span>
+          </div>
+          <div class="flex items-center gap-3 text-xs text-slate-400">
+            <span>⏱ <strong id="timerDisplay" class="font-mono text-white">00:00</strong></span>
+            <span>|</span>
+            <span>Peserta: <strong id="displayUser" class="text-white">-</strong></span>
+          </div>
+        </div>
+
+        <!-- Kotak Stimulus -->
+        <div class="glass-panel rounded-2xl p-5 sm:p-6">
+          <div class="flex items-center justify-between mb-3">
+            <span id="stimLabel" class="text-xs font-bold uppercase tracking-wider text-amber-400">STIMULUS 1</span>
+            <span class="text-[11px] text-slate-400">Proteksi Salin & Split-Screen Aktif</span>
+          </div>
+          <div id="stimContent" class="prose prose-invert max-w-none text-sm sm:text-[15px] leading-relaxed text-slate-200 space-y-3"></div>
+        </div>
+
+        <!-- Kotak Pertanyaan & Area Interaktif Jawaban -->
+        <div class="glass-panel rounded-2xl p-5 sm:p-6">
+          <div id="questionStem" class="text-base font-semibold text-white leading-relaxed mb-4"></div>
+          <div id="answerContainer" class="space-y-3"></div>
+
+          <!-- Navigasi Bawah -->
+          <div class="mt-6 pt-4 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3">
+            <button id="btnPrev" onclick="goQuestion(currentIndex - 1)" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs sm:text-sm font-semibold transition disabled:opacity-40 cursor-pointer">
+              ← Sebelumnya
+            </button>
+            <button onclick="clearCurrentAnswer()" class="px-3 py-2 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 border border-rose-500/30 text-xs font-semibold transition cursor-pointer">
+              Reset Jawaban Soal Ini
+            </button>
+            <button id="btnNext" onclick="goQuestion(currentIndex + 1)" class="px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs sm:text-sm font-semibold transition cursor-pointer">
+              Selanjutnya →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kolom Kanan: Peta Nomor & Kirim Jawaban (4 kolom) -->
+      <div class="lg:col-span-4 space-y-4">
+        <div class="glass-panel rounded-2xl p-5 sticky top-20">
+          <div class="flex items-center justify-between mb-3">
+            <h3 id="navTitle" class="text-sm font-bold text-white">Navigasi Level 1 (1–30)</h3>
+            <span id="progressCount" class="text-xs font-semibold text-amber-400">0 / 30 Terisi</span>
+          </div>
+          <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden mb-4">
+            <div id="progressBar" class="h-full bg-gradient-to-r from-indigo-500 to-amber-400 transition-all duration-300" style="width: 0%"></div>
+          </div>
+
+          <!-- Grid 30 Nomor -->
+          <div id="navGrid" class="grid grid-cols-6 gap-2 mb-5"></div>
+
+          <!-- Legenda Warna -->
+          <div class="grid grid-cols-3 gap-2 text-[11px] text-slate-400 mb-5 pb-4 border-b border-slate-800">
+            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-amber-500 inline-block"></span> Aktif</div>
+            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-emerald-500/80 inline-block"></span> Terjawab</div>
+            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-slate-800 border border-slate-600 inline-block"></span> Kosong</div>
+          </div>
+
+          <button id="btnSubmitLevel" onclick="submitAllAnswers()" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-extrabold text-sm shadow-lg shadow-emerald-500/20 transition cursor-pointer">
+            Kirim Jawaban Level 1
+          </button>
+          <p id="submitHint" class="text-[11px] text-slate-400 text-center mt-2.5">
+            Terekam ke tab Respon_Level_1 (Kolom Q01–Q30).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 3: REKAP JAWABAN MENTAH, TAWARAN LEVEL 2, & PEMBAHASAN -->
+    <section id="viewResult" class="hidden space-y-6">
+      <div class="glass-panel rounded-2xl p-6 sm:p-8">
+        <div class="flex flex-wrap items-start justify-between gap-4 border-b border-slate-800 pb-5 mb-5">
+          <div>
+            <span id="resBadge" class="inline-block px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-semibold mb-2">
+              ✓ Level 1 Selesai
+            </span>
+            <h2 id="resTitle" class="text-2xl font-extrabold text-white">Rekap Pengiriman & Pembahasan Level 1</h2>
+            <p id="resIdentity" class="text-sm text-slate-400 mt-1">-</p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <button onclick="copyRowTSV()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition cursor-pointer">
+              📋 Salin Baris Data
+            </button>
+            <button onclick="downloadCSV()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 text-xs font-bold transition cursor-pointer">
+              ⬇ Unduh CSV
+            </button>
+          </div>
+        </div>
+
+        <!-- Status Pengiriman Google Apps Script -->
+        <div id="gasStatusBox" class="p-4 rounded-xl bg-slate-900/90 border border-slate-700 text-sm mb-6"></div>
+
+        <!-- BANNER PENAWARAN OPSIONAL LEVEL 2 (MUNCUL SETELAH LEVEL 1 SELESAI) -->
+        <div id="level2OfferBox" class="mb-6 p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-rose-950/80 via-slate-900 to-indigo-950/80 border border-rose-500/40 shadow-xl">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="space-y-1.5">
+              <span class="inline-block px-2.5 py-0.5 rounded bg-rose-500/20 border border-rose-400/40 text-rose-300 text-[11px] font-extrabold uppercase tracking-wider">
+                Tantangan Opsional • Nilai Tambah
+              </span>
+              <h3 class="text-lg font-extrabold text-white">Ingin Menambah Nilai dengan Tantangan Level 2?</h3>
+              <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                Level 2 berisi <strong>30 soal HOTS tingkat lanjut</strong> dengan pola kisi-kisi yang sama namun tingkat penalaran lebih tinggi. Sifatnya <strong>tidak wajib</strong>: jika merasa sudah cukup dengan hasil Level 1, kamu bisa langsung mencukupkan sesi. Jika siap menantang diri untuk nilai tambahan, lanjutkan sekarang!
+              </p>
+            </div>
+            <div class="flex flex-col sm:flex-row md:flex-col gap-2.5 shrink-0">
+              <button onclick="startLevel(2)" class="px-5 py-3 rounded-xl bg-gradient-to-r from-rose-500 to-amber-500 hover:from-rose-400 hover:to-amber-400 text-slate-950 font-extrabold text-xs sm:text-sm shadow-lg transition cursor-pointer">
+                🚀 Lanjut Tantangan Level 2 (30 Soal)
+              </button>
+              <button onclick="finishAllSessions()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-600 text-xs font-semibold transition cursor-pointer">
+                Cukup Sampai Level 1 Saja
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ringkasan Statistik & Telemetri -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+          <div class="glass-card rounded-xl p-4">
+            <div class="text-[11px] text-slate-400 uppercase font-semibold">Soal Terjawab</div>
+            <div id="resAnswered" class="text-xl font-extrabold text-white mt-1">0 / 30</div>
+          </div>
+          <div class="glass-card rounded-xl p-4">
+            <div class="text-[11px] text-slate-400 uppercase font-semibold">Self-Check Tepat</div>
+            <div id="resCorrect" class="text-xl font-extrabold text-emerald-400 mt-1">0 / 30</div>
+          </div>
+          <div class="glass-card rounded-xl p-4">
+            <div class="text-[11px] text-slate-400 uppercase font-semibold">Durasi Pengerjaan</div>
+            <div id="resDuration" class="text-xl font-extrabold text-sky-400 mt-1">0 mnt 0 dtk</div>
+          </div>
+          <div class="glass-card rounded-xl p-4">
+            <div class="text-[11px] text-slate-400 uppercase font-semibold">Peringatan Layar</div>
+            <div id="resWarnings" class="text-xl font-extrabold text-amber-400 mt-1">0 kali</div>
+          </div>
+        </div>
+
+        <!-- Tabel Ringkas Jawaban Mentah yang Dikirim -->
+        <h3 class="text-base font-bold text-white mb-3">1. Matriks Jawaban Mentah Terkirim (Q01 – Q30)</h3>
+        <div class="overflow-x-auto rounded-xl border border-slate-800 mb-8">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-900 text-slate-300 uppercase">
+              <tr>
+                <th class="px-3 py-2.5">Kolom</th>
+                <th class="px-3 py-2.5">Bab & Kisi-Kisi</th>
+                <th class="px-3 py-2.5">Tipe</th>
+                <th class="px-3 py-2.5">Jawaban Terkirim</th>
+                <th class="px-3 py-2.5">Kunci Acuan</th>
+                <th class="px-3 py-2.5">Status</th>
+              </tr>
+            </thead>
+            <tbody id="rawTableBody" class="divide-y divide-slate-800 bg-slate-900/40"></tbody>
+          </table>
+        </div>
+
+        <!-- Bedah Pembahasan HOTS per Nomor -->
+        <h3 class="text-base font-bold text-white mb-3">2. Pembahasan Mendalam untuk Diskusi Siswa</h3>
+        <div id="discussionList" class="space-y-4"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL KONFIGURASI GOOGLE APPS SCRIPT -->
+  <div id="modalScript" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="glass-panel rounded-2xl max-w-2xl w-full p-6 shadow-2xl border border-slate-700 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
+        <h3 class="text-lg font-bold text-white">Integrasi Google Spreadsheets (Web App URL)</h3>
+        <button onclick="closeModal('modalScript')" class="text-slate-400 hover:text-white text-xl leading-none">&times;</button>
+      </div>
+      <p class="text-xs text-slate-300 leading-relaxed mb-4">
+        Satu URL Web App Google Apps Script secara otomatis mengarahkan kiriman <strong>Level 1</strong> ke tab <code class="text-amber-300">Respon_Level_1</code> dan kiriman <strong>Level 2</strong> ke tab <code class="text-rose-300">Respon_Level_2</code>.
+      </p>
+      <div class="space-y-3">
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1">URL Google Apps Script Web App</label>
+          <input type="url" id="gasUrlInput" placeholder="https://script.google.com/macros/s/AKfycb.../exec" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs font-mono text-white focus:outline-none focus:border-amber-400" />
+        </div>
+        <div class="flex flex-wrap gap-2 pt-2">
+          <button onclick="saveGasUrl()" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs cursor-pointer">
+            Simpan URL Webhook
+          </button>
+          <button onclick="testGasConnection()" class="px-4 py-2 rounded-xl bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-200 border border-indigo-500/40 font-bold text-xs cursor-pointer">
+            Uji Koneksi Level 1 & 2
+          </button>
+          <button onclick="clearGasUrl()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs cursor-pointer">
+            Hapus URL
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // KONFIGURASI DEFAULT (TEMPEL URL /exec ANDA DI SINI SEBELUM DIBAGIKAN)
+    // =========================================================================
+    const DEFAULT_GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyPIZwgX_xXSnuZbIKse__QIcP0ZVlypi1i2hk9evWMvTet7CaVPAHOBaS9FawK3uAa/exec";
+
+    const STIMULI_L1 = {
+      S1: {
+        title: "STIMULUS 1 — TEKS DESKRIPSI (Sudut Literasi Kampung Batik)",
+        html: `
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 space-y-2.5">
+            <h4 class="font-bold text-amber-300 text-base">Lorong Canting di Balik Teras Pagi</h4>
+            <p>Di sudut perkampungan pengrajin batik tulis itu, aroma malam leleh bercampur harum kayu bakar selalu menyapa sejak matahari sepenggalah. Teras rumah panggung berdinding bilik bambu disulap menjadi ruang jemur kain mori yang membentang bagai layar kapal layar megah. Setiap goresan canting para perajin sepuh bukan sekadar garis lilin panas, melainkan doa sunyi yang ditorehkan di atas serat kapas putih.</p>
+            <p>Nenek Fatimah, sesepuh sanggar berusia tujuh puluh dua tahun, duduk bersimpuh di atas tikar pandan dengan punggung mulai melengkung dimakan usia. Namun, sorot matanya tetap tajam menelusuri motif mega mendung yang rumit. Jemarinya yang berkeriput menari lincah memindahkan malam cair tanpa setetes pun meluber keluar pola. Bagi kami para remaja karang taruna, ketekunan Nenek Fatimah adalah mercusuar budaya yang menjaga agar warisan leluhur tidak karam ditelan arus mode instan.</p>
+          </div>`
+      },
+      S2: {
+        title: "STIMULUS 2 — TEKS DESKRIPSI (Arsitektur Rumah Adat & Kekerabatan)",
+        html: `
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 space-y-2.5">
+            <h4 class="font-bold text-amber-300 text-base">Bale Agung dan Musyawarah Kekerabatan</h4>
+            <p>Di jantung desa adat yang dikelilingi perbukitan kapur, berdiri kokoh Bale Agung beratap ijuk hitam pekat. Tiang-tiang penyangganya terbuat dari kayu ulin berdiameter dua pelukan orang dewasa yang dipahat tanpa menggunakan paku besi, melainkan pasak kayu bersistem kunci pas. Bagian kolong bangunan dibiarkan terbuka untuk sirkulasi udara sekaligus ruang menyimpan lumbung padi komunal milik warga marga.</p>
+            <p>Dalam tradisi masyarakat setempat yang menganut sistem kekerabatan parental (bilateral), kedudukan anak laki-laki dan perempuan dipandang seimbang dalam meneruskan silsilah maupun merawat tanah pusaka keluarga. Keputusan penting terkait pembagian hasil panen lumbung selalu dimusyawarahkan bersama di serambi Bale Agung dengan dipimpin tetua adat dari pihak ayah maupun ibu secara setara.</p>
+          </div>`
+      },
+      S3: {
+        title: "STIMULUS 3 — TEKS PROSEDUR VISUAL (Infografik Eco-Enzyme)",
+        html: `
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 space-y-3">
+            <h4 class="font-bold text-emerald-300 text-base">Bagan Teknis Pembuatan Cairan Pembersih Alami (Eco-Enzyme)</h4>
+            <svg viewBox="0 0 680 215" class="w-full rounded-xl bg-slate-950 border border-slate-800 p-2">
+              <rect x="12" y="12" width="656" height="36" rx="8" fill="#065f46"/>
+              <text x="340" y="35" text-anchor="middle" fill="#ecfdf5" font-size="14" font-weight="bold">FORMULA RASIO WAJIB 1 : 3 : 10 (FERMENTASI ANAEROB 90 HARI)</text>
+              
+              <rect x="16" y="60" width="150" height="140" rx="10" fill="#1e293b" stroke="#34d399" stroke-width="1.5"/>
+              <text x="91" y="84" text-anchor="middle" fill="#6ee7b7" font-size="12" font-weight="bold">1. TAKARAN BAHAN</text>
+              <text x="91" y="108" text-anchor="middle" fill="#f8fafc" font-size="11">• 100 gr Gula Merah</text>
+              <text x="91" y="128" text-anchor="middle" fill="#f8fafc" font-size="11">• 300 gr Kulit Buah</text>
+              <text x="91" y="148" text-anchor="middle" fill="#f8fafc" font-size="11">• 1.000 ml Air Bersih</text>
+              <text x="91" y="175" text-anchor="middle" fill="#94a3b8" font-size="10">(Sisakan 20% ruang gas)</text>
+
+              <rect x="180" y="60" width="150" height="140" rx="10" fill="#1e293b" stroke="#fbbf24" stroke-width="1.5"/>
+              <text x="255" y="84" text-anchor="middle" fill="#fcd34d" font-size="12" font-weight="bold">2. WADAH PLASTIK</text>
+              <text x="255" y="108" text-anchor="middle" fill="#f8fafc" font-size="11">Gunakan jeriken/toples</text>
+              <text x="255" y="128" text-anchor="middle" fill="#f8fafc" font-size="11">bermulut lebar.</text>
+              <text x="255" y="152" text-anchor="middle" fill="#fca5a5" font-size="10" font-weight="bold">DILARANG botol kaca</text>
+              <text x="255" y="168" text-anchor="middle" fill="#fca5a5" font-size="10">(risiko pecah tekanan gas)</text>
+
+              <rect x="344" y="60" width="150" height="140" rx="10" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+              <text x="419" y="84" text-anchor="middle" fill="#7dd3fc" font-size="12" font-weight="bold">3. PELEPASAN GAS</text>
+              <text x="419" y="108" text-anchor="middle" fill="#f8fafc" font-size="11">Minggu ke-1 s.d. ke-2:</text>
+              <text x="419" y="128" text-anchor="middle" fill="#f8fafc" font-size="11">Buka tutup 5 detik</text>
+              <text x="419" y="148" text-anchor="middle" fill="#f8fafc" font-size="11">tiap 2 hari sekali</text>
+              <text x="419" y="172" text-anchor="middle" fill="#94a3b8" font-size="10">Simpan di tempat teduh</text>
+
+              <rect x="508" y="60" width="156" height="140" rx="10" fill="#1e293b" stroke="#a78bfa" stroke-width="1.5"/>
+              <text x="586" y="84" text-anchor="middle" fill="#c4b5fd" font-size="12" font-weight="bold">4. INDIKATOR PANEN</text>
+              <text x="586" y="108" text-anchor="middle" fill="#f8fafc" font-size="11">• Cairan cokelat cerah</text>
+              <text x="586" y="128" text-anchor="middle" fill="#f8fafc" font-size="11">• Aroma asam segar</text>
+              <text x="586" y="148" text-anchor="middle" fill="#f8fafc" font-size="11">• pH di bawah 4,0</text>
+              <text x="586" y="172" text-anchor="middle" fill="#fda4af" font-size="10">Hitam & bau busuk = Gagal</text>
+            </svg>
+          </div>`
+      },
+      S4: {
+        title: "STIMULUS 4 — TEKS NARASI PROSEDUR & ETIKA WAWANCARA",
+        html: `
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 space-y-2.5">
+            <h4 class="font-bold text-amber-300 text-base">Menyiapkan Kertas Daur Ulang & Liputan Pengrajin</h4>
+            <p>Sebelum memulai proses <em>pulping</em> (pembuburan kertas bekas), potongan koran direndam selama dua belas jam agar serat selulosa mengembang dan mudah hancur saat diblender. Bubur kertas dicampur larutan kanji encer sebagai perekat alami, lalu disaring menggunakan bingkai <em>screen</em> kasa halus. Lapisan basah dipindahkan ke kain katun secara perlahan sebelum dipres untuk mengurangi kadar air berlebih dan dijemur di bawah sinar matahari tidak langsung agar lembaran tidak melengkung.</p>
+            <p>Saat tim redaksi majalah dinding sekolah meliput proses tersebut, ketua tim terlebih dahulu mengirim surat permohonan jadwal sepekan sebelumnya. Ketika wawancara berlangsung, pewawancara meminta izin sebelum merekam, mencatat istilah teknis secara teliti, dan sebelum berpamitan membacakan kembali kutipan pernyataan narasumber guna memastikan tidak ada salah tafsir data.</p>
+          </div>`
+      },
+      S5: {
+        title: "STIMULUS 5 — TEKS REKON MEDIA SOSIAL & JURNAL KEGIATAN",
+        html: `
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 space-y-2.5">
+            <div class="flex items-center justify-between text-xs text-slate-400 border-b border-slate-800 pb-2">
+              <span class="font-bold text-sky-400">@Nadia_Pustaka28</span>
+              <span>Diposting: 14 November 2026 • Lapangan Upacara SMPN 28</span>
+            </div>
+            <p>Sabtu pagi pukul 07.15 WIB, sebanyak 280 siswa kelas IX mengikuti <em>Festival Literasi & Pameran Karya Kriya</em> di lapangan tengah sekolah. Awalnya aku sempat <em>insecure</em> karena stan kelompok kami berada di sudut paling ujung dekat taman baca. Kupikir pengunjung bakal malas mampir sampai ke belakang.</p>
+            <p>Ternyata dugaanku meleset jauh! Pengunjung justru memadati stan kami karena tertarik melihat demonstrasi langsung pembuatan pembatas buku dari daun kering. Menurutku, antusiasme teman-teman meningkat karena konsep pameran interaktif jauh lebih seru daripada sekadar menempel poster di papan. Pukul 13.30 WIB seluruh 65 paket karya kami habis terjual. <em>Worth it</em> banget capeknya dua minggu persiapan!</p>
+          </div>`
+      },
+      S6: {
+        title: "STIMULUS 6 — TEKS REKON KEWIRAUSAHAAN PANGAN LOKAL",
+        html: `
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 space-y-2.5">
+            <h4 class="font-bold text-amber-300 text-base">Catatan Produksi Keripik Talas Ungu Lembang</h4>
+            <p>Pada libur akhir pekan bulan Oktober lalu, kelompok praktik prakarya kami mengolah 10 kilogram umbi talas ungu dari petani Lembang menjadi keripik panggang rendah lemak. Umbi dikupas menggunakan sarung tangan untuk mencegah rasa gatal akibat kristal kalsium oksalat, lalu diiris tipis setebal 1,5 milimeter dan direndam dalam larutan air garam selama 20 menit.</p>
+            <p>Berdasarkan hasil uji laboratorium pangan terpadu yang kami jadikan rujukan kemasan, talas ungu kukus mengandung 2,8 gram serat pangan dan indeks glikemik sedang (sekitar 54). Kami mengemas produk dalam kantong kertas <em>kraft</em> berlapis aluminium foil seberat 150 gram dengan harga Rp12.000,00. Dari 50 bungkus yang diproduksi, 47 bungkus terjual habis dalam bazar sekolah dan menghasilkan laba bersih Rp185.000,00.</p>
+          </div>`
+      },
+      S7: {
+        title: "STIMULUS 7 — TEKS EKSPLANASI (Fenomena Urban Heat Island)",
+        html: `
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 space-y-2.5">
+            <h4 class="font-bold text-rose-300 text-base">Mekanisme Terjadinya Pulau Bahang Perkotaan (Urban Heat Island)</h4>
+            <p><em>Urban Heat Island</em> (UHI) merupakan fenomena ketika suhu udara di kawasan pusat perkotaan tercatat lebih tinggi 2°C hingga 5°C dibandingkan wilayah pedesaan di sekitarnya. Fenomena ini terjadi karena dominasi permukaan beton, aspal jalan raya, dan atap seng yang memiliki kapasitas penyerapan radiasi matahari tinggi sekaligus memantulkan kembali energi panas secara lambat pada malam hari.</p>
+            <p>Selain faktor material bangunan, berkurangnya ruang terbuka hijau menyebabkan proses evapotranspirasi tumbuhan menurun drastis sehingga pendinginan alami udara terhambat. Akibatnya, penggunaan pendingin ruangan (AC) di gedung-gedung perkotaan meningkat tajam dan melepaskan gas buang panas tambahan ke atmosfer mikro. Oleh karena itu, penerapan atap hijau (<em>green roof</em>) dan penanaman pohon peneduh koridor jalan menjadi solusi ekologis untuk menekan efek pulau bahang.</p>
+          </div>`
+      },
+      S8: {
+        title: "STIMULUS 8 — TEKS EKSPLANASI (Biokimia Fermentasi Yoghurt Nabati)",
+        html: `
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 space-y-2.5">
+            <h4 class="font-bold text-indigo-300 text-base">Peran Bakteri Asam Laktat pada Fermentasi Sari Kacang Hijau</h4>
+            <p>Yoghurt nabati berbasis sari kacang hijau dikembangkan sebagai alternatif minuman probiotik bagi individu yang mengalami intoleransi laktosa. Pembuatannya diawali dengan pasteurisasi sari kacang hijau pada suhu 80°C selama 15 menit guna menginaktifkan mikroba kontaminan, kemudian didinginkan hingga suhu 42°C sebelum diinokulasi kultur bakteri <em>Lactobacillus bulgaricus</em> dan <em>Streptococcus thermophilus</em>.</p>
+            <p>Selama proses inkubasi berlangsung, bakteri asam laktat memfermentasi karbohidrat sederhana menjadi asam laktat sehingga tingkat keasaman (pH) larutan menurun dari 6,5 menjadi sekitar 4,5. Penurunan pH tersebut menyebabkan protein nabati mengalami koagulasi (penggumpalan lembut) yang membentuk tekstur kental khas yoghurt. Dengan demikian, fermentasi terkontrol tidak hanya memperpanjang daya simpan minuman secara alami, tetapi juga meningkatkan ketersediaan peptida bioaktif yang bermanfaat bagi kesehatan saluran pencernaan.</p>
+          </div>`
+      }
+    };
+
+    const QUESTIONS_L1 = [
+      // --- BAB 1: TEKS DESKRIPSI (No. 1 - 7) ---
+      {
+        no: 1, bab: "Bab 1: Teks Deskripsi", stim: "S1", type: "PG",
+        kisi: "Menentukan ide pokok paragraf teks deskripsi",
+        stem: "Ide pokok yang mendasari keseluruhan isi paragraf kedua pada teks deskripsi tersebut adalah...",
+        options: [
+          "Teknik memindahkan cairan malam panas ke atas kain mori agar tidak meluber keluar pola.",
+          "Ketekunan dan peran Nenek Fatimah sebagai penjaga kelestarian tradisi batik tulis di sanggar.",
+          "Kekhawatiran remaja karang taruna terhadap masuknya produk pakaian bermode instan.",
+          "Gambaran fisik rumah panggung berdinding bilik bambu yang digunakan menjemur kain."
+        ],
+        key: "B",
+        explanation: "Paragraf kedua berfokus pada sosok Nenek Fatimah (usia, ketajaman pengamatan, kelincahan membatik, dan perannya sebagai mercusuar budaya bagi remaja)."
+      },
+      {
+        no: 2, bab: "Bab 1: Teks Deskripsi", stim: "S1", type: "MCMA",
+        kisi: "Mengidentifikasi bukti kebahasaan sudut pandang & majas",
+        stem: "Manakah bukti tekstual dan kebahasaan yang TEPAT berdasarkan kutipan teks 'Lorong Canting di Balik Teras Pagi'? (Pilih semua jawaban yang benar)",
+        options: [
+          "Frasa 'mercusuar budaya' bermakna konotatif sebagai sosok penuntun dan penjaga kelestarian tradisi.",
+          "Pemakaian kata ganti 'kami' menunjukkan keterlibatan sudut pandang orang pertama jamak dalam cerita.",
+          "Perbandingan 'membentang bagai layar kapal layar megah' merupakan majas simile untuk melukiskan jemuran kain.",
+          "Ungkapan 'punggung mulai melengkung dimakan usia' bermakna denotatif bahwa Nenek Fatimah memakan kayu tua."
+        ],
+        key: "A,B,C",
+        explanation: "A, B, dan C tepat. Pernyataan D keliru karena 'dimakan usia' bermakna konotatif (menua), bukan makan secara harfiah."
+      },
+      {
+        no: 3, bab: "Bab 1: Teks Deskripsi", stim: "S1", type: "BS",
+        kisi: "Menganalisis makna denotatif vs konotatif dalam konteks",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap analisis makna kata/ungkapan berikut berdasarkan konteks pemakaiannya dalam teks!",
+        rows: [
+          { code: "1", text: "Ungkapan 'doa sunyi yang ditorehkan di atas serat kapas' memuat makna konotatif yang menggambarkan ketulusan batin perajin saat membatik." },
+          { code: "2", text: "Frasa 'aroma malam leleh bercampur harum kayu bakar' memuat pencitraan indra penciuman (olfaktori) secara denotatif." },
+          { code: "3", text: "Kata 'karam' pada kalimat 'warisan leluhur tidak karam ditelan arus mode instan' digunakan secara denotatif untuk menggambarkan kapal tenggelam." }
+        ],
+        key: "1:B,2:S,3:B", // 1=Benar(A), 2=Benar(A), 3=Salah(B) -> cek: di bawah A=Benar, B=Salah!
+        bsKey: ["A", "A", "B"],
+        explanation: "1 Benar (konotasi ketulusan batin), 2 Benar (pencitraan penciuman nyata), 3 Salah ('karam' di sini bermakna kias: punah/hilang)."
+      },
+      {
+        no: 4, bab: "Bab 1: Teks Deskripsi", stim: "S1", type: "MATCH",
+        kisi: "Memasangkan kutipan teks dengan fungsi kebahasaan/majas",
+        stem: "Pasangkanlah kutipan teks pada Kolom Kiri dengan fungsi kebahasaan atau jenis pencitraan yang tepat pada Kolom Kanan!",
+        left: [
+          { code: "1", text: "'...membentang bagai layar kapal layar megah.'" },
+          { code: "2", text: "'Bagi kami para remaja karang taruna...'" },
+          { code: "3", text: "'...harum kayu bakar selalu menyapa...'" },
+          { code: "4", text: "'...tetap tajam menelusuri motif mega mendung...'" }
+        ],
+        right: [
+          { code: "A", text: "Penanda sudut pandang orang pertama jamak" },
+          { code: "B", text: "Majas perbandingan (simile) visual" },
+          { code: "C", text: "Pencitraan indra penglihatan dan ketelitian" },
+          { code: "D", text: "Pencitraan indra penciuman (olfaktori)" }
+        ],
+        matchKey: { "1": "B", "2": "A", "3": "D", "4": "C" },
+        explanation: "1→B (kata 'bagai' penanda simile), 2→A ('kami'), 3→D ('harum'), 4→C ('tajam menelusuri motif')."
+      },
+      {
+        no: 5, bab: "Bab 1: Teks Deskripsi", stim: "S2", type: "MCMA",
+        kisi: "Mengidentifikasi ciri fisik objek & sistem kekerabatan pada teks",
+        stem: "Berdasarkan teks 'Bale Agung dan Musyawarah Kekerabatan', manakah rincian informasi yang SESUAI secara tersurat? (Pilih semua jawaban yang benar)",
+        options: [
+          "Konstruksi tiang kayu ulin Bale Agung dirakit menggunakan pasak kayu tanpa paku besi.",
+          "Bagian kolong bangunan dimanfaatkan sebagai lumbung penyimpanan padi komunal warga marga.",
+          "Sistem kekerabatan parental menempatkan garis keturunan ayah dan ibu secara seimbang.",
+          "Hak waris tanah pusaka keluarga dalam sistem parental hanya boleh dikuasai anak laki-laki sulung."
+        ],
+        key: "A,B,C",
+        explanation: "A, B, dan C sesuai isi teks. D bertentangan karena sistem parental memandang kedudukan laki-laki dan perempuan seimbang."
+      },
+      {
+        no: 6, bab: "Bab 1: Teks Deskripsi", stim: "S2", type: "BS",
+        kisi: "Mengevaluasi kesesuaian informasi teks untuk bahan edukasi budaya",
+        stem: "Tentukan Benar (B) jika pernyataan LAYAK dijadikan materi infografik budaya atau Salah (S) jika TIDAK LAYAK berdasarkan teks!",
+        rows: [
+          { code: "1", text: "Menjelaskan teknologi arsitektur tradisional pasak kayu pada Bale Agung sebagai bukti kearifan konstruksi tahan guncangan." },
+          { code: "2", text: "Menyimpulkan bahwa sistem kekerabatan parental menghapus peran tetua adat dari pihak ayah dalam musyawarah desa." },
+          { code: "3", text: "Mengangkat fungsi kolong Bale Agung sebagai lumbung komunal yang memperkuat ketahanan pangan masyarakat adat." }
+        ],
+        bsKey: ["A", "B", "A"],
+        explanation: "1 Benar, 2 Salah (tetua dari pihak ayah maupun ibu memimpin bersama secara setara), 3 Benar."
+      },
+      {
+        no: 7, bab: "Bab 1: Teks Deskripsi", stim: "S2", type: "MATCH",
+        kisi: "Memasangkan perbandingan tiga sistem kekerabatan Nusantara",
+        stem: "Pasangkanlah ciri praktik kekerabatan pada Kolom Kiri dengan istilah sistem kekerabatan yang tepat pada Kolom Kanan!",
+        left: [
+          { code: "1", text: "Garis keturunan ditarik lurus dari pihak ibu dan harta pusaka tinggi dikelola kaum perempuan." },
+          { code: "2", text: "Garis keturunan dan pewarisan marga keluarga diteruskan melalui garis darah ayah." },
+          { code: "3", text: "Kedudukan pihak ayah dan ibu dipandang sejajar dalam pewarisan maupun musyawarah adat." },
+          { code: "4", text: "Saudara laki-laki ibu (Mamak) berperan membimbing kemenakan dalam struktur adat Minangkabau." }
+        ],
+        right: [
+          { code: "A", text: "Sistem Patrilineal" },
+          { code: "B", text: "Sistem Parental (Bilateral)" },
+          { code: "C", text: "Sistem Matrilineal" }
+        ],
+        matchKey: { "1": "C", "2": "A", "3": "B", "4": "C" },
+        explanation: "1→C (Matrilineal), 2→A (Patrilineal), 3→B (Parental), 4→C (Peran Mamak adalah ciri khas Matrilineal Minangkabau)."
+      },
+
+      // --- BAB 2: TEKS PROSEDUR (No. 8 - 14) ---
+      {
+        no: 8, bab: "Bab 2: Teks Prosedur", stim: "S3", type: "PG",
+        kisi: "Menganalisis alasan teknis dalam infografik teks prosedur",
+        stem: "Berdasarkan infografik pembuatan Eco-Enzyme tersebut, alasan utama penggunaan wadah bermulut lebar berbahan plastik (bukan kaca) adalah...",
+        options: [
+          "Mempercepat penguapan cairan pembersih agar fermentasi selesai dalam dua hari.",
+          "Mencegah wadah pecah akibat akumulasi tekanan gas selama proses fermentasi anaerob.",
+          "Menjaga suhu cairan tetap berada di atas 80°C selama sembilan puluh hari penyimpanan.",
+          "Menghilangkan bau asam segar sehingga cairan berubah menjadi hitam pekat."
+        ],
+        key: "B",
+        explanation: "Pada kotak 2 tertera jelas: 'DILARANG botol kaca (risiko pecah tekanan gas)' karena fermentasi menghasilkan gas."
+      },
+      {
+        no: 9, bab: "Bab 2: Teks Prosedur", stim: "S3", type: "MCMA",
+        kisi: "Memverifikasi rincian takaran dan langkah operasional infografik",
+        stem: "Manakah rincian teknis berikut yang SESUAI dengan aturan formula 1 : 3 : 10 pada infografik Eco-Enzyme? (Pilih semua jawaban yang benar)",
+        options: [
+          "Jika menggunakan 200 gram gula merah, maka kulit buah yang dibutuhkan adalah 600 gram dan air 2.000 ml.",
+          "Wadah fermentasi harus diisi penuh hingga menyentuh tutup agar tidak ada udara tersisa sedikit pun.",
+          "Pada dua minggu pertama, tutup wadah perlu dibuka selama 5 detik setiap 2 hari untuk membuang gas.",
+          "Hasil panen dinyatakan berhasil apabila cairan berwarna cokelat cerah, beraroma asam segar, dan pH < 4,0."
+        ],
+        key: "A,C,D",
+        explanation: "A benar (kelipatan 2 dari rasio 1:3:10 = 200:600:2000), C benar, D benar. B salah karena harus menyisakan 20% ruang gas."
+      },
+      {
+        no: 10, bab: "Bab 2: Teks Prosedur", stim: "S3", type: "BS",
+        kisi: "Mengevaluasi kelengkapan struktur & indikator keberhasilan prosedur",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap pernyataan evaluasi prosedur berdasarkan infografik Eco-Enzyme!",
+        rows: [
+          { code: "1", text: "Pencantuman pH di bawah 4,0 dan warna cairan cokelat cerah berfungsi sebagai tolok ukur objektif keberhasilan fermentasi." },
+          { code: "2", text: "Apabila cairan berubah menjadi hitam pekat dan berbau busuk, produk tetap aman digunakan karena sudah difermentasi 90 hari." },
+          { code: "3", text: "Penyisakan 20% ruang kosong di bagian atas wadah bertujuan memberi ruang ekspansi gas fermentasi." }
+        ],
+        bsKey: ["A", "B", "A"],
+        explanation: "1 Benar, 2 Salah (hitam & bau busuk menandakan fermentasi gagal/kontaminasi), 3 Benar."
+      },
+      {
+        no: 11, bab: "Bab 2: Teks Prosedur", stim: "S3", type: "MATCH",
+        kisi: "Memasangkan tahapan prosedur dengan tindakan operasionalnya",
+        stem: "Pasangkanlah bagian tahapan pada Kolom Kiri dengan tindakan operasional atau rasio yang tepat pada Kolom Kanan!",
+        left: [
+          { code: "1", text: "Komposisi Bahan Dasar" },
+          { code: "2", text: "Perawatan Minggu ke-1 s.d. ke-2" },
+          { code: "3", text: "Pemilihan Wadah Fermentasi" },
+          { code: "4", text: "Kriteria Evaluasi Panen" }
+        ],
+        right: [
+          { code: "A", text: "Membuka tutup wadah 5 detik setiap 2 hari sekali" },
+          { code: "B", text: "Rasio 1 bagian gula merah : 3 bagian kulit buah : 10 bagian air" },
+          { code: "C", text: "Memeriksa warna cokelat cerah, aroma asam segar, dan pH < 4,0" },
+          { code: "D", text: "Menggunakan wadah plastik bermulut lebar dengan 20% ruang gas" }
+        ],
+        matchKey: { "1": "B", "2": "A", "3": "D", "4": "C" },
+        explanation: "1→B, 2→A, 3→D, 4→C."
+      },
+      {
+        no: 12, bab: "Bab 2: Teks Prosedur", stim: "S4", type: "MCMA",
+        kisi: "Menentukan makna istilah teknis dalam teks narasi prosedur",
+        stem: "Berdasarkan konteks teks 'Menyiapkan Kertas Daur Ulang & Liputan Pengrajin', manakah makna istilah teknis yang TEPAT? (Pilih semua jawaban yang benar)",
+        options: [
+          "Istilah 'pulping' bermakna proses penghancuran serat kertas bekas menjadi bubur lunak.",
+          "Istilah 'selulosa' merujuk pada serat alami penyusun bahan kertas yang mengembang saat direndam.",
+          "Istilah 'screen' bermakna bingkai berjaring kasa halus untuk menyaring dan mencetak lembaran bubur kertas.",
+          "Istilah 'kanji' bermakna cairan kimia peluntur tinta yang berfungsi memutihkan kertas secara instan."
+        ],
+        key: "A,B,C",
+        explanation: "A, B, dan C sesuai teks. D keliru karena larutan kanji digunakan sebagai perekat alami, bukan peluntur tinta."
+      },
+      {
+        no: 13, bab: "Bab 2: Teks Prosedur", stim: "S4", type: "BS",
+        kisi: "Menganalisis etika pelaksanaan dan penutupan wawancara",
+        stem: "Tentukan Benar (B) jika tindakan SESUAI etika wawancara pada teks atau Salah (S) jika TIDAK SESUAI!",
+        rows: [
+          { code: "1", text: "Mengirim surat permohonan jadwal sepekan sebelum liputan merupakan bentuk penghormatan terhadap ketersediaan waktu narasumber." },
+          { code: "2", text: "Membacakan kembali kutipan pernyataan narasumber sebelum berpamitan bertujuan mencegah kekeliruan penafsiran data." },
+          { code: "3", text: "Merekam percakapan narasumber secara diam-diam tanpa izin diperbolehkan agar jawaban narasumber terdengar lebih alami." }
+        ],
+        bsKey: ["A", "A", "B"],
+        explanation: "1 Benar, 2 Benar (verifikasi/konfirmasi data pada tahap penutup), 3 Salah (wajib meminta izin terlebih dahulu)."
+      },
+      {
+        no: 14, bab: "Bab 2: Teks Prosedur", stim: "S4", type: "MATCH",
+        kisi: "Memasangkan tindakan wawancara dengan fase tahapannya",
+        stem: "Pasangkanlah tindakan pewawancara pada Kolom Kiri dengan fase tahapan wawancara yang tepat pada Kolom Kanan!",
+        left: [
+          { code: "1", text: "Mengirim surat permohonan kesediaan dan kesepakatan jadwal sepekan sebelumnya." },
+          { code: "2", text: "Meminta izin verbal sebelum mengaktifkan alat perekam suara." },
+          { code: "3", text: "Membacakan ulang catatan kutipan penting guna memastikan akurasi data." },
+          { code: "4", text: "Menyusun daftar pertanyaan berbasis 5W+1H setelah meriset profil pengrajin." }
+        ],
+        right: [
+          { code: "A", text: "Fase Pelaksanaan Wawancara" },
+          { code: "B", text: "Fase Penutup & Verifikasi" },
+          { code: "C", text: "Fase Persiapan Awal" }
+        ],
+        matchKey: { "1": "C", "2": "A", "3": "B", "4": "C" },
+        explanation: "1→C (Persiapan), 2→A (Pelaksanaan), 3→B (Penutup), 4→C (Persiapan)."
+      },
+
+      // --- BAB 3: TEKS REKON (No. 15 - 22) ---
+      {
+        no: 15, bab: "Bab 3: Teks Rekon", stim: "S5", type: "PG",
+        kisi: "Membedakan pernyataan fakta objektif vs opini/asumsi di media sosial",
+        stem: "Kalimat pada unggahan media sosial @Nadia_Pustaka28 yang merupakan pernyataan FAKTA objektif adalah...",
+        options: [
+          "“Kupikir pengunjung bakal malas mampir sampai ke belakang.”",
+          "“Sabtu pagi pukul 07.15 WIB, sebanyak 280 siswa kelas IX mengikuti Festival Literasi & Pameran Karya Kriya.”",
+          "“Menurutku, antusiasme teman-teman meningkat karena konsep pameran interaktif jauh lebih seru.”",
+          "“Worth it banget capeknya dua minggu persiapan!”"
+        ],
+        key: "B",
+        explanation: "Opsi B memuat data terverifikasi (hari Sabtu, pukul 07.15 WIB, jumlah 280 siswa), sedangkan A, C, dan D adalah dugaan/opini subjektif."
+      },
+      {
+        no: 16, bab: "Bab 3: Teks Rekon", stim: "S5", type: "MCMA",
+        kisi: "Menentukan makna kosakata populer media sosial sesuai konteks rekon",
+        stem: "Berdasarkan konteks unggahan pengalaman @Nadia_Pustaka28, manakah padanan makna kosakata populer berikut yang TEPAT? (Pilih semua jawaban yang benar)",
+        options: [
+          "Istilah 'insecure' bermakna perasaan ragu, cemas, atau kurang percaya diri terhadap posisi stan kelompoknya.",
+          "Istilah 'interaktif' bermakna kegiatan yang melibatkan partisipasi aktif pengunjung secara langsung.",
+          "Ungkapan 'worth it' bermakna hasil yang diperoleh sepadan dengan usaha dan waktu yang telah dikeluarkan.",
+          "Kata 'antusiasme' bermakna rasa bosan dan enggan menghadiri kegiatan pameran sekolah."
+        ],
+        key: "A,B,C",
+        explanation: "A, B, dan C tepat sesuai konteks. D salah karena 'antusiasme' berarti semangat/minat yang tinggi."
+      },
+      {
+        no: 17, bab: "Bab 3: Teks Rekon", stim: "S5", type: "BS",
+        kisi: "Mengklasifikasikan kalimat fakta, asumsi, dan opini pada teks rekon",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap analisis kategori kalimat berikut berdasarkan teks rekon media sosial tersebut!",
+        rows: [
+          { code: "1", text: "Kalimat 'Pukul 13.30 WIB seluruh 65 paket karya kami habis terjual' merupakan informasi faktual yang dapat dibuktikan secara kuantitatif." },
+          { code: "2", text: "Kalimat 'Kupikir pengunjung bakal malas mampir sampai ke belakang' merupakan fakta sejarah yang pasti terjadi." },
+          { code: "3", text: "Frasa 'jauh lebih seru daripada sekadar menempel poster' merupakan opini subjektif penulis berdasarkan penilaian pribadinya." }
+        ],
+        bsKey: ["A", "B", "A"],
+        explanation: "1 Benar (fakta kuantitatif), 2 Salah (itu hanyalah asumsi/dugaan awal penulis), 3 Benar (opini subjektif)."
+      },
+      {
+        no: 18, bab: "Bab 3: Teks Rekon", stim: "S5", type: "MATCH",
+        kisi: "Memasangkan kutipan teks rekon dengan struktur & kategori informasi",
+        stem: "Pasangkanlah kutipan teks rekon pada Kolom Kiri dengan kategori informasi atau struktur rekon yang tepat pada Kolom Kanan!",
+        left: [
+          { code: "1", text: "'Sabtu pagi pukul 07.15 WIB, sebanyak 280 siswa kelas IX mengikuti Festival Literasi...'" },
+          { code: "2", text: "'Kupikir pengunjung bakal malas mampir sampai ke belakang.'" },
+          { code: "3", text: "'Menurutku, antusiasme teman-teman meningkat karena konsep pameran interaktif jauh lebih seru...'" },
+          { code: "4", text: "'Worth it banget capeknya dua minggu persiapan!'" }
+        ],
+        right: [
+          { code: "A", text: "Asumsi / Kekhawatiran Awal Penulis" },
+          { code: "B", text: "Orientasi Faktual (Waktu, Tempat, Peserta)" },
+          { code: "C", text: "Reorientasi / Refleksi Kepuasan Akhir" },
+          { code: "D", text: "Opini Evaluatif Penulis" }
+        ],
+        matchKey: { "1": "B", "2": "A", "3": "D", "4": "C" },
+        explanation: "1→B, 2→A, 3→D, 4→C."
+      },
+      {
+        no: 19, bab: "Bab 3: Teks Rekon", stim: "S6", type: "MCMA",
+        kisi: "Mengidentifikasi data faktual teks rekon untuk dasar promosi produk",
+        stem: "Manakah poin-poin informasi faktual dari 'Catatan Produksi Keripik Talas Ungu Lembang' yang RELEVAN dan JUJUR untuk dicantumkan dalam media promosi produk? (Pilih semua jawaban yang benar)",
+        options: [
+          "Diolah menggunakan metode pemanggangan sehingga rendah lemak serta berbahan baku talas ungu Lembang.",
+          "Mengandung 2,8 gram serat pangan dengan indeks glikemik sedang (sekitar 54) berdasarkan rujukan uji lab pangan.",
+          "Dikemas higienis menggunakan kantong kertas kraft berlapis aluminium foil seberat 150 gram seharga Rp12.000,00.",
+          "Dijamin mampu menyembuhkan penyakit gula darah secara permanen dalam waktu satu minggu tanpa konsultasi medis."
+        ],
+        key: "A,B,C",
+        explanation: "A, B, dan C adalah fakta terukur dari teks. D merupakan klaim medis palsu/menyesatkan."
+      },
+      {
+        no: 20, bab: "Bab 3: Teks Rekon", stim: "S6", type: "BS",
+        kisi: "Mengevaluasi strategi promosi logis vs menyesatkan berdasarkan teks rekon",
+        stem: "Tentukan Benar (B) jika pernyataan strategi promosi LOGIS/ETIS atau Salah (S) jika MENYESATKAN berdasarkan data teks!",
+        rows: [
+          { code: "1", text: "Menonjolkan proses perendaman air garam dan pemanggangan untuk menunjukkan pengolahan higienis tanpa penggorengan berlebih." },
+          { code: "2", text: "Mengklaim bahwa keripik talas ungu bebas karbohidrat 100% sehingga boleh dikonsumsi tanpa batas oleh semua pasien." },
+          { code: "3", text: "Menyertakan informasi berat bersih 150 gram dan asal bahan baku petani Lembang untuk membangun kepercayaan konsumen." }
+        ],
+        bsKey: ["A", "B", "A"],
+        explanation: "1 Benar, 2 Salah (indeks glikemik sedang berarti tetap mengandung karbohidrat), 3 Benar."
+      },
+      {
+        no: 21, bab: "Bab 3: Teks Rekon", stim: "S6", type: "MATCH",
+        kisi: "Memasangkan data faktual produksi dengan fungsi strategis promosinya",
+        stem: "Pasangkanlah data faktual pada Kolom Kiri dengan fungsi strategis promosinya yang tepat pada Kolom Kanan!",
+        left: [
+          { code: "1", text: "Kandungan 2,8 gram serat pangan dan indeks glikemik sedang (54) rujukan uji lab." },
+          { code: "2", text: "Penggunaan umbi talas ungu segar dari petani lokal Lembang yang dipanggang." },
+          { code: "3", text: "Kantong kertas kraft berlapis aluminium foil 150 gram seharga Rp12.000,00." },
+          { code: "4", text: "Perendaman irisan 1,5 mm dalam air garam untuk menghilangkan kristal kalsium oksalat." }
+        ],
+        right: [
+          { code: "A", text: "Jaminan Keamanan & Kenyamanan Konsumsi (Bebas Rasa Gatal)" },
+          { code: "B", text: "Bukti Klaim Gizi Terukur" },
+          { code: "C", text: "Spesifikasi Kemasan Pelindung & Penetapan Harga" },
+          { code: "D", text: "Keunggulan Bahan Baku Lokal & Metode Pengolahan" }
+        ],
+        matchKey: { "1": "B", "2": "D", "3": "C", "4": "A" },
+        explanation: "1→B, 2→D, 3→C, 4→A."
+      },
+      {
+        no: 22, bab: "Bab 3: Teks Rekon", stim: "S6", type: "MCMA",
+        kisi: "Menganalisis aspek keuangan & jenis teks rekon",
+        stem: "Berdasarkan keseluruhan isi 'Catatan Produksi Keripik Talas Ungu Lembang', simpulan mana sajakah yang BENAR? (Pilih semua jawaban yang benar)",
+        options: [
+          "Teks tersebut termasuk teks rekon faktual/prosedural yang merekam pengalaman nyata kegiatan kewirausahaan siswa.",
+          "Total pendapatan kotor dari penjualan 47 bungkus keripik seharga Rp12.000,00 adalah Rp564.000,00.",
+          "Masih tersisa 3 bungkus produk yang belum terjual dari total 50 bungkus yang diproduksi kelompok.",
+          "Teks tersebut merupakan teks rekon imajinatif karena menceritakan eksperimen fiksi di luar bumi."
+        ],
+        key: "A,B,C",
+        explanation: "A benar, B benar (47 × Rp12.000 = Rp564.000), C benar (50 - 47 = 3 bungkus), D salah."
+      },
+
+      // --- BAB 4: TEKS EKSPLANASI (No. 23 - 30) ---
+      {
+        no: 23, bab: "Bab 4: Teks Eksplanasi", stim: "S7", type: "PG",
+        kisi: "Menentukan hubungan sebab-akibat utama fenomena alam/lingkungan",
+        stem: "Berdasarkan teks eksplanasi 'Mekanisme Terjadinya Pulau Bahang Perkotaan', penyebab utama udara malam hari di pusat kota tetap terasa lebih panas daripada pedesaan adalah...",
+        options: [
+          "Tingginya curah hujan lokal yang mempercepat penguapan air di taman kota.",
+          "Permukaan beton dan aspal menyerap radiasi matahari lalu melepaskannya secara lambat pada malam hari.",
+          "Banyaknya atap hijau (green roof) yang menahan aliran angin pegunungan masuk ke kota.",
+          "Menurunnya penggunaan pendingin ruangan (AC) pada gedung-gedung perkantoran."
+        ],
+        key: "B",
+        explanation: "Paragraf pertama menjelaskan beton, aspal, dan atap seng memiliki kapasitas serap radiasi tinggi dan memantulkannya kembali secara lambat saat malam."
+      },
+      {
+        no: 24, bab: "Bab 4: Teks Eksplanasi", stim: "S7", type: "MCMA",
+        kisi: "Mengidentifikasi rantai kausalitas (sebab-akibat) dalam teks eksplanasi",
+        stem: "Manakah pernyataan hubungan sebab-akibat (kausalitas) yang DIDUKUNG secara logis oleh teks eksplanasi Urban Heat Island? (Pilih semua jawaban yang benar)",
+        options: [
+          "Berkurangnya ruang terbuka hijau menyebabkan proses evapotranspirasi menurun sehingga pendinginan alami terhambat.",
+          "Kenaikan suhu udara perkotaan memicu peningkatan pemakaian AC yang justru menambah buangan gas panas ke atmosfer.",
+          "Penerapan atap hijau dan pohon peneduh jalan berperan menekan intensitas efek pulau bahang perkotaan.",
+          "Dominasi permukaan aspal mempercepat peresapan air hujan sehingga suhu permukaan jalan turun drastis."
+        ],
+        key: "A,B,C",
+        explanation: "A, B, dan C sesuai rantai sebab-akibat pada paragraf kedua. D keliru karena aspal bersifat kedap air dan menyimpan panas."
+      },
+      {
+        no: 25, bab: "Bab 4: Teks Eksplanasi", stim: "S7", type: "BS",
+        kisi: "Mengevaluasi struktur ilmiah & penggunaan istilah teknis eksplanasi",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap evaluasi ilmiah terhadap teks eksplanasi tersebut!",
+        rows: [
+          { code: "1", text: "Teks tersebut memenuhi struktur eksplanasi karena memaparkan identifikasi fenomena (UHI), rangkaian proses sebab-akibat, dan ulasan solusi." },
+          { code: "2", text: "Penggunaan istilah teknis seperti 'radiasi matahari', 'evapotranspirasi', dan 'atmosfer mikro' memperkuat ketepatan penjelasan ilmiah." },
+          { code: "3", text: "Teks menyimpulkan bahwa fenomena Urban Heat Island semata-mata disebabkan oleh letak geografis tanpa campur tangan tata ruang manusia." }
+        ],
+        bsKey: ["A", "A", "B"],
+        explanation: "1 Benar, 2 Benar, 3 Salah (jelas dipengaruhi material beton/aspal dan berkurangnya RTH akibat pembangunan)."
+      },
+      {
+        no: 26, bab: "Bab 4: Teks Eksplanasi", stim: "S7", type: "MATCH",
+        kisi: "Memasangkan istilah/faktor fenomena dengan mekanisme fisisnya",
+        stem: "Pasangkanlah faktor atau istilah pada Kolom Kiri dengan dampak/mekanisme yang tepat pada Kolom Kanan!",
+        left: [
+          { code: "1", text: "Permukaan Beton & Aspal" },
+          { code: "2", text: "Evapotranspirasi Vegetasi" },
+          { code: "3", text: "Gas Buang Pendingin Ruangan (AC)" },
+          { code: "4", text: "Penerapan Green Roof (Atap Hijau)" }
+        ],
+        right: [
+          { code: "A", text: "Menambah pelepasan energi panas ke atmosfer mikro perkotaan" },
+          { code: "B", text: "Mitigasi ekologis untuk menurunkan suhu permukaan bangunan" },
+          { code: "C", text: "Menyerap radiasi siang hari dan memantulkannya lambat di malam hari" },
+          { code: "D", text: "Proses penguapan air dari tumbuhan yang mendinginkan udara secara alami" }
+        ],
+        matchKey: { "1": "C", "2": "D", "3": "A", "4": "B" },
+        explanation: "1→C, 2→D, 3→A, 4→B."
+      },
+      {
+        no: 27, bab: "Bab 4: Teks Eksplanasi", stim: "S8", type: "MCMA",
+        kisi: "Menganalisis kausalitas biokimia pangan pada teks eksplanasi",
+        stem: "Berdasarkan teks eksplanasi 'Peran Bakteri Asam Laktat pada Fermentasi Sari Kacang Hijau', manakah hubungan sebab-akibat yang TEPAT? (Pilih semua jawaban yang benar)",
+        options: [
+          "Pasteurisasi pada suhu 80°C bertujuan menonaktifkan mikroba kontaminan sebelum kultur bakteri baik dimasukkan.",
+          "Aktivitas bakteri asam laktat menurunkan pH larutan dari 6,5 menjadi sekitar 4,5.",
+          "Penurunan pH menyebabkan protein nabati menggumpal lembut (koagulasi) membentuk tekstur kental yoghurt.",
+          "Inokulasi bakteri dilakukan pada suhu 80°C agar bakteri Lactobacillus langsung mati seketika."
+        ],
+        key: "A,B,C",
+        explanation: "A, B, dan C tepat sesuai teks. D salah karena larutan didinginkan dulu hingga 42°C sebelum inokulasi agar bakteri hidup."
+      },
+      {
+        no: 28, bab: "Bab 4: Teks Eksplanasi", stim: "S8", type: "BS",
+        kisi: "Mengevaluasi fungsi konjungsi & simpulan akhir teks eksplanasi",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap analisis kebahasaan dan isi simpulan pada teks eksplanasi yoghurt nabati!",
+        rows: [
+          { code: "1", text: "Ungkapan 'Dengan demikian' pada kalimat terakhir berfungsi menandai simpulan umum atas manfaat proses fermentasi terkontrol." },
+          { code: "2", text: "Penurunan tingkat keasaman (pH) berperan ganda: membentuk tekstur kental sekaligus menghambat pertumbuhan mikroba pembusuk." },
+          { code: "3", text: "Minuman yoghurt sari kacang hijau dirancang khusus untuk memperparah gejala intoleransi laktosa pada konsumen." }
+        ],
+        bsKey: ["A", "A", "B"],
+        explanation: "1 Benar, 2 Benar (memperpanjang daya simpan secara alami), 3 Salah (justru menjadi alternatif aman bagi penderita intoleransi laktosa)."
+      },
+      {
+        no: 29, bab: "Bab 4: Teks Eksplanasi", stim: "S8", type: "MATCH",
+        kisi: "Memasangkan konjungsi/penanda hubungan makna dengan fungsinya",
+        stem: "Pasangkanlah kutipan penanda hubungan makna pada Kolom Kiri dengan fungsi logisnya yang tepat pada Kolom Kanan!",
+        left: [
+          { code: "1", text: "'...pada suhu 80°C selama 15 menit guna menginaktifkan mikroba kontaminan...'" },
+          { code: "2", text: "'...sehingga tingkat keasaman (pH) larutan menurun dari 6,5 menjadi sekitar 4,5.'" },
+          { code: "3", text: "'Penurunan pH tersebut menyebabkan protein nabati mengalami koagulasi...'" },
+          { code: "4", text: "'Dengan demikian, fermentasi terkontrol tidak hanya memperpanjang daya simpan...'" }
+        ],
+        right: [
+          { code: "A", text: "Konjungsi intrakalimat penanda akibat langsung" },
+          { code: "B", text: "Ungkapan antarkalimat pengantar simpulan akhir" },
+          { code: "C", text: "Konjungsi penanda tujuan tindakan" },
+          { code: "D", text: "Verba kausatif penghubung sebab dengan perubahan fisik protein" }
+        ],
+        matchKey: { "1": "C", "2": "A", "3": "D", "4": "B" },
+        explanation: "1→C ('guna'), 2→A ('sehingga'), 3→D ('menyebabkan'), 4→B ('Dengan demikian')."
+      },
+      {
+        no: 30, bab: "Bab 4: Teks Eksplanasi", stim: "S8", type: "MCMA",
+        kisi: "Sintesis pemahaman prosedur ilmiah & manfaat gizi teks eksplanasi",
+        stem: "Sebagai soal penutup kisi-kisi, manakah pernyataan sintesis yang BENAR mengenai tahapan dan manfaat yoghurt nabati kacang hijau? (Pilih semua jawaban yang benar)",
+        options: [
+          "Pendinginan sari kacang hijau hingga 42°C merupakan syarat suhu optimal sebelum kultur bakteri diinokulasikan.",
+          "Fermentasi menghasilkan peptida bioaktif yang lebih mudah dimanfaatkan untuk kesehatan saluran pencernaan.",
+          "Koagulasi protein terjadi akibat peningkatan keasaman larutan, bukan karena penambahan tepung pengental sintetis.",
+          "Yoghurt nabati hanya bermanfaat untuk mengubah rasa menjadi manis tanpa memberikan efek daya simpan."
+        ],
+        key: "A,B,C",
+        explanation: "A, B, dan C merangkum mekanisme ilmiah teks secara akurat. D keliru karena fermentasi justru memperpanjang daya simpan secara alami."
+      }
+    ];
+
+    const STIMULI_L2 = {
+      L2_S1: {
+        title: "STIMULUS 1 (LEVEL 2) — TEKS DESKRIPSI KRITIS (Konservasi Arsitektur Pesisir)",
+        html: `
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-rose-500/30 space-y-2.5">
+            <h4 class="font-bold text-rose-300 text-base">Senjakala Rumah Panggung Kayu Meranti di Muara</h4>
+            <p>Di pesisir utara yang kian tergerus abrasi pasang surut, deretan rumah panggung kayu meranti merah berdiri laksana barisan penjaga tua yang menolak tunduk pada korosi garam. Kolong setinggi dua meter di bawah lantai papan berfungsi sebagai katup pengaman ketika air rob meluap memasuki pelataran kampung, sementara atap rumbia berlapis tiga meredam terik matahari laut tanpa memerangkap hawa pengap di dalam bilik.</p>
+            <p>Sayangnya, alih-alih melestarikan kearifan adaptif tersebut, generasi muda kampung mulai membongkar struktur panggung dan menggantinya dengan dinding bata rendah yang justru terendam lumpur setiap bulan purnama. Bagi Pak Darmanto, tukang perahu terakhir yang masih merawat bengkel kayu di tepi dermaga, meninggalkan rumah panggung berarti memutus tali pusar antara manusia pesisir dan watak alam yang menghidupinya.</p>
+          </div>`
+      },
+      L2_S2: {
+        title: "STIMULUS 2 (LEVEL 2) — TEKS DESKRIPSI SOSIAL-BUDAYA (Sistem Kekerabatan & Pranata Adat)",
+        html: `
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-rose-500/30 space-y-2.5">
+            <h4 class="font-bold text-rose-300 text-base">Tiga Tungku Sejarangan di Balai Kekerabatan</h4>
+            <p>Dalam forum temu budaya antarsuku Nusantara, para peneliti membandingkan tata kelola hak komunal dan pewarisan peran sosial pada tiga masyarakat adat. Pada masyarakat matrilineal di dataran tinggi Sumatra, perempuan memegang kendali atas harta pusaka tinggi seperti sawah dan rumah gadang, sedangkan saudara laki-laki ibu bertindak sebagai wali adat yang menengahi sengketa kaum di balai nagari.</p>
+            <p>Sebaliknya, pada masyarakat patrilineal di kawasan danau vulkanik, garis marga diteruskan melalui anak laki-laki yang memikul tanggung jawab upacara adat klan, sementara perempuan menerima bekal harta bergerak saat membangun keluarga baru. Adapun masyarakat bilateral di pesisir Jawa menerapkan pembagian waris dan tanggung jawab pengasuhan orang tua secara setara antara pihak ayah maupun ibu tanpa dominasi satu garis keturunan.</p>
+          </div>`
+      },
+      L2_S3: {
+        title: "STIMULUS 3 (LEVEL 2) — TEKS PROSEDUR TEKNIS (Sistem Filtrasi Bio-Sand Filter)",
+        html: `
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-rose-500/30 space-y-3">
+            <h4 class="font-bold text-emerald-300 text-base">Skema Konstruksi Saringan Air Lambat (Bio-Sand Filter)</h4>
+            <svg viewBox="0 0 680 230" class="w-full rounded-xl bg-slate-950 border border-slate-800 p-2">
+              <rect x="12" y="10" width="656" height="34" rx="8" fill="#7f1d1d"/>
+              <text x="340" y="32" text-anchor="middle" fill="#fef2f2" font-size="13" font-weight="bold">URUTAN LAPISAN MEDIA FILTER & PRINSIP LAPISAN BIOLOGIS (SCHMUTZDECKE)</text>
+
+              <rect x="16" y="54" width="205" height="162" rx="10" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+              <text x="118" y="76" text-anchor="middle" fill="#7dd3fc" font-size="12" font-weight="bold">SUSUNAN LAPISAN (ATAS → BAWAH)</text>
+              <text x="26" y="98" fill="#f8fafc" font-size="11">1. Genangan Air (5 cm): Jaga oksigen</text>
+              <text x="26" y="118" fill="#fde047" font-size="11">2. Lapisan Biofilm (2 cm): Pemakan bakteri</text>
+              <text x="26" y="138" fill="#f8fafc" font-size="11">3. Pasir Silika Halus (40 cm): Saring keruh</text>
+              <text x="26" y="158" fill="#f8fafc" font-size="11">4. Kerikil Kecil (5 cm): Penahan pasir</text>
+              <text x="26" y="178" fill="#f8fafc" font-size="11">5. Batu Kerikil Kasar (5 cm): Cegah sumbat</text>
+              <text x="26" y="200" fill="#94a3b8" font-size="10">*Wajib dicuci bersih sebelum disusun</text>
+
+              <rect x="235" y="54" width="210" height="162" rx="10" fill="#1e293b" stroke="#fbbf24" stroke-width="1.5"/>
+              <text x="340" y="76" text-anchor="middle" fill="#fcd34d" font-size="12" font-weight="bold">ATURAN OPERASIONAL KRITIS</text>
+              <text x="245" y="100" fill="#f8fafc" font-size="11">• Pasang pelat difuser berlubang di atas</text>
+              <text x="253" y="115" fill="#94a3b8" font-size="10">agar tuangan air tidak merusak biofilm.</text>
+              <text x="245" y="138" fill="#f8fafc" font-size="11">• Pipa keluaran melengkung ke atas</text>
+              <text x="253" y="153" fill="#94a3b8" font-size="10">menjaga air tetap menggenang 5 cm.</text>
+              <text x="245" y="178" fill="#fca5a5" font-size="11" font-weight="bold">• DILARANG menuang air berklorin</text>
+              <text x="253" y="193" fill="#fca5a5" font-size="10">(kaporit membunuh mikroba biofilm).</text>
+
+              <rect x="459" y="54" width="205" height="162" rx="10" fill="#1e293b" stroke="#34d399" stroke-width="1.5"/>
+              <text x="561" y="76" text-anchor="middle" fill="#6ee7b7" font-size="12" font-weight="bold">INDIKATOR KEMATANGAN</text>
+              <text x="469" y="102" fill="#f8fafc" font-size="11">• Masa pematangan biofilm: 14–21 hari</text>
+              <text x="469" y="124" fill="#f8fafc" font-size="11">• Laju aliran ideal: 0,4–0,6 liter/menit</text>
+              <text x="469" y="146" fill="#f8fafc" font-size="11">• Kekeruhan turun di bawah 5 NTU</text>
+              <text x="469" y="172" fill="#fde047" font-size="10">Jika aliran mampat: aduk 2 cm lapisan</text>
+              <text x="469" y="187" fill="#fde047" font-size="10">pasir teratas lalu buang air keruhnya.</text>
+            </svg>
+          </div>`
+      },
+      L2_S4: {
+        title: "STIMULUS 4 (LEVEL 2) — TEKS PROSEDUR & ETIKA JURNALISTIK INVESTIGATIF",
+        html: `
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-rose-500/30 space-y-2.5">
+            <h4 class="font-bold text-rose-300 text-base">Protokol Wawancara Narasumber Rentan & Uji Silang Data</h4>
+            <p>Dalam liputan dokumenter mengenai dampak pencemaran limbah industri terhadap nelayan tradisional, pewawancara tidak cukup hanya mengandalkan pertanyaan terbuka berbasis ADIKSIMBA. Pada tahap pra-wawancara, jurnalis pelajar wajib melakukan triangulasi dokumen awal—seperti memeriksa laporan kualitas air dinas lingkungan hidup—agar pertanyaan yang diajukan bersifat verifikatif dan tidak menggiring opini.</p>
+            <p>Selama wawancara berlangsung, apabila narasumber meminta pernyataan tertentu berstatus <em>off the record</em> (tidak untuk dikutip demi keamanan pribadi), pewawancara terikat secara etis untuk tidak mencantumkan identitas maupun kutipan tersebut dalam naskah publikasi. Setelah transkripsi selesai, kutipan teknis wajib dikonfirmasi ulang kepada narasumber guna menjamin akurasi ilmiah sekaligus menghormati hak jawab narasumber.</p>
+          </div>`
+      },
+      L2_S5: {
+        title: "STIMULUS 5 (LEVEL 2) — TEKS REKON ANALITIS (Catatan Ekspedisi Geopark)",
+        html: `
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-rose-500/30 space-y-2.5">
+            <div class="flex items-center justify-between text-xs text-slate-400 border-b border-slate-800 pb-2">
+              <span class="font-bold text-amber-400">Jurnal Lapangan Klub Sains • @Galih_Geosains28</span>
+              <span>Sabtu, 24 Oktober 2026 • Tebing Karst Citatah</span>
+            </div>
+            <p>Pukul 06.45 WIB, tim ekspedisi kelas IX berjumlah 42 siswa tiba di kaki tebing batugamping Citatah untuk mengamati fosil terumbu karang purba. Berbekal lup pembesar 10x dan larutan asam klorida encer (HCl 0,1 M), kami menguji reaksi buih karbonat pada tiga titik singkapan batuan yang berbeda ketinggiannya.</p>
+            <p>Pada pukul 10.20 WIB, kabut tebal mendadak turun disertai gerimis sehingga pencatatan koordinat GPS sempat meleset 15 meter dari titik awal. Menurutku, temuan fosil koral pada ketinggian 650 meter di atas permukaan laut membuktikan bahwa cekungan Bandung jutaan tahun silam merupakan dasar laut dangkal. Pengalaman ini menyadarkanku bahwa ketelitian mencatat data mentah di lapangan jauh lebih krusial daripada sekadar berfoto untuk unggahan media sosial.</p>
+          </div>`
+      },
+      L2_S6: {
+        title: "STIMULUS 6 (LEVEL 2) — TEKS REKON BISNIS SOSIAL (Evaluasi Usaha Minuman Herbal)",
+        html: `
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-rose-500/30 space-y-2.5">
+            <h4 class="font-bold text-rose-300 text-base">Laporan Proyek Kewirausahaan: Seduhan Jahe Merah & Secang</h4>
+            <p>Selama bazar literasi sekolah pekan lalu, kelompok kami memproduksi 80 botol minuman herbal siap minum berbahan rimpang jahe merah, kayu secang, dan gula aren organik tanpa pengawet sintetis. Proses ekstraksi dilakukan melalui perebusan api kecil selama 45 menit agar senyawa gingerol dan brazilin larut optimal tanpa merusak aroma atsiri.</p>
+            <p>Berdasarkan rujukan literatur nutrisi yang kami sertakan pada brosur edukasi, minuman ini mengandung antioksidan flavonoid alami serta rendah kalori (45 kkal per botol 250 ml). Dari 80 botol yang diproduksi dengan total biaya bahan Rp440.000,00, sebanyak 72 botol terjual seharga Rp10.000,00 per botol, sedangkan 8 botol sisanya dibagikan gratis kepada petugas kebersihan sekolah sebagai bentuk tanggung jawab sosial kelompok.</p>
+          </div>`
+      },
+      L2_S7: {
+        title: "STIMULUS 7 (LEVEL 2) — TEKS EKSPLANASI HIDROGEOLOGI (Intrusi Air Laut)",
+        html: `
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-rose-500/30 space-y-2.5">
+            <h4 class="font-bold text-sky-300 text-base">Mekanisme Intrusi Air Laut pada Akuifer Pesisir</h4>
+            <p>Intrusi air laut adalah peristiwa menyusupnya air asin dari laut ke dalam lapisan akuifer air tawar di wilayah daratan pesisir. Dalam kondisi alami yang seimbang, tekanan hidrostatis air tawar di daratan yang berada lebih tinggi mampu menahan batas pertemuan (<em>interface</em>) air asin agar tetap berada di bawah garis pantai.</p>
+            <p>Namun, pengambilan air tanah dalam secara berlebihan oleh kawasan industri dan permukiman padat menyebabkan muka air tanah (<em>water table</em>) turun drastis dan memicu amblesan tanah (<em>land subsidence</em>). Akibat penurunan tekanan hidrostatis air tawar tersebut, air laut yang memiliki massa jenis lebih besar bergerak mendesak masuk menggantikan pori-pori akuifer tawar. Oleh sebab itu, pembatasan sumur bor dalam dan pembangunan sumur injeksi air hujan menjadi langkah wajib untuk memulihkan keseimbangan tekanan akuifer.</p>
+          </div>`
+      },
+      L2_S8: {
+        title: "STIMULUS 8 (LEVEL 2) — TEKS EKSPLANASI KIMIA PANGAN (Reaksi Maillard & Akrilamida)",
+        html: `
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-rose-500/30 space-y-2.5">
+            <h4 class="font-bold text-indigo-300 text-base">Dinamika Reaksi Maillard dan Pembentukan Akrilamida pada Penggorengan</h4>
+            <p>Warna cokelat keemasan dan aroma gurih khas pada kentang goreng maupun roti panggang dihasilkan oleh reaksi Maillard, yakni interaksi kimia antara gugus asam amino (terutama asparagina) dan gula pereduksi ketika bahan pangan dipanaskan pada suhu 140°C hingga 165°C. Reaksi non-enzimatis ini meningkatkan daya tarik sensoris makanan secara signifikan dibandingkan perebusan biasa.</p>
+            <p>Akan tetapi, apabila suhu pemanasan melampaui 175°C dalam durasi terlalu lama hingga bahan pangan menghitam hangus, reaksi lanjutan akan mengubah asparagina menjadi senyawa akrilamida yang bersifat karsinogenik jika terakumulasi dalam tubuh. Dengan demikian, pengendalian suhu pemasakan di bawah 170°C serta perendaman irisan kentang sebelum digoreng untuk mengurangi kadar gula permukaan merupakan prosedur ilmiah untuk memperoleh cita rasa optimal sekaligus menekan risiko paparan akrilamida.</p>
+          </div>`
+      }
+    };
+
+    const QUESTIONS_L2 = [
+      // --- BAB 1: TEKS DESKRIPSI LEVEL 2 (No. 1 - 7) ---
+      {
+        no: 1, bab: "Bab 1: Teks Deskripsi", stim: "L2_S1", type: "PG",
+        kisi: "Menyimpulkan gagasan utama tersirat & sikap penulis",
+        stem: "Gagasan utama yang tersirat dari keseluruhan teks 'Senjakala Rumah Panggung Kayu Meranti di Muara' adalah...",
+        options: [
+          "Keunggulan teknis kayu meranti merah dibandingkan bata merah dalam menahan angin topan laut.",
+          "Kritik terhadap hilangnya kearifan arsitektur adaptif pesisir akibat pergeseran gaya bangunan modern yang mengabaikan karakter alam.",
+          "Ajakan untuk memindahkan seluruh permukiman nelayan pesisir ke wilayah pegunungan yang bebas pasang surut.",
+          "Perhitungan biaya perawatan bengkel perahu kayu tradisional milik Pak Darmanto di tepi dermaga."
+        ],
+        key: "B",
+        explanation: "Paragraf 1 memaparkan fungsi adaptif rumah panggung terhadap rob dan panas, lalu paragraf 2 mengkritik perubahan ke dinding bata rendah yang terendam lumpur sebagai pemutusan hubungan dengan alam."
+      },
+      {
+        no: 2, bab: "Bab 1: Teks Deskripsi", stim: "L2_S1", type: "MCMA",
+        kisi: "Menganalisis majas, makna konotatif, dan kohesi makna",
+        stem: "Manakah analisis kebahasaan dan makna ungkapan yang TEPAT berdasarkan teks tersebut? (Pilih semua jawaban yang benar)",
+        options: [
+          "Frasa 'katup pengaman' digunakan secara konotatif untuk menggambarkan fungsi kolong panggung sebagai ruang lolosnya luapan air rob.",
+          "Ungkapan 'memutus tali pusar antara manusia pesisir dan watak alam' bermakna kias hilangnya ikatan ekologis dan tradisi.",
+          "Perbandingan 'berdiri laksana barisan penjaga tua' merupakan majas personifikasi sekaligus simile yang menonjolkan ketangguhan bangunan.",
+          "Kata 'senjakala' pada judul teks bermakna denotatif bahwa seluruh peristiwa hanya terjadi tepat pukul 18.00 sore."
+        ],
+        key: "A,B,C",
+        explanation: "A, B, dan C tepat. D keliru karena 'senjakala' pada judul bermakna konotatif (masa kemunduran/mulai punahnya tradisi rumah panggung)."
+      },
+      {
+        no: 3, bab: "Bab 1: Teks Deskripsi", stim: "L2_S1", type: "BS",
+        kisi: "Mengevaluasi kesesuaian rincian fisik dengan fungsi ekologis",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap pernyataan evaluasi hubungan bentuk fisik dan fungsi ekologis bangunan pada teks!",
+        rows: [
+          { code: "1", text: "Atap rumbia berlapis tiga dirancang untuk menahan radiasi panas pesisir sekaligus menjaga sirkulasi udara agar bilik tidak pengap." },
+          { code: "2", text: "Penggantian rumah panggung menjadi rumah dinding bata rendah terbukti efektif mencegah masuknya lumpur rob saat bulan purnama." },
+          { code: "3", text: "Pemilihan kayu meranti merah dilukiskan sebagai material yang memiliki ketahanan lebih baik terhadap korosi garam pesisir." }
+        ],
+        bsKey: ["A", "B", "A"],
+        explanation: "1 Benar, 2 Salah (justru terendam lumpur setiap bulan purnama), 3 Benar."
+      },
+      {
+        no: 4, bab: "Bab 1: Teks Deskripsi", stim: "L2_S1", type: "MATCH",
+        kisi: "Memasangkan elemen deskripsi dengan fungsi struktur & kebahasaan",
+        stem: "Pasangkanlah kutipan pada Kolom Kiri dengan analisis fungsi makna atau pencitraannya pada Kolom Kanan!",
+        left: [
+          { code: "1", text: "'...kolong setinggi dua meter di bawah lantai papan berfungsi sebagai katup pengaman...'" },
+          { code: "2", text: "'...meredam terik matahari laut tanpa memerangkap hawa pengap...'" },
+          { code: "3", text: "'...memutus tali pusar antara manusia pesisir dan watak alam...'" },
+          { code: "4", text: "'...dinding bata rendah yang justru terendam lumpur setiap bulan purnama.'" }
+        ],
+        right: [
+          { code: "A", text: "Metafora ikatan batin dan ketergantungan ekologis" },
+          { code: "B", text: "Kontras dampak negatif akibat pengabaian kearifan lokal" },
+          { code: "C", text: "Pencitraan indra peraba/suhu (termal)" },
+          { code: "D", text: "Penjelasan fungsi adaptif ruang arsitektural" }
+        ],
+        matchKey: { "1": "D", "2": "C", "3": "A", "4": "B" },
+        explanation: "1→D, 2→C, 3→A, 4→B."
+      },
+      {
+        no: 5, bab: "Bab 1: Teks Deskripsi", stim: "L2_S2", type: "MCMA",
+        kisi: "Membandingkan tiga sistem kekerabatan Nusantara secara kritis",
+        stem: "Berdasarkan teks 'Tiga Tungku Sejarangan di Balai Kekerabatan', manakah simpulan komparatif yang BENAR? (Pilih semua jawaban yang benar)",
+        options: [
+          "Dalam sistem matrilineal, penguasaan aset pusaka tinggi berada di tangan perempuan sementara kepemimpinan adat kaum dijalankan saudara laki-laki ibu.",
+          "Sistem patrilineal menempatkan anak laki-laki sebagai penerus marga sekaligus penanggung jawab utama ritual adat klan.",
+          "Sistem bilateral menyetarakan kewajiban merawat orang tua dan hak pewarisan tanpa memprioritaskan satu garis gender.",
+          "Ketiga sistem kekerabatan tersebut meniadakan peran musyawarah keluarga dalam menyelesaikan persoalan harta komunal."
+        ],
+        key: "A,B,C",
+        explanation: "A, B, dan C merangkum perbandingan ketiga sistem secara presisi. D salah karena justru mengatur tata kelola dan musyawarah secara bermartabat."
+      },
+      {
+        no: 6, bab: "Bab 1: Teks Deskripsi", stim: "L2_S2", type: "BS",
+        kisi: "Menganalisis implikasi sosial pembagian peran dalam teks",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap pernyataan analisis sosiokultural berdasarkan teks tersebut!",
+        rows: [
+          { code: "1", text: "Anggapan bahwa laki-laki tidak memiliki posisi terhormat dalam masyarakat matrilineal terbantahkan oleh peran wali adat di balai nagari." },
+          { code: "2", text: "Dalam masyarakat patrilineal yang dijelaskan teks, perempuan tidak memperoleh hak apa pun termasuk bekal harta saat menikah." },
+          { code: "3", text: "Pola bilateral di pesisir Jawa menyeimbangkan otoritas keluarga dari garis ayah dan garis ibu." }
+        ],
+        bsKey: ["A", "B", "A"],
+        explanation: "1 Benar, 2 Salah (perempuan menerima bekal harta bergerak saat membangun keluarga baru), 3 Benar."
+      },
+      {
+        no: 7, bab: "Bab 1: Teks Deskripsi", stim: "L2_S2", type: "MATCH",
+        kisi: "Memasangkan studi kasus keluarga dengan sistem kekerabatan yang relevan",
+        stem: "Pasangkanlah studi kasus pembagian peran pada Kolom Kiri dengan sistem kekerabatan pada Kolom Kanan!",
+        left: [
+          { code: "1", text: "Paman dari pihak ibu memimpin musyawarah sengketa tanah ulayat yang dikelola para ibu." },
+          { code: "2", text: "Anak laki-laki dan perempuan menerima bagian waris yang setara serta bergantian merawat orang tua." },
+          { code: "3", text: "Nama klan keluarga diwariskan eksklusif dari ayah kepada anak laki-laki." },
+          { code: "4", text: "Perempuan menerima bekal harta bergerak ketika memasuki pernikahan dalam struktur klan ayah." }
+        ],
+        right: [
+          { code: "A", text: "Sistem Bilateral / Parental" },
+          { code: "B", text: "Sistem Matrilineal" },
+          { code: "C", text: "Sistem Patrilineal" }
+        ],
+        matchKey: { "1": "B", "2": "A", "3": "C", "4": "C" },
+        explanation: "1→B, 2→A, 3→C, 4→C."
+      },
+
+      // --- BAB 2: TEKS PROSEDUR LEVEL 2 (No. 8 - 14) ---
+      {
+        no: 8, bab: "Bab 2: Teks Prosedur", stim: "L2_S3", type: "PG",
+        kisi: "Menganalisis kegagalan prosedur berdasarkan prinsip kerja skema",
+        stem: "Seorang siswa merakit Bio-Sand Filter sesuai urutan lapisan, tetapi ia menggunakan air PDAM berkaporit tinggi untuk membilas media setiap hari. Berdasarkan bagan teknis tersebut, dampak paling fatal yang akan terjadi adalah...",
+        options: [
+          "Kerikil kasar di dasar tabung akan larut dan menyumbat pipa keluaran air.",
+          "Mikroorganisme pada lapisan biofilm (Schmutzdecke) akan mati sehingga penyaringan bakteri patogen gagal bekerja.",
+          "Laju aliran air meningkat drastis hingga 5 liter per menit karena kaporit memperlebar pori pasir silika.",
+          "Genangan air setinggi 5 cm di atas pasir akan menguap seluruhnya dalam waktu sepuluh menit."
+        ],
+        key: "B",
+        explanation: "Bagan secara tegas melarang air berklorin/kaporit karena membunuh mikroba pada lapisan biofilm yang bertugas memakan bakteri berbahaya."
+      },
+      {
+        no: 9, bab: "Bab 2: Teks Prosedur", stim: "L2_S3", type: "MCMA",
+        kisi: "Mengevaluasi fungsi komponen mekanis & biologis pada infografik prosedur",
+        stem: "Manakah pernyataan teknis yang TEPAT mengenai mekanisme kerja Bio-Sand Filter pada infografik tersebut? (Pilih semua jawaban yang benar)",
+        options: [
+          "Pelat difuser berlubang dipasang agar aliran air yang dituangkan tidak menghantam dan merusak lapisan biofilm.",
+          "Desain pipa keluaran yang melengkung ke atas berfungsi mempertahankan genangan air 5 cm agar biofilm tetap hidup.",
+          "Lapisan kerikil kecil dan kerikil kasar ditempatkan di bagian paling atas untuk menyaring partikel lumpur halus.",
+          "Apabila aliran air melambat akibat mampat, pemeliharaan dilakukan dengan mengaduk 2 cm pasir teratas tanpa membongkar seluruh tabung."
+        ],
+        key: "A,B,D",
+        explanation: "A, B, dan D sesuai dengan bagan teknis. C terbalik karena kerikil kecil dan kasar berada di lapisan bawah (urutan 4 dan 5)."
+      },
+      {
+        no: 10, bab: "Bab 2: Teks Prosedur", stim: "L2_S3", type: "BS",
+        kisi: "Menilai kesiapan operasional & parameter kualitas hasil prosedur",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap evaluasi operasional Bio-Sand Filter berdasarkan bagan!",
+        rows: [
+          { code: "1", text: "Air hasil saringan pada hari pertama perakitan langsung memenuhi standar biologis meskipun lapisan biofilm belum matang." },
+          { code: "2", text: "Parameter keberhasilan penyaringan mencakup laju aliran 0,4–0,6 liter/menit dan tingkat kekeruhan di bawah 5 NTU." },
+          { code: "3", text: "Seluruh media pasir silika dan kerikil wajib dicuci bersih terlebih dahulu sebelum disusun ke dalam wadah filter." }
+        ],
+        bsKey: ["B", "A", "A"],
+        explanation: "1 Salah (masa pematangan biofilm membutuhkan waktu 14–21 hari), 2 Benar, 3 Benar."
+      },
+      {
+        no: 11, bab: "Bab 2: Teks Prosedur", stim: "L2_S3", type: "MATCH",
+        kisi: "Memasangkan komponen filter dengan fungsi spesifiknya",
+        stem: "Pasangkanlah komponen atau parameter pada Kolom Kiri dengan fungsi teknisnya pada Kolom Kanan!",
+        left: [
+          { code: "1", text: "Lapisan Schmutzdecke (2 cm)" },
+          { code: "2", text: "Pelat Difuser Berlubang" },
+          { code: "3", text: "Pipa Keluaran Melengkung ke Atas" },
+          { code: "4", text: "Pengadukan 2 cm Pasir Teratas" }
+        ],
+        right: [
+          { code: "A", text: "Mempertahankan genangan air 5 cm agar oksigen mikroba terjaga" },
+          { code: "B", text: "Zona biologis aktif yang menguraikan bakteri patogen" },
+          { code: "C", text: "Tindakan pemulihan ketika laju aliran saringan mengalami penyumbatan" },
+          { code: "D", text: "Memecah energi jatuhan air tuangan agar permukaan pasir tidak berlubang" }
+        ],
+        matchKey: { "1": "B", "2": "D", "3": "A", "4": "C" },
+        explanation: "1→B, 2→D, 3→A, 4→C."
+      },
+      {
+        no: 12, bab: "Bab 2: Teks Prosedur", stim: "L2_S4", type: "MCMA",
+        kisi: "Memahami istilah jurnalistik & standar verifikasi wawancara",
+        stem: "Berdasarkan teks 'Protokol Wawancara Narasumber Rentan & Uji Silang Data', manakah prinsip yang WAJIB dipatuhi pewawancara? (Pilih semua jawaban yang benar)",
+        options: [
+          "Melakukan triangulasi dokumen resmi sebelum wawancara agar pertanyaan bersifat verifikatif.",
+          "Menjaga kerahasiaan identitas dan isi informasi yang dinyatakan berstatus 'off the record' oleh narasumber.",
+          "Mengonfirmasi ulang kutipan teknis setelah transkripsi untuk menjamin akurasi ilmiah dan hak jawab.",
+          "Menyusun pertanyaan yang menggiring narasumber agar menyalahkan pihak tertentu demi judul berita yang sensasional."
+        ],
+        key: "A,B,C",
+        explanation: "A, B, dan C sesuai protokol etika jurnalistik pada teks. D melanggar prinsip objektivitas (tidak menggiring opini)."
+      },
+      {
+        no: 13, bab: "Bab 2: Teks Prosedur", stim: "L2_S4", type: "BS",
+        kisi: "Mengevaluasi dilema etika jurnalistik dalam studi kasus wawancara",
+        stem: "Tentukan Benar (B) jika tindakan jurnalis pelajar BERETIKA atau Salah (S) jika MELANGGAR ETIKA berdasarkan teks!",
+        rows: [
+          { code: "1", text: "Membaca laporan kualitas air dinas lingkungan hidup sebelum mewawancarai nelayan agar mampu mengajukan pertanyaan berbasis data." },
+          { code: "2", text: "Tetap mencantumkan nama lengkap nelayan pada bagian informasi 'off the record' dengan alasan demi transparansi publik." },
+          { code: "3", text: "Memberikan kesempatan narasumber memeriksa ketepatan istilah teknis pada draf transkripsi sebelum dipublikasikan." }
+        ],
+        bsKey: ["A", "B", "A"],
+        explanation: "1 Benar, 2 Salah (melanggar janji 'off the record' dan membahayakan keamanan narasumber rentan), 3 Benar."
+      },
+      {
+        no: 14, bab: "Bab 2: Teks Prosedur", stim: "L2_S4", type: "MATCH",
+        kisi: "Memasangkan istilah protokol liputan dengan tujuan proseduralnya",
+        stem: "Pasangkanlah tahapan/istilah protokol pada Kolom Kiri dengan tujuan utamanya pada Kolom Kanan!",
+        left: [
+          { code: "1", text: "Triangulasi Dokumen Pra-Wawancara" },
+          { code: "2", text: "Kesepakatan Status Off the Record" },
+          { code: "3", text: "Konfirmasi Transkripsi Teknis" },
+          { code: "4", text: "Pertanyaan Terbuka ADIKSIMBA" }
+        ],
+        right: [
+          { code: "A", text: "Melindungi keselamatan narasumber rentan dari risiko intimidasi" },
+          { code: "B", text: "Menggali kronologi dan dampak secara mendalam tanpa membatasi jawaban" },
+          { code: "C", text: "Membangun pertanyaan verifikatif berbasis data awal yang objektif" },
+          { code: "D", text: "Mencegah distorsi istilah ilmiah dan menghormati hak jawab" }
+        ],
+        matchKey: { "1": "C", "2": "A", "3": "D", "4": "B" },
+        explanation: "1→C, 2→A, 3→D, 4→B."
+      },
+
+      // --- BAB 3: TEKS REKON LEVEL 2 (No. 15 - 22) ---
+      {
+        no: 15, bab: "Bab 3: Teks Rekon", stim: "L2_S5", type: "PG",
+        kisi: "Membedakan fakta lapangan, kendala teknis, dan inferensi ilmiah pada teks rekon",
+        stem: "Pernyataan dalam 'Jurnal Lapangan Klub Sains' yang merupakan INFERENSI/HIPOTESIS PENULIS (bukan sekadar pengukuran langsung alat di lokasi) adalah...",
+        options: [
+          "Tim ekspedisi kelas IX berjumlah 42 siswa tiba di kaki tebing batugamping Citatah pukul 06.45 WIB.",
+          "Pencatatan koordinat GPS sempat meleset 15 meter akibat turunnya kabut tebal dan gerimis pukul 10.20 WIB.",
+          "Cekungan Bandung jutaan tahun silam merupakan dasar laut dangkal berdasarkan temuan fosil koral pada ketinggian 650 mdpl.",
+          "Pengujian reaksi buih karbonat pada tiga titik singkapan batuan dilakukan menggunakan lup 10x dan larutan HCl 0,1 M."
+        ],
+        key: "C",
+        explanation: "Opsi C diawali penanda 'Menurutku...' dan merupakan kesimpulan/inferensi geologis dari bukti fosil, sedangkan A, B, dan D adalah fakta observasi langsung."
+      },
+      {
+        no: 16, bab: "Bab 3: Teks Rekon", stim: "L2_S5", type: "MCMA",
+        kisi: "Menganalisis struktur, tujuan, dan nilai refleksi teks rekon ilmiah",
+        stem: "Manakah pernyataan yang TEPAT mengenai karakteristik 'Jurnal Lapangan Klub Sains' tersebut? (Pilih semua jawaban yang benar)",
+        options: [
+          "Teks mengombinasikan rekon faktual (kronologi waktu dan prosedur uji lapangan) dengan refleksi pribadi penulis.",
+          "Penggunaan larutan HCl 0,1 M dan lup 10x menunjukkan bahwa kegiatan lapangan memiliki tujuan verifikasi ilmiah.",
+          "Refleksi akhir penulis mengkritik kecenderungan mendahulukan dokumentasi media sosial dibanding akurasi data mentah.",
+          "Teks tersebut sepenuhnya merupakan rekon imajinatif karena tidak mencantumkan waktu, lokasi, maupun alat ukur."
+        ],
+        key: "A,B,C",
+        explanation: "A, B, dan C akurat. D keliru karena teks memuat data waktu (06.45, 10.20), lokasi (Citatah, 650 mdpl), jumlah peserta (42), dan alat uji."
+      },
+      {
+        no: 17, bab: "Bab 3: Teks Rekon", stim: "L2_S5", type: "BS",
+        kisi: "Menguji ketepatan klasifikasi fakta vs opini/kendala pada jurnal lapangan",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap analisis kategori informasi pada teks jurnal lapangan tersebut!",
+        rows: [
+          { code: "1", text: "Pergeseran koordinat GPS sejauh 15 meter akibat kabut tebal merupakan fakta kendala teknis yang tercatat selama ekspedisi." },
+          { code: "2", text: "Kalimat yang diawali kata 'Menurutku' menunjukkan bahwa penulis memisahkan secara sadar antara data observasi dan tafsiran ilmiahnya." },
+          { code: "3", text: "Keberadaan 42 siswa dalam tim ekspedisi merupakan opini subjektif penulis yang tidak dapat diverifikasi daftar hadir." }
+        ],
+        bsKey: ["A", "A", "B"],
+        explanation: "1 Benar, 2 Benar, 3 Salah (jumlah 42 siswa adalah data faktual kuantitatif)."
+      },
+      {
+        no: 18, bab: "Bab 3: Teks Rekon", stim: "L2_S5", type: "MATCH",
+        kisi: "Memasangkan kutipan jurnal lapangan dengan elemen struktur rekon",
+        stem: "Pasangkanlah kutipan pada Kolom Kiri dengan elemen struktur/jenis informasi pada Kolom Kanan!",
+        left: [
+          { code: "1", text: "'Pukul 06.45 WIB, tim ekspedisi kelas IX berjumlah 42 siswa tiba di kaki tebing...'" },
+          { code: "2", text: "'...pencatatan koordinat GPS sempat meleset 15 meter dari titik awal.'" },
+          { code: "3", text: "'Menurutku, temuan fosil koral... membuktikan bahwa cekungan Bandung...'" },
+          { code: "4", text: "'Pengalaman ini menyadarkanku bahwa ketelitian mencatat data mentah jauh lebih krusial...'" }
+        ],
+        right: [
+          { code: "A", text: "Kendala Teknis dalam Rangkaian Peristiwa" },
+          { code: "B", text: "Reorientasi & Refleksi Sikap Ilmiah" },
+          { code: "C", text: "Orientasi (Waktu, Pelaku, Lokasi)" },
+          { code: "D", text: "Inferensi / Interpretasi Penulis" }
+        ],
+        matchKey: { "1": "C", "2": "A", "3": "D", "4": "B" },
+        explanation: "1→C, 2→A, 3→D, 4→B."
+      },
+      {
+        no: 19, bab: "Bab 3: Teks Rekon", stim: "L2_S6", type: "MCMA",
+        kisi: "Menganalisis data kuantitatif & klaim etis dalam teks rekon kewirausahaan",
+        stem: "Berdasarkan 'Laporan Proyek Kewirausahaan: Seduhan Jahe Merah & Secang', manakah simpulan analitis yang BENAR? (Pilih semua jawaban yang benar)",
+        options: [
+          "Total pemasukan kotor dari 72 botol yang terjual adalah Rp720.000,00 sehingga kelompok memperoleh laba bersih Rp280.000,00.",
+          "Sebanyak 10% dari total produksi (8 dari 80 botol) dialokasikan untuk kegiatan berbagi sosial kepada petugas kebersihan.",
+          "Perebusan api kecil selama 45 menit bertujuan mengekstraksi gingerol dan brazilin tanpa merusak senyawa aroma atsiri.",
+          "Produk diklaim memiliki nol kalori dan mampu menyembuhkan seluruh penyakit kronis dalam sekali minum."
+        ],
+        key: "A,B,C",
+        explanation: "A benar (72 × Rp10.000 = Rp720.000; Rp720.000 - Rp440.000 = Rp280.000), B benar (8/80 = 10%), C benar. D keliru karena mengandung 45 kkal dan tidak ada klaim obat."
+      },
+      {
+        no: 20, bab: "Bab 3: Teks Rekon", stim: "L2_S6", type: "BS",
+        kisi: "Mengevaluasi strategi komunikasi pemasaran berbasis data teks rekon",
+        stem: "Tentukan Benar (B) jika materi promosi berikut AKURAT/ETIS atau Salah (S) jika MENYESATKAN berdasarkan laporan proyek!",
+        rows: [
+          { code: "1", text: "Mencantumkan informasi nilai energi 45 kkal per kemasan 250 ml dan komposisi tanpa pengawet sintetis pada label botol." },
+          { code: "2", text: "Menuliskan pada poster bahwa 100% dari 80 botol produksi telah laku terjual habis dibeli pengunjung bazar." },
+          { code: "3", text: "Menjelaskan proses perebusan suhu terkontrol sebagai keunggulan untuk menjaga kandungan antioksidan flavonoid alami." }
+        ],
+        bsKey: ["A", "B", "A"],
+        explanation: "1 Benar, 2 Salah (yang terjual 72 botol, 8 botol dibagikan gratis), 3 Benar."
+      },
+      {
+        no: 21, bab: "Bab 3: Teks Rekon", stim: "L2_S6", type: "MATCH",
+        kisi: "Memasangkan data laporan usaha dengan fungsi strategisnya",
+        stem: "Pasangkanlah rincian data pada Kolom Kiri dengan kategori fungsi dalam laporan/promosi pada Kolom Kanan!",
+        left: [
+          { code: "1", text: "Perebusan api kecil 45 menit untuk menjaga gingerol, brazilin, dan aroma atsiri." },
+          { code: "2", text: "Kandungan antioksidan flavonoid alami dan 45 kkal per 250 ml." },
+          { code: "3", text: "Pembagian 8 botol gratis kepada petugas kebersihan sekolah." },
+          { code: "4", text: "Selisih pemasukan Rp720.000,00 dikurangi modal bahan Rp440.000,00." }
+        ],
+        right: [
+          { code: "A", text: "Implementasi Tanggung Jawab Sosial Usaha" },
+          { code: "B", text: "Analisis Laba Bersih Keuangan" },
+          { code: "C", text: "Jaminan Mutu Proses Ekstraksi Alami" },
+          { code: "D", text: "Informasi Nilai Gizi Terukur" }
+        ],
+        matchKey: { "1": "C", "2": "D", "3": "A", "4": "B" },
+        explanation: "1→C, 2→D, 3→A, 4→B."
+      },
+      {
+        no: 22, bab: "Bab 3: Teks Rekon", stim: "L2_S6", type: "MCMA",
+        kisi: "Sintesis nilai karakter & literasi finansial dari teks rekon",
+        stem: "Pelajaran lintas disiplin apa saja yang tergambar secara tersurat maupun tersirat dalam laporan proyek kewirausahaan tersebut? (Pilih semua jawaban yang benar)",
+        options: [
+          "Penerapan prinsip kimia pangan (ekstraksi suhu rendah) untuk menjaga kualitas senyawa aktif herbal.",
+          "Pencatatan arus kas sederhana antara biaya produksi, harga jual satuan, dan margin keuntungan.",
+          "Kepekaan sosial dengan menyisihkan sebagian hasil produksi bagi warga sekolah yang berjasa.",
+          "Strategi memaksimalkan laba dengan menambahkan pengawet sintetis agar sisa produk dapat dijual bulan depan."
+        ],
+        key: "A,B,C",
+        explanation: "A, B, dan C sesuai isi teks, sedangkan D bertentangan dengan prinsip produk tanpa pengawet sintetis."
+      },
+
+      // --- BAB 4: TEKS EKSPLANASI LEVEL 2 (No. 23 - 30) ---
+      {
+        no: 23, bab: "Bab 4: Teks Eksplanasi", stim: "L2_S7", type: "PG",
+        kisi: "Menganalisis mekanisme kausalitas fisis pada fenomena hidrogeologi",
+        stem: "Berdasarkan teks 'Mekanisme Intrusi Air Laut pada Akuifer Pesisir', faktor fisis langsung yang memungkinkan air laut menyusup masuk ke pori-pori akuifer daratan adalah...",
+        options: [
+          "Air tawar memiliki massa jenis lebih berat daripada air asin sehingga tenggelam ke dasar samudra.",
+          "Turunnya tekanan hidrostatis air tawar akibat penyedotan air tanah berlebih sehingga kalah oleh tekanan air laut yang bermassa jenis lebih besar.",
+          "Meningkatnya pembangunan sumur injeksi air hujan yang mendorong batas interface air asin ke tengah kota.",
+          "Berhentinya siklus penguapan air laut di sepanjang garis pantai industri."
+        ],
+        key: "B",
+        explanation: "Paragraf kedua menjelaskan penurunan muka air tanah menurunkan tekanan hidrostatis air tawar, sehingga air laut yang bermassa jenis lebih besar mendesak masuk."
+      },
+      {
+        no: 24, bab: "Bab 4: Teks Eksplanasi", stim: "L2_S7", type: "MCMA",
+        kisi: "Memetakan rantai sebab-akibat multi-tahap dalam teks eksplanasi",
+        stem: "Manakah rangkaian hubungan sebab-akibat (kausalitas) yang VALID berdasarkan teks eksplanasi intrusi air laut? (Pilih semua jawaban yang benar)",
+        options: [
+          "Eksploitasi air tanah dalam secara berlebihan → penurunan muka air tanah (water table) → amblesan tanah (land subsidence).",
+          "Penurunan tekanan hidrostatis air tawar → pergeseran batas interface air asin masuk ke akuifer daratan.",
+          "Pembangunan sumur injeksi air hujan & pembatasan sumur bor dalam → pemulihan keseimbangan tekanan hidrostatis akuifer.",
+          "Amblesan tanah di pesisir → peningkatan otomatis cadangan air tawar murni di bawah garis pantai."
+        ],
+        key: "A,B,C",
+        explanation: "A, B, dan C sesuai alur kausalitas ilmiah pada teks. D salah karena justru memperparah intrusi air asin."
+      },
+      {
+        no: 25, bab: "Bab 4: Teks Eksplanasi", stim: "L2_S7", type: "BS",
+        kisi: "Mengevaluasi keakuratan konsep & struktur teks eksplanasi",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap pernyataan evaluasi ilmiah terhadap teks intrusi air laut!",
+        rows: [
+          { code: "1", text: "Dalam keadaan alami tanpa eksploitasi berlebih, perbedaan tinggi tekanan hidrostatis air tawar daratan berfungsi sebagai penghalang alami masuknya air asin." },
+          { code: "2", text: "Istilah 'land subsidence' dalam teks merujuk pada fenomena meluapnya air sungai akibat curah hujan lokal." },
+          { code: "3", text: "Teks menutup penjelasan dengan rekomendasi mitigasi berbasis pemulihan keseimbangan hidrostatis akuifer." }
+        ],
+        bsKey: ["A", "B", "A"],
+        explanation: "1 Benar, 2 Salah ('land subsidence' adalah amblesan/penurunan permukaan tanah), 3 Benar."
+      },
+      {
+        no: 26, bab: "Bab 4: Teks Eksplanasi", stim: "L2_S7", type: "MATCH",
+        kisi: "Memasangkan istilah hidrogeologi dengan definisi fisisnya",
+        stem: "Pasangkanlah istilah ilmiah pada Kolom Kiri dengan definisi atau perannya dalam teks pada Kolom Kanan!",
+        left: [
+          { code: "1", text: "Interface Air Asin–Tawar" },
+          { code: "2", text: "Land Subsidence" },
+          { code: "3", text: "Tekanan Hidrostatis Air Tawar" },
+          { code: "4", text: "Sumur Injeksi Air Hujan" }
+        ],
+        right: [
+          { code: "A", text: "Penurunan elevasi permukaan tanah akibat penyedotan akuifer berlebih" },
+          { code: "B", text: "Teknologi pengisian kembali (recharge) untuk menaikkan muka air tanah" },
+          { code: "C", text: "Zona batas pertemuan antara massa air laut dan air tanah daratan" },
+          { code: "D", text: "Gaya tekan alami air daratan yang menahan penyusupan air laut" }
+        ],
+        matchKey: { "1": "C", "2": "A", "3": "D", "4": "B" },
+        explanation: "1→C, 2→A, 3→D, 4→B."
+      },
+      {
+        no: 27, bab: "Bab 4: Teks Eksplanasi", stim: "L2_S8", type: "MCMA",
+        kisi: "Menganalisis kondisi batas suhu & reaksi kimia pada teks eksplanasi pangan",
+        stem: "Berdasarkan teks 'Dinamika Reaksi Maillard dan Pembentukan Akrilamida pada Penggorengan', manakah simpulan ilmiah yang TEPAT? (Pilih semua jawaban yang benar)",
+        options: [
+          "Reaksi Maillard terjadi antara gugus asam amino (asparagina) dan gula pereduksi pada rentang suhu 140°C–165°C.",
+          "Pemanasan di atas 175°C dalam waktu lama memicu konversi asparagina menjadi senyawa akrilamida yang berisiko karsinogenik.",
+          "Perendaman irisan kentang sebelum digoreng bertujuan menurunkan kadar gula pereduksi di permukaan bahan.",
+          "Perebusan dalam air mendidih (100°C) menghasilkan reaksi Maillard paling kuat dibandingkan pemanggangan suhu 150°C."
+        ],
+        key: "A,B,C",
+        explanation: "A, B, dan C tepat sesuai teks. D salah karena reaksi Maillard membutuhkan suhu 140°C–165°C (di atas titik didih air)."
+      },
+      {
+        no: 28, bab: "Bab 4: Teks Eksplanasi", stim: "L2_S8", type: "BS",
+        kisi: "Mengevaluasi argumen ilmiah & implikasi kesehatan dalam teks eksplanasi",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap evaluasi hubungan proses pemasakan dan keamanan pangan pada teks!",
+        rows: [
+          { code: "1", text: "Warna cokelat keemasan pada suhu 140°C–165°C merupakan indikator reaksi Maillard yang meningkatkan cita rasa tanpa memicu akrilamida berlebih." },
+          { code: "2", text: "Semakin hitam dan hangus permukaan kentang goreng, semakin tinggi kandungan nutrisi asam amino asparagina yang bermanfaat bagi tubuh." },
+          { code: "3", text: "Pengendalian suhu di bawah 170°C merupakan titik temu antara kualitas sensoris makanan dan mitigasi risiko kesehatan." }
+        ],
+        bsKey: ["A", "B", "A"],
+        explanation: "1 Benar, 2 Salah (permukaan hangus menandakan asparagina telah berubah menjadi akrilamida yang karsinogenik), 3 Benar."
+      },
+      {
+        no: 29, bab: "Bab 4: Teks Eksplanasi", stim: "L2_S8", type: "MATCH",
+        kisi: "Memasangkan penanda kohesi/konjungsi kompleks dengan fungsi wacananya",
+        stem: "Pasangkanlah kutipan penanda hubungan logis pada Kolom Kiri dengan fungsi kohesi wacananya pada Kolom Kanan!",
+        left: [
+          { code: "1", text: "'...yakni interaksi kimia antara gugus asam amino dan gula pereduksi...'" },
+          { code: "2", text: "'Akan tetapi, apabila suhu pemanasan melampaui 175°C dalam durasi terlalu lama...'" },
+          { code: "3", text: "'...untuk mengurangi kadar gula permukaan...'" },
+          { code: "4", text: "'Dengan demikian, pengendalian suhu pemasakan di bawah 170°C... merupakan prosedur ilmiah...'" }
+        ],
+        right: [
+          { code: "A", text: "Konjungsi antarkalimat pertentangan yang memperkenalkan risiko lanjutan" },
+          { code: "B", text: "Penanda rincian/penjelasan definisi istilah teknis" },
+          { code: "C", text: "Ungkapan antarkalimat penyimpul solusi aplikatif" },
+          { code: "D", text: "Konjungsi penanda tujuan perlakuan pra-pemasakan" }
+        ],
+        matchKey: { "1": "B", "2": "A", "3": "D", "4": "C" },
+        explanation: "1→B ('yakni'), 2→A ('Akan tetapi'), 3→D ('untuk'), 4→C ('Dengan demikian')."
+      },
+      {
+        no: 30, bab: "Bab 4: Teks Eksplanasi", stim: "L2_S8", type: "MCMA",
+        kisi: "Sintesis tingkat lanjut: menghubungkan variabel kimia & prosedur pencegahan",
+        stem: "Jika sebuah kantin sekolah ingin memproduksi keripik kentang yang lezat sekaligus aman dari akrilamida berdasarkan teks tersebut, kombinasi langkah mana sajakah yang PALING TEPAT? (Pilih semua jawaban yang benar)",
+        options: [
+          "Merendam irisan kentang dalam air bersih sebelum penggorengan guna menurunkan konsentrasi gula pereduksi permukaan.",
+          "Mengatur termostat penggorengan pada kisaran suhu 150°C–165°C agar reaksi Maillard berjalan tanpa melewati ambang 175°C.",
+          "Mengangkat keripik saat berwarna kuning keemasan dan menghindari pemasakan hingga berwarna cokelat kehitaman.",
+          "Menaikkan suhu minyak hingga 200°C agar waktu penggorengan lebih singkat dan reaksi Maillard berhenti total."
+        ],
+        key: "A,B,C",
+        explanation: "A, B, dan C adalah sintesis prosedur berbasis bukti ilmiah teks. D berbahaya karena suhu 200°C (>175°C) memicu pembentukan akrilamida."
+      }
+    ];
+
+
+    // =========================================================================
+    // STATE APLIKASI & PROTEKSI KEAMANAN
+    // =========================================================================
+    let student = { nama: "", kelas: "", absen: "", mode: "" };
+    let currentLevel = 1;
+    let activeStimuli = STIMULI_L1;
+    let activeQuestions = QUESTIONS_L1;
+    let currentIndex = 0;
+    let userAnswers = new Array(30).fill(null);
+    let lastPayload = null;
+
+    let examActive = false;
+    let startTimeMs = 0;
+    let timerInterval = null;
+    let warningCount = 0;
+    let initialScreenHeight = window.innerHeight;
+
+    function getGasUrl() {
+      return localStorage.getItem("smpn28_gas_url") || DEFAULT_GAS_WEB_APP_URL;
+    }
+
+    function updateSyncBadge() {
+      const url = getGasUrl();
+      const dot = document.getElementById("syncDot");
+      const txt = document.getElementById("syncText");
+      if (url && url.startsWith("https://")) {
+        dot.className = "w-2 h-2 rounded-full bg-emerald-400 animate-pulse";
+        txt.textContent = "Terhubung ke Google Sheets";
+      } else {
+        dot.className = "w-2 h-2 rounded-full bg-amber-400";
+        txt.textContent = "Mode Lokal (URL Belum Diisi)";
+      }
+    }
+    updateSyncBadge();
+
+    function openModal(id) {
+      document.getElementById("gasUrlInput").value = getGasUrl();
+      document.getElementById(id).classList.remove("hidden");
+    }
+    function closeModal(id) {
+      document.getElementById(id).classList.add("hidden");
+    }
+    function saveGasUrl() {
+      const val = document.getElementById("gasUrlInput").value.trim();
+      localStorage.setItem("smpn28_gas_url", val);
+      updateSyncBadge();
+      closeModal("modalScript");
+      alert("URL Google Apps Script berhasil disimpan!");
+    }
+    function clearGasUrl() {
+      localStorage.removeItem("smpn28_gas_url");
+      document.getElementById("gasUrlInput").value = "";
+      updateSyncBadge();
+    }
+
+    async function testGasConnection() {
+      const url = document.getElementById("gasUrlInput").value.trim();
+      if (!url) return alert("Masukkan URL Web App terlebih dahulu.");
+      const dummy = {
+        level: 1,
+        timestamp: new Date().toLocaleString("id-ID"),
+        nama: "TES KONEKSI SISTEM",
+        kelas: "IX-TEST",
+        absen: "00",
+        mode: "Uji Koneksi",
+        durasi_detik: 10,
+        peringatan_layar: 0,
+        terjawab: 30,
+        answers: Array.from({length: 30}, (_, i) => `TEST_${i+1}`)
+      };
+      try {
+        await fetch(url, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(dummy)
+        });
+        alert("Permintaan uji coba terkirim! Periksa tab 'Respon_Level_1' di Google Spreadsheets Anda.");
+      } catch (e) {
+        alert("Gagal menghubungi URL: " + e.message);
+      }
+    }
+
+    // =========================================================================
+    // PROTEKSI PINDAH TAB, SPLIT-SCREEN HP, & SHORTCUT SALIN
+    // =========================================================================
+    function triggerSecurityLock(reason) {
+      if (!examActive) return;
+      warningCount++;
+      document.getElementById("securityReason").textContent = reason;
+      document.getElementById("overlayWarnCount").textContent = warningCount;
+      document.getElementById("securityOverlay").classList.remove("hidden");
+    }
+
+    function dismissSecurityOverlay() {
+      initialScreenHeight = window.innerHeight;
+      document.getElementById("securityOverlay").classList.add("hidden");
+    }
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden && examActive) {
+        triggerSecurityLock("Kamu meninggalkan tab ujian atau membuka aplikasi lain di HP/Laptop.");
+      }
+    });
+
+    window.addEventListener("resize", () => {
+      if (!examActive) return;
+      // Deteksi Split-Screen atau Floating Window jika tinggi layar menyusut drastis (>35%)
+      if (initialScreenHeight > 400 && window.innerHeight < initialScreenHeight * 0.65) {
+        triggerSecurityLock("Terdeteksi mode Split-Screen / Jendela Mengambang. Tutup jendela kedua agar layar soal kembali penuh.");
+      }
+    });
+
+    document.addEventListener("copy", (e) => {
+      if (examActive) {
+        e.preventDefault();
+        triggerSecurityLock("Menyalin teks soal tidak diperbolehkan selama sesi CBT berlangsung.");
+      }
+    });
+
+    // =========================================================================
+    // MANAJEMEN LEVEL 1 & LEVEL 2
+    // =========================================================================
+    function startLevel(lvl, e) {
+      if (e) e.preventDefault();
+
+      if (lvl === 1) {
+        student.nama = document.getElementById("inputNama").value.trim();
+        student.kelas = document.getElementById("inputKelas").value;
+        student.absen = document.getElementById("inputAbsen").value.trim();
+        student.mode = document.getElementById("inputMode").value;
+      }
+
+      currentLevel = lvl;
+      activeStimuli = (lvl === 1) ? STIMULI_L1 : STIMULI_L2;
+      activeQuestions = (lvl === 1) ? QUESTIONS_L1 : QUESTIONS_L2;
+      currentIndex = 0;
+      userAnswers = new Array(activeQuestions.length).fill(null);
+      warningCount = 0;
+      initialScreenHeight = window.innerHeight;
+      startTimeMs = Date.now();
+      examActive = true;
+
+      // Update UI Level
+      const pill = document.getElementById("levelPill");
+      pill.classList.remove("hidden");
+      if (lvl === 1) {
+        pill.textContent = "LEVEL 1 • UTAMA";
+        pill.className = "px-3 py-1.5 rounded-lg text-xs font-extrabold bg-amber-500/20 border border-amber-400/40 text-amber-300";
+        document.getElementById("navTitle").textContent = "Navigasi Level 1 (1–30)";
+        document.getElementById("btnSubmitLevel").textContent = "Kirim Jawaban Level 1";
+        document.getElementById("submitHint").textContent = "Terekam ke tab Respon_Level_1 (Kolom Q01–Q30).";
+      } else {
+        pill.textContent = "LEVEL 2 • NILAI TAMBAH";
+        pill.className = "px-3 py-1.5 rounded-lg text-xs font-extrabold bg-rose-500/20 border border-rose-400/40 text-rose-300";
+        document.getElementById("navTitle").textContent = "Navigasi Level 2 (1–30)";
+        document.getElementById("btnSubmitLevel").textContent = "Kirim Jawaban Level 2";
+        document.getElementById("submitHint").textContent = "Terekam ke tab Respon_Level_2 (Kolom Q01–Q30).";
+      }
+
+      document.getElementById("displayUser").textContent = `${student.nama} (${student.kelas} • No. ${student.absen})`;
+      document.getElementById("viewLogin").classList.add("hidden");
+      document.getElementById("viewResult").classList.add("hidden");
+      document.getElementById("viewExam").classList.remove("hidden");
+
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        const elapsed = Math.floor((Date.now() - startTimeMs) / 1000);
+        const m = String(Math.floor(elapsed / 60)).padStart(2, "0");
+        const s = String(elapsed % 60).padStart(2, "0");
+        document.getElementById("timerDisplay").textContent = `${m}:${s}`;
+      }, 1000);
+
+      renderNavGrid();
+      goQuestion(0);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function isAnswered(idx) {
+      const q = activeQuestions[idx];
+      const ans = userAnswers[idx];
+      if (!ans) return false;
+      if (q.type === "PG") return typeof ans === "string" && ans.length > 0;
+      if (q.type === "MCMA") return Array.isArray(ans) && ans.length > 0;
+      if (q.type === "BS") return Array.isArray(ans) && ans.length === q.rows.length && ans.every(x => x === "A" || x === "B");
+      if (q.type === "MATCH") return typeof ans === "object" && Object.keys(ans).length === q.left.length && Object.values(ans).every(v => v !== "");
+      return false;
+    }
+
+    function renderNavGrid() {
+      const grid = document.getElementById("navGrid");
+      grid.innerHTML = "";
+      let answeredCount = 0;
+
+      activeQuestions.forEach((q, idx) => {
+        const done = isAnswered(idx);
+        if (done) answeredCount++;
+        const active = idx === currentIndex;
+
+        let cls = "bg-slate-900 border-slate-700 text-slate-300 hover:border-slate-500";
+        if (done) cls = "bg-emerald-500/20 border-emerald-500/60 text-emerald-300 font-bold";
+        if (active) cls = currentLevel === 1
+          ? "bg-amber-500 border-amber-400 text-slate-950 font-extrabold ring-2 ring-amber-400/40"
+          : "bg-rose-500 border-rose-400 text-white font-extrabold ring-2 ring-rose-400/40";
+
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = `h-9 rounded-lg border text-xs transition cursor-pointer ${cls}`;
+        btn.textContent = q.no;
+        btn.onclick = () => goQuestion(idx);
+        grid.appendChild(btn);
+      });
+
+      document.getElementById("progressCount").textContent = `${answeredCount} / 30 Terisi`;
+      document.getElementById("progressBar").style.width = `${Math.round((answeredCount / 30) * 100)}%`;
+    }
+
+    function goQuestion(idx) {
+      if (idx < 0 || idx >= activeQuestions.length) return;
+      currentIndex = idx;
+      const q = activeQuestions[idx];
+      const stim = activeStimuli[q.stim];
+
+      const typeLabelMap = {
+        PG: "Pilihan Ganda Tunggal",
+        MCMA: "PG Kompleks (Multi-Pilih)",
+        BS: "Analisis Benar / Salah",
+        MATCH: "Menjodohkan Konsep"
+      };
+
+      document.getElementById("badgeNo").textContent = `L${currentLevel} • SOAL ${q.no} / 30`;
+      document.getElementById("badgeBab").textContent = q.bab;
+      document.getElementById("badgeTipe").textContent = typeLabelMap[q.type];
+      document.getElementById("stimLabel").textContent = stim.title;
+      document.getElementById("stimContent").innerHTML = stim.html;
+      document.getElementById("questionStem").textContent = `${q.no}. ${q.stem}`;
+
+      document.getElementById("btnPrev").disabled = idx === 0;
+      document.getElementById("btnNext").disabled = idx === activeQuestions.length - 1;
+
+      renderAnswerArea(q, idx);
+      renderNavGrid();
+    }
+
+    function renderAnswerArea(q, idx) {
+      const container = document.getElementById("answerContainer");
+      container.innerHTML = "";
+      const letters = ["A", "B", "C", "D", "E"];
+
+      if (q.type === "PG") {
+        const current = userAnswers[idx] || "";
+        q.options.forEach((opt, i) => {
+          const code = letters[i];
+          const selected = current === code;
+          const div = document.createElement("button");
+          div.type = "button";
+          div.className = `w-full text-left p-3.5 rounded-xl border transition flex items-start gap-3 cursor-pointer ${
+            selected
+              ? "bg-amber-500/15 border-amber-400 text-white"
+              : "bg-slate-900/70 border-slate-700/80 text-slate-200 hover:border-slate-500"
+          }`;
+          div.innerHTML = `
+            <span class="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-extrabold shrink-0 ${
+              selected ? "bg-amber-500 text-slate-950" : "bg-slate-800 text-slate-300"
+            }">${code}</span>
+            <span class="text-sm leading-relaxed pt-0.5">${opt}</span>
+          `;
+          div.onclick = () => {
+            userAnswers[idx] = code;
+            renderAnswerArea(q, idx);
+            renderNavGrid();
+          };
+          container.appendChild(div);
+        });
+      }
+
+      else if (q.type === "MCMA") {
+        const current = Array.isArray(userAnswers[idx]) ? userAnswers[idx] : [];
+        q.options.forEach((opt, i) => {
+          const code = letters[i];
+          const checked = current.includes(code);
+          const div = document.createElement("button");
+          div.type = "button";
+          div.className = `w-full text-left p-3.5 rounded-xl border transition flex items-start gap-3 cursor-pointer ${
+            checked
+              ? "bg-indigo-500/20 border-indigo-400 text-white"
+              : "bg-slate-900/70 border-slate-700/80 text-slate-200 hover:border-slate-500"
+          }`;
+          div.innerHTML = `
+            <span class="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-extrabold shrink-0 border ${
+              checked ? "bg-indigo-500 border-indigo-400 text-white" : "bg-slate-800 border-slate-600 text-slate-300"
+            }">${checked ? "✓" : code}</span>
+            <span class="text-sm leading-relaxed pt-0.5"><strong class="text-indigo-300 mr-1">${code}.</strong> ${opt}</span>
+          `;
+          div.onclick = () => {
+            let next = [...current];
+            if (next.includes(code)) next = next.filter(c => c !== code);
+            else next.push(code);
+            next.sort();
+            userAnswers[idx] = next;
+            renderAnswerArea(q, idx);
+            renderNavGrid();
+          };
+          container.appendChild(div);
+        });
+      }
+
+      else if (q.type === "BS") {
+        const current = Array.isArray(userAnswers[idx]) ? userAnswers[idx] : new Array(q.rows.length).fill("");
+        const table = document.createElement("div");
+        table.className = "overflow-x-auto rounded-xl border border-slate-700";
+        let rowsHtml = "";
+        q.rows.forEach((r, rIdx) => {
+          const val = current[rIdx];
+          rowsHtml += `
+            <tr class="border-t border-slate-800 bg-slate-900/60">
+              <td class="px-3 py-3 text-xs font-bold text-slate-400 text-center">${r.code}</td>
+              <td class="px-3 py-3 text-sm text-slate-200 leading-relaxed">${r.text}</td>
+              <td class="px-3 py-3 text-center">
+                <button type="button" onclick="setBS(${idx}, ${rIdx}, 'A')" class="px-3 py-1.5 rounded-lg text-xs font-bold border transition cursor-pointer ${
+                  val === "A" ? "bg-emerald-500 border-emerald-400 text-slate-950" : "bg-slate-800 border-slate-600 text-slate-300 hover:border-emerald-400"
+                }">Benar</button>
+              </td>
+              <td class="px-3 py-3 text-center">
+                <button type="button" onclick="setBS(${idx}, ${rIdx}, 'B')" class="px-3 py-1.5 rounded-lg text-xs font-bold border transition cursor-pointer ${
+                  val === "B" ? "bg-rose-500 border-rose-400 text-white" : "bg-slate-800 border-slate-600 text-slate-300 hover:border-rose-400"
+                }">Salah</button>
+              </td>
+            </tr>
+          `;
+        });
+        table.innerHTML = `
+          <table class="w-full text-left">
+            <thead class="bg-slate-800/90 text-xs uppercase text-slate-300">
+              <tr>
+                <th class="px-3 py-2.5 text-center w-12">No</th>
+                <th class="px-3 py-2.5">Pernyataan Evaluatif</th>
+                <th class="px-3 py-2.5 text-center w-24">Benar (A)</th>
+                <th class="px-3 py-2.5 text-center w-24">Salah (B)</th>
+              </tr>
+            </thead>
+            <tbody>${rowsHtml}</tbody>
+          </table>
+        `;
+        container.appendChild(table);
+      }
+
+      else if (q.type === "MATCH") {
+        const current = (userAnswers[idx] && typeof userAnswers[idx] === "object") ? userAnswers[idx] : {};
+        const refBox = document.createElement("div");
+        refBox.className = "p-3.5 rounded-xl bg-slate-900/90 border border-slate-700/80 mb-3";
+        refBox.innerHTML = `
+          <div class="text-xs font-bold uppercase tracking-wider text-sky-400 mb-2">Pilihan Kolom Kanan (Pasangan):</div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-200">
+            ${q.right.map(item => `<div class="p-2 rounded-lg bg-slate-800/80 border border-slate-700"><strong class="text-amber-400 mr-1.5">${item.code}.</strong> ${item.text}</div>`).join("")}
+          </div>
+        `;
+        container.appendChild(refBox);
+
+        q.left.forEach(lItem => {
+          const chosen = current[lItem.code] || "";
+          const rowDiv = document.createElement("div");
+          rowDiv.className = "p-3.5 rounded-xl bg-slate-900/70 border border-slate-700/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3";
+          const optsHtml = q.right.map(rItem => `<option value="${rItem.code}" ${chosen === rItem.code ? "selected" : ""}>${rItem.code} — ${rItem.text}</option>`).join("");
+          rowDiv.innerHTML = `
+            <div class="text-sm text-slate-200 flex-1">
+              <span class="inline-block px-2 py-0.5 rounded bg-slate-800 text-amber-400 font-bold text-xs mr-2">${lItem.code}</span>
+              ${lItem.text}
+            </div>
+            <select onchange="setMatch(${idx}, '${lItem.code}', this.value)" class="sm:w-64 px-3 py-2 rounded-lg bg-slate-950 border ${chosen ? "border-sky-400 text-sky-300 font-semibold" : "border-slate-700 text-slate-400"} text-xs focus:outline-none">
+              <option value="">-- Pilih Pasangan --</option>
+              ${optsHtml}
+            </select>
+          `;
+          container.appendChild(rowDiv);
+        });
+      }
+    }
+
+    function setBS(qIdx, rIdx, val) {
+      const q = activeQuestions[qIdx];
+      const arr = Array.isArray(userAnswers[qIdx]) ? [...userAnswers[qIdx]] : new Array(q.rows.length).fill("");
+      arr[rIdx] = val;
+      userAnswers[qIdx] = arr;
+      renderAnswerArea(q, qIdx);
+      renderNavGrid();
+    }
+
+    function setMatch(qIdx, leftCode, rightCode) {
+      const q = activeQuestions[qIdx];
+      const obj = (userAnswers[qIdx] && typeof userAnswers[qIdx] === "object") ? { ...userAnswers[qIdx] } : {};
+      obj[leftCode] = rightCode;
+      userAnswers[qIdx] = obj;
+      renderAnswerArea(q, qIdx);
+      renderNavGrid();
+    }
+
+    function clearCurrentAnswer() {
+      userAnswers[currentIndex] = null;
+      renderAnswerArea(activeQuestions[currentIndex], currentIndex);
+      renderNavGrid();
+    }
+
+    function formatRawAnswer(idx) {
+      const q = activeQuestions[idx];
+      const ans = userAnswers[idx];
+      if (!ans) return "";
+      if (q.type === "PG") return ans;
+      if (q.type === "MCMA") return ans.join(",");
+      if (q.type === "BS") {
+        return q.rows.map((r, i) => {
+          const label = ans[i] === "A" ? "B" : (ans[i] === "B" ? "S" : "-");
+          return `${r.code}:${label}`;
+        }).join(",");
+      }
+      if (q.type === "MATCH") {
+        return q.left.map(l => `${l.code}:${ans[l.code] || "-"}`).join(",");
+      }
+      return "";
+    }
+
+    function getOfficialKeyString(q) {
+      if (q.type === "PG" || q.type === "MCMA") return q.key;
+      if (q.type === "BS") {
+        return q.rows.map((r, i) => `${r.code}:${q.bsKey[i] === "A" ? "B" : "S"}`).join(",");
+      }
+      if (q.type === "MATCH") {
+        return q.left.map(l => `${l.code}:${q.matchKey[l.code]}`).join(",");
+      }
+      return "";
+    }
+
+    async function submitAllAnswers() {
+      const answeredCount = activeQuestions.filter((_, idx) => isAnswered(idx)).length;
+      if (answeredCount < 30) {
+        const ok = confirm(`Baru ${answeredCount} dari 30 soal Level ${currentLevel} yang terisi lengkap. Yakin ingin mengirim jawaban sekarang?`);
+        if (!ok) return;
+      }
+
+      examActive = false;
+      if (timerInterval) clearInterval(timerInterval);
+      const durationSec = Math.max(1, Math.floor((Date.now() - startTimeMs) / 1000));
+      const rawArray = activeQuestions.map((_, idx) => formatRawAnswer(idx));
+
+      lastPayload = {
+        level: currentLevel,
+        timestamp: new Date().toLocaleString("id-ID"),
+        nama: student.nama,
+        kelas: student.kelas,
+        absen: student.absen,
+        mode: student.mode,
+        durasi_detik: durationSec,
+        peringatan_layar: warningCount,
+        terjawab: answeredCount,
+        answers: rawArray
+      };
+
+      document.getElementById("viewExam").classList.add("hidden");
+      document.getElementById("viewResult").classList.remove("hidden");
+
+      const m = Math.floor(durationSec / 60);
+      const s = durationSec % 60;
+      document.getElementById("resBadge").textContent = `✓ Level ${currentLevel} Selesai`;
+      document.getElementById("resTitle").textContent = `Rekap Pengiriman & Pembahasan Level ${currentLevel}`;
+      document.getElementById("resIdentity").textContent = `${student.nama} • Kelas ${student.kelas} • Absen ${student.absen} (${student.mode})`;
+      document.getElementById("resAnswered").textContent = `${answeredCount} / 30`;
+      document.getElementById("resDuration").textContent = `${m} mnt ${s} dtk`;
+      document.getElementById("resWarnings").textContent = `${warningCount} kali`;
+
+      // Tampilkan penawaran Level 2 hanya jika baru menyelesaikan Level 1
+      const offerBox = document.getElementById("level2OfferBox");
+      if (currentLevel === 1) {
+        offerBox.classList.remove("hidden");
+      } else {
+        offerBox.classList.add("hidden");
+      }
+
+      const tbody = document.getElementById("rawTableBody");
+      const discList = document.getElementById("discussionList");
+      tbody.innerHTML = "";
+      discList.innerHTML = "";
+      let exactMatchCount = 0;
+
+      activeQuestions.forEach((q, idx) => {
+        const userStr = rawArray[idx] || "(Kosong)";
+        const keyStr = getOfficialKeyString(q);
+        const isExact = rawArray[idx] === keyStr;
+        if (isExact) exactMatchCount++;
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td class="px-3 py-2.5 font-mono font-bold text-amber-400">Q${String(q.no).padStart(2, "0")}</td>
+          <td class="px-3 py-2.5 text-slate-300">${q.bab}</td>
+          <td class="px-3 py-2.5 text-slate-400">${q.type}</td>
+          <td class="px-3 py-2.5 font-mono text-white font-semibold">${userStr}</td>
+          <td class="px-3 py-2.5 font-mono text-emerald-300">${keyStr}</td>
+          <td class="px-3 py-2.5">${isExact ? '<span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">Sesuai</span>' : '<span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300">Cek Pembahasan</span>'}</td>
+        `;
+        tbody.appendChild(tr);
+
+        const card = document.createElement("div");
+        card.className = "glass-card rounded-xl p-4 border border-slate-800";
+        card.innerHTML = `
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+            <span class="text-xs font-extrabold text-amber-400">LEVEL ${currentLevel} • SOAL ${q.no} (${q.bab})</span>
+            <span class="text-xs font-mono px-2.5 py-0.5 rounded bg-slate-800 text-emerald-300">Kunci: ${keyStr}</span>
+          </div>
+          <p class="text-sm text-white font-medium mb-2">${q.stem}</p>
+          <div class="text-xs text-slate-300 bg-slate-900/90 p-3 rounded-lg border border-slate-800 leading-relaxed">
+            <strong class="text-indigo-300">Bedah Konsep & Pembahasan:</strong> ${q.explanation}
+          </div>
+        `;
+        discList.appendChild(card);
+      });
+
+      document.getElementById("resCorrect").textContent = `${exactMatchCount} / 30`;
+
+      const targetTab = currentLevel === 1 ? "Respon_Level_1" : "Respon_Level_2";
+      const gasUrl = getGasUrl();
+      const statusBox = document.getElementById("gasStatusBox");
+      if (gasUrl && gasUrl.startsWith("https://")) {
+        statusBox.innerHTML = `<span class="text-amber-300 font-semibold">⏳ Sedang mengirim jawaban mentah Level ${currentLevel} (Q01–Q30) ke tab <strong>${targetTab}</strong>...</span>`;
+        try {
+          await fetch(gasUrl, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "text/plain;charset=utf-8" },
+            body: JSON.stringify(lastPayload)
+          });
+          statusBox.innerHTML = `<span class="text-emerald-400 font-bold">✓ Berhasil Terkirim ke Tab "${targetTab}"!</span> <span class="text-slate-300 text-xs block mt-1">Data identitas, durasi (${durationSec} detik), log layar (${warningCount}x), dan jawaban mentah Q01–Q30 sudah masuk ke Google Spreadsheets.</span>`;
+        } catch (err) {
+          statusBox.innerHTML = `<span class="text-rose-400 font-bold">⚠ Gagal mengirim otomatis:</span> <span class="text-slate-300 text-xs">${err.message}. Gunakan tombol <strong>Salin Baris Data</strong> atau <strong>Unduh CSV</strong>.</span>`;
+        }
+      } else {
+        statusBox.innerHTML = `<span class="text-amber-300 font-bold">ℹ Mode Lokal Aktif:</span> <span class="text-slate-300 text-xs block mt-1">URL Google Apps Script belum diisi pada menu <strong>⚙️ Setup Google Sheets</strong>.</span>`;
+      }
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function finishAllSessions() {
+      document.getElementById("level2OfferBox").innerHTML = `
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h4 class="text-base font-bold text-emerald-300">✓ Sesi Latihan Dicukupkan pada Level 1</h4>
+            <p class="text-xs text-slate-300 mt-0.5">Nilai utamamu sudah terekam. Silakan pelajari pembahasan di bawah bersama kelompokmu.</p>
+          </div>
+          <button onclick="startLevel(2)" class="px-4 py-2 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/40 text-xs font-bold cursor-pointer">
+            Berubah Pikiran? Buka Level 2
+          </button>
+        </div>
+      `;
+    }
+
+    function copyRowTSV() {
+      if (!lastPayload) return;
+      const row = [
+        lastPayload.timestamp,
+        lastPayload.nama,
+        lastPayload.kelas,
+        lastPayload.absen,
+        lastPayload.mode,
+        lastPayload.durasi_detik,
+        lastPayload.peringatan_layar,
+        lastPayload.terjawab,
+        ...lastPayload.answers
+      ].join("	");
+      navigator.clipboard.writeText(row).then(() => {
+        alert(`1 baris lengkap Level ${lastPayload.level} berhasil disalin! Silakan tempel (Ctrl+V) pada baris kosong di tab Respon_Level_${lastPayload.level}.`);
+      });
+    }
+
+    function downloadCSV() {
+      if (!lastPayload) return;
+      const headers = ["Timestamp", "Nama_Siswa", "Kelas", "No_Absen", "Mode", "Durasi_Detik", "Peringatan_Layar", "Terjawab", ...Array.from({length: 30}, (_, i) => `Q${String(i+1).padStart(2, "0")}`)];
+      const values = [
+        lastPayload.timestamp,
+        lastPayload.nama,
+        lastPayload.kelas,
+        lastPayload.absen,
+        lastPayload.mode,
+        lastPayload.durasi_detik,
+        lastPayload.peringatan_layar,
+        lastPayload.terjawab,
+        ...lastPayload.answers
+      ].map(v => `"${String(v).replace(/"/g, '""')}"`);
+      const csv = headers.join(",") + "
+" + values.join(",");
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `Rekap_CBT_L${lastPayload.level}_${lastPayload.kelas}_${lastPayload.nama.replace(/\s+/g, "_")}.csv`;
+      a.click();
+    }
+  </script>
+</body>
+</html>
