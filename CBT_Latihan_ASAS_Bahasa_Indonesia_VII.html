@@ -1,0 +1,2137 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CBT Latihan Kisi-Kisi ASAS Bahasa Indonesia VII (Level 1 & Level 2) — SMPN 28 Bandung</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            serif: ['Georgia', 'Cambria', 'serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
+    body {
+      background-color: #0f172a;
+      color: #f8fafc;
+      background-image: radial-gradient(circle at 12% 15%, rgba(99, 102, 241, 0.14), transparent 36%),
+                        radial-gradient(circle at 88% 85%, rgba(245, 158, 11, 0.10), transparent 36%);
+    }
+    .glass-panel {
+      background: rgba(30, 41, 59, 0.82);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(148, 163, 184, 0.16);
+    }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.74);
+      border: 1px solid rgba(148, 163, 184, 0.15);
+    }
+    .no-copy {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 9999px; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-amber-500 selection:text-slate-950">
+
+  <!-- OVERLAY PROTEKSI SPLIT-SCREEN / PINDAH TAB -->
+  <div id="securityOverlay" class="hidden fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-xl flex items-center justify-center p-6 text-center">
+    <div class="max-w-md glass-panel rounded-2xl p-6 border border-rose-500/50 shadow-2xl">
+      <div class="w-14 h-14 rounded-2xl bg-rose-500/20 border border-rose-500/40 text-rose-400 flex items-center justify-center text-2xl mx-auto mb-4">
+        🛡️
+      </div>
+      <h3 class="text-lg font-extrabold text-white mb-2">Layar Soal Dikunci Sementara</h3>
+      <p id="securityReason" class="text-sm text-slate-300 leading-relaxed mb-4">
+        Terdeteksi perpindahan tab atau perubahan rasio layar (Split-Screen / Floating Window). Kembalikan layar ke mode penuh untuk melanjutkan.
+      </p>
+      <div class="text-xs font-mono text-rose-300 bg-rose-950/50 border border-rose-800/60 rounded-lg py-2 px-3 mb-4">
+        Catatan Pelanggaran Layar: <span id="overlayWarnCount" class="font-bold">0</span> kali (Terekam ke Spreadsheet)
+      </div>
+      <button onclick="dismissSecurityOverlay()" class="w-full py-2.5 px-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm cursor-pointer">
+        Kembali ke Layar Penuh & Lanjutkan
+      </button>
+    </div>
+  </div>
+
+  <!-- TOP NAVIGATION -->
+  <header class="sticky top-0 z-40 glass-panel border-b border-slate-800/80 px-4 py-3">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-amber-500 flex items-center justify-center font-extrabold text-slate-950 shadow-lg">
+          28
+        </div>
+        <div>
+          <h1 class="text-sm sm:text-base font-bold tracking-tight text-white">
+            CBT Latihan Kisi-Kisi ASAS Gasal — Bahasa Indonesia VII
+          </h1>
+          <p class="text-xs text-slate-400">SMP Negeri 28 Bandung • Level 1 (Wajib) & Level 2 (Pengayaan Nilai Tambah)</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 sm:gap-3">
+        <div id="levelPill" class="hidden px-3 py-1.5 rounded-lg text-xs font-extrabold bg-amber-500/20 border border-amber-400/40 text-amber-300">
+          LEVEL 1
+        </div>
+        <div id="syncBadge" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-900/90 border border-slate-700/70 text-slate-300">
+          <span id="syncDot" class="w-2 h-2 rounded-full bg-amber-400"></span>
+          <span id="syncText">Mode Lokal</span>
+        </div>
+        <button onclick="openModal('modalScript')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600/20 hover:bg-indigo-600/35 text-indigo-300 border border-indigo-500/40 transition cursor-pointer">
+          ⚙️ Setup Google Sheets
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-6">
+
+    <!-- VIEW 1: IDENTITAS PESERTA -->
+    <section id="viewLogin" class="max-w-2xl mx-auto mt-2">
+      <div class="glass-panel rounded-2xl p-6 sm:p-8 shadow-2xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-xs font-semibold mb-4">
+          <span>📋 Kelas VII • Sistem 2 Level • Urutan Tetap Q01–Q30 per Level</span>
+        </div>
+        <h2 class="text-2xl font-extrabold text-white mb-2">Latihan Soal HOTS Berbasis Kisi-Kisi ASAS Kelas VII</h2>
+        <p class="text-sm text-slate-300 leading-relaxed mb-5">
+          Kerjakan terlebih dahulu <strong class="text-amber-300">Level 1 (30 Soal Utama)</strong> dan kirim jawabanmu. Setelah selesai, kamu dapat memilih apakah ingin mengambil tantangan <strong class="text-rose-300">Level 2 (30 Soal Tingkat Lanjut)</strong> secara opsional untuk mendapatkan nilai tambah.
+        </p>
+
+        <!-- Komposisi 2 Level -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+          <div class="glass-card rounded-xl p-4 border border-amber-500/30">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xs font-extrabold uppercase text-amber-400">Level 1 • Wajib</span>
+              <span class="text-[11px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300">30 Soal</span>
+            </div>
+            <p class="text-xs text-slate-300">4 PG Tunggal, 10 PG Kompleks, 8 Benar–Salah, 8 Menjodohkan (4 Materi Pokok Kelas VII). Tersimpan ke tab <code class="text-amber-200">Respon_Level_1</code>.</p>
+          </div>
+          <div class="glass-card rounded-xl p-4 border border-rose-500/30">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xs font-extrabold uppercase text-rose-400">Level 2 • Opsional Nilai Lebih</span>
+              <span class="text-[11px] px-2 py-0.5 rounded bg-rose-500/20 text-rose-300">30 Soal</span>
+            </div>
+            <p class="text-xs text-slate-300">Pola sama (4 PG, 10 MCMA, 8 B-S, 8 Menjodohkan) dengan analisis kebahasaan & struktur tingkat lanjut. Tersimpan ke tab <code class="text-rose-200">Respon_Level_2</code>.</p>
+          </div>
+        </div>
+
+        <form id="loginForm" onsubmit="startLevel(1, event)" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Nama Lengkap Siswa / Kelompok</label>
+              <input type="text" id="inputNama" required placeholder="Contoh: Raka Pratama" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white text-sm focus:outline-none focus:border-amber-400" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Kelas</label>
+              <select id="inputKelas" required class="w-full px-4 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white text-sm focus:outline-none focus:border-amber-400">
+                <option value="">-- Pilih Kelas --</option>
+                <option value="7A">7A</option>
+                <option value="7B">7B</option>
+                <option value="7C">7C</option>
+                <option value="7D">7D</option>
+                <option value="7E">7E</option>
+                <option value="7F">7F</option>
+                <option value="7G">7G</option>
+                <option value="7H">7H</option>
+                <option value="7I">7I</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Nomor Absen / NISN</label>
+              <input type="text" id="inputAbsen" required placeholder="Contoh: 14" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white text-sm focus:outline-none focus:border-amber-400" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Mode Pengerjaan</label>
+              <select id="inputMode" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white text-sm focus:outline-none focus:border-amber-400">
+                <option value="Diskusi Kelompok">Diskusi Kelompok</option>
+                <option value="Latihan Mandiri">Latihan Mandiri</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="pt-2">
+            <button type="submit" class="w-full py-3 px-6 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-slate-950 font-bold text-sm shadow-lg shadow-amber-500/20 transition cursor-pointer">
+              Mulai Level 1 (30 Soal Utama) →
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- VIEW 2: RUANG UJIAN CBT (NO-COPY PROTECTED) -->
+    <section id="viewExam" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-5 no-copy" oncontextmenu="return false;">
+      <!-- Kolom Kiri: Stimulus & Butir Soal (8 kolom) -->
+      <div class="lg:col-span-8 space-y-4">
+        <!-- Info Bar Soal -->
+        <div class="glass-panel rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3">
+          <div class="flex flex-wrap items-center gap-2">
+            <span id="badgeNo" class="px-3 py-1 rounded-lg bg-amber-500 text-slate-950 font-extrabold text-sm">SOAL 1 / 30</span>
+            <span id="badgeBab" class="px-2.5 py-1 rounded-lg bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 text-xs font-semibold">Bab 1: Teks Deskripsi</span>
+            <span id="badgeTipe" class="px-2.5 py-1 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 text-xs font-semibold">PG Tunggal</span>
+          </div>
+          <div class="flex items-center gap-3 text-xs text-slate-400">
+            <span>⏱ <strong id="timerDisplay" class="font-mono text-white">00:00</strong></span>
+            <span>|</span>
+            <span>Peserta: <strong id="displayUser" class="text-white">-</strong></span>
+          </div>
+        </div>
+
+        <!-- Kotak Stimulus -->
+        <div class="glass-panel rounded-2xl p-5 sm:p-6">
+          <div class="flex items-center justify-between mb-3">
+            <span id="stimLabel" class="text-xs font-bold uppercase tracking-wider text-amber-400">STIMULUS 1</span>
+            <span class="text-[11px] text-slate-400">Proteksi Salin & Split-Screen Aktif</span>
+          </div>
+          <div id="stimContent" class="prose prose-invert max-w-none text-sm sm:text-[15px] leading-relaxed text-slate-200 space-y-3"></div>
+        </div>
+
+        <!-- Kotak Pertanyaan & Area Interaktif Jawaban -->
+        <div class="glass-panel rounded-2xl p-5 sm:p-6">
+          <div id="questionStem" class="text-base font-semibold text-white leading-relaxed mb-4"></div>
+          <div id="answerContainer" class="space-y-3"></div>
+
+          <!-- Navigasi Bawah -->
+          <div class="mt-6 pt-4 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3">
+            <button id="btnPrev" onclick="goQuestion(currentIndex - 1)" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs sm:text-sm font-semibold transition disabled:opacity-40 cursor-pointer">
+              ← Sebelumnya
+            </button>
+            <button onclick="clearCurrentAnswer()" class="px-3 py-2 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 border border-rose-500/30 text-xs font-semibold transition cursor-pointer">
+              Reset Jawaban Soal Ini
+            </button>
+            <button id="btnNext" onclick="goQuestion(currentIndex + 1)" class="px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs sm:text-sm font-semibold transition cursor-pointer">
+              Selanjutnya →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kolom Kanan: Peta Nomor & Kirim Jawaban (4 kolom) -->
+      <div class="lg:col-span-4 space-y-4">
+        <div class="glass-panel rounded-2xl p-5 sticky top-20">
+          <div class="flex items-center justify-between mb-3">
+            <h3 id="navTitle" class="text-sm font-bold text-white">Navigasi Level 1 (1–30)</h3>
+            <span id="progressCount" class="text-xs font-semibold text-amber-400">0 / 30 Terisi</span>
+          </div>
+          <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden mb-4">
+            <div id="progressBar" class="h-full bg-gradient-to-r from-indigo-500 to-amber-400 transition-all duration-300" style="width: 0%"></div>
+          </div>
+
+          <!-- Grid 30 Nomor -->
+          <div id="navGrid" class="grid grid-cols-6 gap-2 mb-5"></div>
+
+          <!-- Legenda Warna -->
+          <div class="grid grid-cols-3 gap-2 text-[11px] text-slate-400 mb-5 pb-4 border-b border-slate-800">
+            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-amber-500 inline-block"></span> Aktif</div>
+            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-emerald-500/80 inline-block"></span> Terjawab</div>
+            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-slate-800 border border-slate-600 inline-block"></span> Kosong</div>
+          </div>
+
+          <button id="btnSubmitLevel" onclick="submitAllAnswers()" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-extrabold text-sm shadow-lg shadow-emerald-500/20 transition cursor-pointer">
+            Kirim Jawaban Level 1
+          </button>
+          <p id="submitHint" class="text-[11px] text-slate-400 text-center mt-2.5">
+            Terekam ke tab Respon_Level_1 (Kolom Q01–Q30).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 3: REKAP JAWABAN MENTAH, TAWARAN LEVEL 2, & PEMBAHASAN -->
+    <section id="viewResult" class="hidden space-y-6">
+      <div class="glass-panel rounded-2xl p-6 sm:p-8">
+        <div class="flex flex-wrap items-start justify-between gap-4 border-b border-slate-800 pb-5 mb-5">
+          <div>
+            <span id="resBadge" class="inline-block px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-semibold mb-2">
+              ✓ Level 1 Selesai
+            </span>
+            <h2 id="resTitle" class="text-2xl font-extrabold text-white">Rekap Pengiriman & Pembahasan Level 1</h2>
+            <p id="resIdentity" class="text-sm text-slate-400 mt-1">-</p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <button onclick="copyRowTSV()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition cursor-pointer">
+              📋 Salin Baris Data
+            </button>
+            <button onclick="downloadCSV()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 text-xs font-bold transition cursor-pointer">
+              ⬇ Unduh CSV
+            </button>
+          </div>
+        </div>
+
+        <!-- Status Pengiriman Google Apps Script -->
+        <div id="gasStatusBox" class="p-4 rounded-xl bg-slate-900/90 border border-slate-700 text-sm mb-6"></div>
+
+        <!-- BANNER PENAWARAN OPSIONAL LEVEL 2 (MUNCUL SETELAH LEVEL 1 SELESAI) -->
+        <div id="level2OfferBox" class="mb-6 p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-rose-950/80 via-slate-900 to-indigo-950/80 border border-rose-500/40 shadow-xl">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="space-y-1.5">
+              <span class="inline-block px-2.5 py-0.5 rounded bg-rose-500/20 border border-rose-400/40 text-rose-300 text-[11px] font-extrabold uppercase tracking-wider">
+                Tantangan Opsional • Nilai Tambah
+              </span>
+              <h3 class="text-lg font-extrabold text-white">Ingin Menambah Nilai dengan Tantangan Level 2?</h3>
+              <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                Level 2 berisi <strong>30 soal HOTS tingkat lanjut</strong> dengan pola kisi-kisi yang sama namun tingkat penalaran lebih tinggi. Sifatnya <strong>tidak wajib</strong>: jika merasa sudah cukup dengan hasil Level 1, kamu bisa langsung mencukupkan sesi. Jika siap menantang diri untuk nilai tambahan, lanjutkan sekarang!
+              </p>
+            </div>
+            <div class="flex flex-col sm:flex-row md:flex-col gap-2.5 shrink-0">
+              <button onclick="startLevel(2)" class="px-5 py-3 rounded-xl bg-gradient-to-r from-rose-500 to-amber-500 hover:from-rose-400 hover:to-amber-400 text-slate-950 font-extrabold text-xs sm:text-sm shadow-lg transition cursor-pointer">
+                🚀 Lanjut Tantangan Level 2 (30 Soal)
+              </button>
+              <button onclick="finishAllSessions()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-600 text-xs font-semibold transition cursor-pointer">
+                Cukup Sampai Level 1 Saja
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ringkasan Statistik & Telemetri -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+          <div class="glass-card rounded-xl p-4">
+            <div class="text-[11px] text-slate-400 uppercase font-semibold">Soal Terjawab</div>
+            <div id="resAnswered" class="text-xl font-extrabold text-white mt-1">0 / 30</div>
+          </div>
+          <div class="glass-card rounded-xl p-4">
+            <div class="text-[11px] text-slate-400 uppercase font-semibold">Self-Check Tepat</div>
+            <div id="resCorrect" class="text-xl font-extrabold text-emerald-400 mt-1">0 / 30</div>
+          </div>
+          <div class="glass-card rounded-xl p-4">
+            <div class="text-[11px] text-slate-400 uppercase font-semibold">Durasi Pengerjaan</div>
+            <div id="resDuration" class="text-xl font-extrabold text-sky-400 mt-1">0 mnt 0 dtk</div>
+          </div>
+          <div class="glass-card rounded-xl p-4">
+            <div class="text-[11px] text-slate-400 uppercase font-semibold">Peringatan Layar</div>
+            <div id="resWarnings" class="text-xl font-extrabold text-amber-400 mt-1">0 kali</div>
+          </div>
+        </div>
+
+        <!-- Tabel Ringkas Jawaban Mentah yang Dikirim -->
+        <h3 class="text-base font-bold text-white mb-3">1. Matriks Jawaban Mentah Terkirim (Q01 – Q30)</h3>
+        <div class="overflow-x-auto rounded-xl border border-slate-800 mb-8">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-900 text-slate-300 uppercase">
+              <tr>
+                <th class="px-3 py-2.5">Kolom</th>
+                <th class="px-3 py-2.5">Bab & Kisi-Kisi</th>
+                <th class="px-3 py-2.5">Tipe</th>
+                <th class="px-3 py-2.5">Jawaban Terkirim</th>
+                <th class="px-3 py-2.5">Kunci Acuan</th>
+                <th class="px-3 py-2.5">Status</th>
+              </tr>
+            </thead>
+            <tbody id="rawTableBody" class="divide-y divide-slate-800 bg-slate-900/40"></tbody>
+          </table>
+        </div>
+
+        <!-- Bedah Pembahasan HOTS per Nomor -->
+        <h3 class="text-base font-bold text-white mb-3">2. Pembahasan Mendalam untuk Diskusi Siswa</h3>
+        <div id="discussionList" class="space-y-4"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL KONFIGURASI GOOGLE APPS SCRIPT -->
+  <div id="modalScript" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="glass-panel rounded-2xl max-w-2xl w-full p-6 shadow-2xl border border-slate-700 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
+        <h3 class="text-lg font-bold text-white">Integrasi Google Spreadsheets (Web App URL)</h3>
+        <button onclick="closeModal('modalScript')" class="text-slate-400 hover:text-white text-xl leading-none">&times;</button>
+      </div>
+      <p class="text-xs text-slate-300 leading-relaxed mb-4">
+        Satu URL Web App Google Apps Script secara otomatis mengarahkan kiriman <strong>Level 1</strong> ke tab <code class="text-amber-300">Respon_Level_1</code> dan kiriman <strong>Level 2</strong> ke tab <code class="text-rose-300">Respon_Level_2</code>.
+      </p>
+      <div class="space-y-3">
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1">URL Google Apps Script Web App</label>
+          <input type="url" id="gasUrlInput" placeholder="https://script.google.com/macros/s/AKfycb.../exec" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs font-mono text-white focus:outline-none focus:border-amber-400" />
+        </div>
+        <div class="flex flex-wrap gap-2 pt-2">
+          <button onclick="saveGasUrl()" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs cursor-pointer">
+            Simpan URL Webhook
+          </button>
+          <button onclick="testGasConnection()" class="px-4 py-2 rounded-xl bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-200 border border-indigo-500/40 font-bold text-xs cursor-pointer">
+            Uji Koneksi Level 1 & 2
+          </button>
+          <button onclick="clearGasUrl()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs cursor-pointer">
+            Hapus URL
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // KONFIGURASI DEFAULT (TEMPEL URL /exec ANDA DI SINI SEBELUM DIBAGIKAN)
+    // =========================================================================
+    const DEFAULT_GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyPIZwgX_xXSnuZbIKse__QIcP0ZVlypi1i2hk9evWMvTet7CaVPAHOBaS9FawK3uAa/exec";
+
+    const STIMULI_L1 = {
+      S1: {
+        title: "STIMULUS 1 — TEKS DESKRIPSI (Sudut Literasi & Ekosistem Sekolah)",
+        html: `
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 space-y-2.5">
+            <h4 class="font-bold text-amber-300 text-base">Gazebo Bambu di Samping Laboratorium IPA</h4>
+            <p>Di sudut barat halaman sekolah, berdiri sebuah gazebo bambu beratap rumbia yang dikelilingi kolam ikan hias mungil. Gemericik air mancur buatan menyapa telinga siapa saja yang melintas di jalan setapak berbatu kali. Rumpun melati air dan teratai merah muda mekar di permukaan kolam, sementara pohon flamboyan tua menaungi bangku panjang dari kayu jati bekas.</p>
+            <p>Setiap waktu istirahat, suasana di sekitar gazebo terasa relatif sejuk dan teduh. Para siswa kelas tujuh kerap duduk bersila sambil membaca buku koleksi pojok baca atau berdiskusi ringan. Bagi warga sekolah, sudut hijau itu bukan sekadar tempat melepas penat, melainkan oase ilmu yang menumbuhkan rasa cinta terhadap kelestarian lingkungan.</p>
+          </div>`
+      },
+      S2: {
+        title: "STIMULUS 2 — TEKS DESKRIPSI BENDA (Alat Musik & Perangkat Belajar)",
+        html: `
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 space-y-2.5">
+            <h4 class="font-bold text-amber-300 text-base">Gitar Akustik Kayu Siprus Milik Kakak</h4>
+            <p>Gitar akustik itu tergantung rapi di dinding kamar belajar. Bodinya terbuat dari kayu siprus berwarna cokelat madu dengan permukaan mengilap. Enam senar baja terbentang kencang dari kepala gitar hingga jembatan penyangga di bagian bawah. Lubang suara di tengah bodi dihiasi ukiran motif batik geometris yang halus.</p>
+            <p>Ketika dipetik, denting suaranya terdengar jernih dan hangat memenuhi ruangan. Leher gitarnya ramping sehingga nyaman digenggam jemari pemula. Kakak selalu membersihkan senar dengan kain lembut setelah berlatih dan menyimpannya di dalam tas pelindung agar kelembapan udara tidak merusak kayu. Gitar tersebut menjadi teman setia yang menemani waktu luang di rumah.</p>
+          </div>`
+      },
+      S3: {
+        title: "STIMULUS 3 — PUISI RAKYAT (Pantun, Syair, dan Gurindam)",
+        html: `
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+            <div class="p-3.5 rounded-xl bg-slate-950/70 border border-amber-500/30">
+              <div class="text-xs font-extrabold uppercase text-amber-400 mb-2">Bait I (Pantun)</div>
+              <p class="italic text-slate-200 leading-relaxed">
+                Berlayar perahu menuju selat,<br>
+                Singgah sebentar membeli talas.<br>
+                Belajar tekun jangan terlambat,<br>
+                Agar ilmu mudah terbalas.
+              </p>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-950/70 border border-indigo-500/30">
+              <div class="text-xs font-extrabold uppercase text-indigo-400 mb-2">Bait II (Syair)</div>
+              <p class="italic text-slate-200 leading-relaxed">
+                Wahai ananda dengarlah pesan,<br>
+                Jaga ucapan penuh kesantunan,<br>
+                Bila berjanji jangan dilupakan,<br>
+                Supaya hidup penuh kemuliaan.
+              </p>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-950/70 border border-emerald-500/30">
+              <div class="text-xs font-extrabold uppercase text-emerald-400 mb-2">Bait III (Gurindam)</div>
+              <p class="italic text-slate-200 leading-relaxed">
+                Apabila engkau gemar membaca,<br>
+                Terbukalah pintu cakrawala dunia.
+              </p>
+            </div>
+          </div>`
+      },
+      S4: {
+        title: "STIMULUS 4 — PUISI RAKYAT BERTEMA EKOLOGI & LITERASI",
+        html: `
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+            <div class="p-3.5 rounded-xl bg-slate-950/70 border border-sky-500/30">
+              <div class="text-xs font-extrabold uppercase text-sky-400 mb-2">Teks A</div>
+              <p class="italic text-slate-200 leading-relaxed">
+                Pagi hari menanam melati,<br>
+                Disiram air dari telaga.<br>
+                Kurangi plastik mulai hari ini,<br>
+                Agar sungai tetap terjaga.
+              </p>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-950/70 border border-rose-500/30">
+              <div class="text-xs font-extrabold uppercase text-rose-400 mb-2">Teks B</div>
+              <p class="italic text-slate-200 leading-relaxed">
+                Jika malas mengulang pelajaran,<br>
+                Niscaya sulit saat ujian.
+              </p>
+            </div>
+          </div>`
+      },
+      S5: {
+        title: "STIMULUS 5 — CERITA FANTASI (Kompas Waktu di Menara Jam)",
+        html: `
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 space-y-2.5">
+            <h4 class="font-bold text-amber-300 text-base">Kompas Perunggu di Balik Lemari Arsip</h4>
+            <p>Suatu senja, Arka merapikan ruang arsip tua di lantai atas rumah kakeknya. Di balik tumpukan peta kuno, ia menemukan sebuah kompas perunggu tanpa jarum utara. Ketika tutupnya dibuka, jarum kompas berputar cepat dan memancarkan cahaya keemasan yang membentuk gerbang kabut di tengah ruangan.</p>
+            <p>Arka memberanikan diri melangkah masuk dan tiba di Lembah Jam Pasir. Di sana, seorang kurcaci penjaga bernama Tobi tampak gelisah karena roda gigi Menara Waktu macet tertutup lumut kristal. “Wah, cepat sekali pahlawan kesiangan ini datang!” seru Tobi menyindir saat melihat Arka kebingungan. Arka tidak terpancing emosi; ia justru bertanya dengan tenang mengenai cara membersihkan lumut kristal tersebut. Tobi pun menjelaskan bahwa lumut hanya bisa luruh oleh tetesan embun perak dari daun pakis biru. Arka segera mengumpulkan embun itu, mengoleskannya pada roda gigi, dan Menara Waktu kembali berdetak normal.</p>
+          </div>`
+      },
+      S6: {
+        title: "STIMULUS 6 — CERITA FANTASI (Jembatan Pelangi & Lentera Angin)",
+        html: `
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 space-y-2.5">
+            <h4 class="font-bold text-amber-300 text-base">Lentera Angin untuk Penjaga Bukit Kabut</h4>
+            <p>Sari dan adiknya, Bagas, tersesat di Bukit Kabut setelah mengejar kupu-kupu bersayap perak. Di ujung jurang berbatu, seekor burung hantu raksasa bermata zamrud menghalangi jembatan akar menuju jalan pulang. Bagas hendak mengambil ranting panjang untuk mengusir burung itu secara paksa, tetapi Sari menahan tangan adiknya.</p>
+            <p>Sari mendekat perlahan dan menyapa burung hantu dengan sopan. Ternyata, burung itu menjaga jembatan karena sarangnya di puncak bukit kehilangan cahaya pemandu saat badai malam tiba. Sari teringat lentera kunang-kunang kecil di dalam tasnya. Ia menawarkan lentera tersebut sebagai pengganti penerang sarang. Burung hantu raksasa itu terharu, menerima lentera dengan paruhnya, lalu menyingkir mempersilakan Sari dan Bagas melintasi jembatan akar dengan selamat.</p>
+          </div>`
+      },
+      S7: {
+        title: "STIMULUS 7 — TEKS PROSEDUR VISUAL (Infografik Pemanfaatan Kompos Daun)",
+        html: `
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 space-y-3">
+            <h4 class="font-bold text-emerald-300 text-base">Infografik Prosedur: Mengolah Daun Kering Menjadi Kompos</h4>
+            <svg viewBox="0 0 680 215" class="w-full rounded-xl bg-slate-950 border border-slate-800 p-2">
+              <rect x="12" y="12" width="656" height="36" rx="8" fill="#065f46"/>
+              <text x="340" y="35" text-anchor="middle" fill="#ecfdf5" font-size="13" font-weight="bold">TUJUAN: MENGURANGI SAMPAH DAUN SEKOLAH MENJADI PUPUK ORGANIK</text>
+              
+              <rect x="16" y="60" width="150" height="140" rx="10" fill="#1e293b" stroke="#34d399" stroke-width="1.5"/>
+              <text x="91" y="84" text-anchor="middle" fill="#6ee7b7" font-size="12" font-weight="bold">LANGKAH 1</text>
+              <text x="91" y="108" text-anchor="middle" fill="#f8fafc" font-size="11">Kumpulkan daun kering</text>
+              <text x="91" y="126" text-anchor="middle" fill="#f8fafc" font-size="11">dan pisahkan dari</text>
+              <text x="91" y="144" text-anchor="middle" fill="#f8fafc" font-size="11">sampah plastik/logam.</text>
+              <text x="91" y="172" text-anchor="middle" fill="#94a3b8" font-size="10">Gunakan sarung tangan</text>
+
+              <rect x="180" y="60" width="150" height="140" rx="10" fill="#1e293b" stroke="#fbbf24" stroke-width="1.5"/>
+              <text x="255" y="84" text-anchor="middle" fill="#fcd34d" font-size="12" font-weight="bold">LANGKAH 2</text>
+              <text x="255" y="108" text-anchor="middle" fill="#f8fafc" font-size="11">Cacah daun menjadi</text>
+              <text x="255" y="126" text-anchor="middle" fill="#f8fafc" font-size="11">potongan kecil agar</text>
+              <text x="255" y="144" text-anchor="middle" fill="#f8fafc" font-size="11">mudah terurai.</text>
+              <text x="255" y="172" text-anchor="middle" fill="#fca5a5" font-size="10">Jangan membakar daun!</text>
+
+              <rect x="344" y="60" width="150" height="140" rx="10" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+              <text x="419" y="84" text-anchor="middle" fill="#7dd3fc" font-size="12" font-weight="bold">LANGKAH 3</text>
+              <text x="419" y="108" text-anchor="middle" fill="#f8fafc" font-size="11">Masukkan ke komposter,</text>
+              <text x="419" y="126" text-anchor="middle" fill="#f8fafc" font-size="11">percikkan air & cairan</text>
+              <text x="419" y="144" text-anchor="middle" fill="#f8fafc" font-size="11">aktivator EM4 secukupnya.</text>
+              <text x="419" y="172" text-anchor="middle" fill="#94a3b8" font-size="10">Aduk tiap 7 hari sekali</text>
+
+              <rect x="508" y="60" width="156" height="140" rx="10" fill="#1e293b" stroke="#a78bfa" stroke-width="1.5"/>
+              <text x="586" y="84" text-anchor="middle" fill="#c4b5fd" font-size="12" font-weight="bold">LANGKAH 4 (PANEN)</text>
+              <text x="586" y="108" text-anchor="middle" fill="#f8fafc" font-size="11">Setelah 4–6 minggu:</text>
+              <text x="586" y="126" text-anchor="middle" fill="#f8fafc" font-size="11">• Warna cokelat kehitaman</text>
+              <text x="586" y="144" text-anchor="middle" fill="#f8fafc" font-size="11">• Berbau seperti tanah</text>
+              <text x="586" y="172" text-anchor="middle" fill="#6ee7b7" font-size="10">Siap menyuburkan taman</text>
+            </svg>
+          </div>`
+      },
+      S8: {
+        title: "STIMULUS 8 — TEKS PROSEDUR & PAMFLET (Membuat Pembatas Buku & Wisata Edukasi)",
+        html: `
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 space-y-2.5">
+            <h4 class="font-bold text-indigo-300 text-base">Prosedur Membuat Pembatas Buku dari Daun Kering Laminasi</h4>
+            <p><strong>Tujuan:</strong> Memanfaatkan daun gugur di halaman sekolah menjadi pembatas buku yang awet dan artistik.</p>
+            <p><strong>Langkah-Langkah:</strong> (1) Pilihlah daun kering yang bentuk tulang daunnya masih utuh dan bersih. (2) Letakkan daun di antara dua lembar kertas HVS, lalu tekan menggunakan buku tebal selama dua hari agar permukaannya rata. (3) Susun daun kering di atas kertas karton berukuran 5 cm × 15 cm secara rapi. (4) Lapisi permukaan karton dengan plastik laminasi dingin secara perlahan agar tidak muncul gelembung udara. (5) Gunting tepi plastik menyisakan jarak 3 milimeter, lalu lubangi bagian atas untuk memasang pita.</p>
+            <p><strong>Tips Tambahan:</strong> Jangan menggunakan daun yang masih basah karena dapat berjamur di dalam plastik. Simpan sisa karton di tempat kering.</p>
+          </div>`
+      }
+    };
+
+    const QUESTIONS_L1 = [
+      // --- MATERI 1: TEKS DESKRIPSI (No. 1 - 7) ---
+      {
+        no: 1, bab: "Materi 1: Teks Deskripsi", stim: "S1", type: "PG",
+        kisi: "Menentukan objek utama yang dideskripsikan dalam teks",
+        stem: "Objek utama yang dideskripsikan penulis dalam teks 'Gazebo Bambu di Samping Laboratorium IPA' adalah...",
+        options: [
+          "Ruang laboratorium IPA yang berisi alat-alat praktikum sains.",
+          "Gazebo bambu dan sudut hijau di bagian barat halaman sekolah.",
+          "Koleksi buku cerita yang tersimpan di perpustakaan utama sekolah.",
+          "Cara membudidayakan ikan hias dan tanaman teratai di kolam sekolah."
+        ],
+        key: "B",
+        explanation: "Seluruh rincian paragraf pertama dan kedua berfokus pada gambaran fisik serta suasana gazebo bambu di sudut barat halaman sekolah."
+      },
+      {
+        no: 2, bab: "Materi 1: Teks Deskripsi", stim: "S1", type: "MCMA",
+        kisi: "Mengidentifikasi unsur kebahasaan teks deskripsi (kata sifat, kata khusus, ungkapan kiasan)",
+        stem: "Manakah identifikasi unsur kebahasaan yang TEPAT berdasarkan teks 'Gazebo Bambu di Samping Laboratorium IPA'? (Pilih semua jawaban yang benar)",
+        options: [
+          "Kata sifat yang melukiskan suasana dalam teks antara lain 'sejuk', 'teduh', dan 'mungil'.",
+          "Kata khusus jenis tumbuhan dalam teks meliputi 'melati air', 'teratai', dan 'flamboyan'.",
+          "Ungkapan 'oase ilmu' merupakan ungkapan kiasan yang bermakna sumber pengetahuan yang menyegarkan.",
+          "Frasa 'gemericik air mancur' merupakan pencitraan indra penglihatan karena menonjolkan warna air."
+        ],
+        key: "A,B,C",
+        explanation: "A, B, dan C sesuai dengan teks. D keliru karena 'gemericik' adalah pencitraan indra pendengaran (auditif)."
+      },
+      {
+        no: 3, bab: "Materi 1: Teks Deskripsi", stim: "S1", type: "BS",
+        kisi: "Menilai kesesuaian pernyataan dengan isi & tujuan teks deskripsi",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap pernyataan berikut berdasarkan teks deskripsi tersebut!",
+        rows: [
+          { code: "1", text: "Kata 'relatif' pada kalimat 'suasana di sekitar gazebo terasa relatif sejuk' bermakna tidak mutlak atau bergantung pada keadaan." },
+          { code: "2", text: "Rincian bunyi gemericik air dan warna bunga teratai membantu pembaca seolah-olah ikut merasakan suasana gazebo." },
+          { code: "3", text: "Gazebo bambu hanya boleh digunakan oleh guru untuk rapat dan dilarang dimasuki siswa kelas tujuh." }
+        ],
+        bsKey: ["A", "A", "B"],
+        explanation: "1 Benar (makna kata 'relatif'), 2 Benar (fungsi perincian pancaindra dalam teks deskripsi), 3 Salah (justru menjadi tempat siswa kelas tujuh membaca dan berdiskusi saat istirahat)."
+      },
+      {
+        no: 4, bab: "Materi 1: Teks Deskripsi", stim: "S1", type: "MATCH",
+        kisi: "Memasangkan kutipan teks deskripsi dengan jenis pancaindra / fungsinya",
+        stem: "Pasangkanlah kutipan teks pada Kolom Kiri dengan jenis pencitraan atau fungsi kebahasaannya pada Kolom Kanan!",
+        left: [
+          { code: "1", text: "'Gemericik air mancur buatan menyapa telinga...'" },
+          { code: "2", text: "'Rumpun melati air dan teratai merah muda mekar...'" },
+          { code: "3", text: "'...suasana di sekitar gazebo terasa relatif sejuk...'" },
+          { code: "4", text: "'...sudut hijau itu adalah oase ilmu...'" }
+        ],
+        right: [
+          { code: "A", text: "Pencitraan indra peraba / suhu" },
+          { code: "B", text: "Ungkapan kiasan / metafora" },
+          { code: "C", text: "Pencitraan indra pendengaran" },
+          { code: "D", text: "Pencitraan indra penglihatan" }
+        ],
+        matchKey: { "1": "C", "2": "D", "3": "A", "4": "B" },
+        explanation: "1→C ('gemericik'), 2→D ('merah muda mekar'), 3→A ('sejuk'), 4→B ('oase ilmu')."
+      },
+      {
+        no: 5, bab: "Materi 1: Teks Deskripsi", stim: "S2", type: "MCMA",
+        kisi: "Mengelompokkan kata sifat dan makna kata sesuai konteks teks deskripsi benda",
+        stem: "Berdasarkan teks 'Gitar Akustik Kayu Siprus Milik Kakak', manakah pernyataan kebahasaan dan makna kata yang BENAR? (Pilih semua jawaban yang benar)",
+        options: [
+          "Kelompok kata sifat dalam teks tersebut meliputi 'mengilap', 'jernih', 'hangat', dan 'ramping'.",
+          "Kata 'ramping' pada kalimat 'Leher gitarnya ramping' bermakna kecil dan tidak gemuk sehingga mudah digenggam.",
+          "Ungkapan 'teman setia' merupakan majas personifikasi yang menunjukkan kedekatan pemilik dengan barangnya.",
+          "Kata 'senar', 'bodi', dan 'tas' termasuk kelompok kata sifat karena menjelaskan ciri fisik gitar."
+        ],
+        key: "A,B,C",
+        explanation: "A, B, dan C benar. D salah karena 'senar', 'bodi', dan 'tas' merupakan kata benda (nomina)."
+      },
+      {
+        no: 6, bab: "Materi 1: Teks Deskripsi", stim: "S2", type: "BS",
+        kisi: "Menganalisis perincian objek & perawatan dalam teks deskripsi",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap pernyataan berikut berdasarkan teks deskripsi gitar akustik!",
+        rows: [
+          { code: "1", text: "Penulis memerinci bagian-bagian gitar mulai dari bahan bodi, jumlah senar, ukiran lubang suara, hingga bentuk leher gitar." },
+          { code: "2", text: "Penyimpanan gitar di dalam tas pelindung bertujuan menjaga kayu agar tidak rusak oleh kelembapan udara." },
+          { code: "3", text: "Gitar akustik dalam teks diceritakan sebagai makhluk hidup yang dapat berbicara dengan pemiliknya." }
+        ],
+        bsKey: ["A", "A", "B"],
+        explanation: "1 Benar, 2 Benar, 3 Salah ('teman setia' hanyalah ungkapan kiasan)."
+      },
+      {
+        no: 7, bab: "Materi 1: Teks Deskripsi", stim: "S2", type: "MATCH",
+        kisi: "Memasangkan kutipan kalimat dengan keterangan penyuntingan / perincian",
+        stem: "Pasangkanlah kutipan kalimat pada Kolom Kiri dengan keterangan perincian atau penyuntingan yang tepat pada Kolom Kanan!",
+        left: [
+          { code: "1", text: "'Bodinya terbuat dari kayu siprus berwarna cokelat madu...'" },
+          { code: "2", text: "'Leher gitarnya ramping sehingga nyaman digenggam...'" },
+          { code: "3", text: "'Gitar tersebut menjadi teman setia yang menemani waktu luang.'" },
+          { code: "4", text: "'Gitar akustik itu tergantung rapi di dinding kamar belajar.'" }
+        ],
+        right: [
+          { code: "A", text: "Pertahankan ungkapan kiasan/personifikasi" },
+          { code: "B", text: "Pertahankan huruf kecil pada 'kamar belajar' karena bukan nama diri" },
+          { code: "C", text: "Pertahankan rincian bahan dan warna benda" },
+          { code: "D", text: "Pertahankan rincian bentuk dan kenyamanan fungsi" }
+        ],
+        matchKey: { "1": "C", "2": "D", "3": "A", "4": "B" },
+        explanation: "1→C, 2→D, 3→A, 4→B."
+      },
+
+      // --- MATERI 2: PUISI RAKYAT (No. 8 - 14) ---
+      {
+        no: 8, bab: "Materi 2: Puisi Rakyat", stim: "S3", type: "PG",
+        kisi: "Mengidentifikasi jenis puisi rakyat berdasarkan ciri struktur baris",
+        stem: "Berdasarkan Stimulus 3, puisi rakyat yang terdiri atas dua baris yang saling berhubungan sebab-akibat berisi nasihat (Bait III) disebut...",
+        options: [
+          "Pantun",
+          "Syair",
+          "Gurindam",
+          "Mantra"
+        ],
+        key: "C",
+        explanation: "Gurindam adalah puisi lama yang terdiri atas dua baris dalam sebait, berima a-a, dan berisi hubungan syarat-akibat atau nasihat."
+      },
+      {
+        no: 9, bab: "Materi 2: Puisi Rakyat", stim: "S3", type: "MCMA",
+        kisi: "Membandingkan ciri struktur pantun, syair, dan gurindam",
+        stem: "Manakah perbedaan struktur antara pantun, syair, dan gurindam yang TEPAT berdasarkan Stimulus 3? (Pilih semua jawaban yang benar)",
+        options: [
+          "Pantun (Bait I) memiliki sampiran pada dua baris pertama dan isi pada dua baris terakhir dengan rima a-b-a-b.",
+          "Syair (Bait II) terdiri atas empat baris yang seluruh barisnya merupakan isi dengan rima a-a-a-a.",
+          "Gurindam (Bait III) terdiri atas dua baris yang memuat hubungan syarat ('Apabila...') dan akibat ('Terbukalah...').",
+          "Pantun dan syair sama-sama tidak memiliki aturan rima akhir dan hanya terdiri atas dua baris."
+        ],
+        key: "A,B,C",
+        explanation: "A, B, dan C tepat sesuai kaidah puisi rakyat. D keliru karena pantun dan syair terdiri atas 4 baris dengan pola rima terikat."
+      },
+      {
+        no: 10, bab: "Materi 2: Puisi Rakyat", stim: "S3", type: "BS",
+        kisi: "Menentukan isi dan pesan moral pantun, syair, serta gurindam",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap simpulan isi puisi rakyat pada Stimulus 3!",
+        rows: [
+          { code: "1", text: "Isi pantun pada Bait I mengajak pembaca untuk belajar dengan tekun dan disiplin waktu agar memperoleh ilmu." },
+          { code: "2", text: "Syair pada Bait II menasihati agar menjaga kesantunan bertutur kata serta menepati janji yang telah dibuat." },
+          { code: "3", text: "Gurindam pada Bait III menyarankan pembaca untuk berhenti membaca buku karena membatasi wawasan." }
+        ],
+        bsKey: ["A", "A", "B"],
+        explanation: "1 Benar, 2 Benar, 3 Salah (justru gemar membaca membuka cakrawala pengetahuan)."
+      },
+      {
+        no: 11, bab: "Materi 2: Puisi Rakyat", stim: "S3", type: "MATCH",
+        kisi: "Memasangkan kriteria struktur dengan jenis puisi rakyat",
+        stem: "Pasangkanlah ciri struktur pada Kolom Kiri dengan istilah jenis puisi rakyat yang tepat pada Kolom Kanan!",
+        left: [
+          { code: "1", text: "Empat baris sebait, baris 1–2 sampiran, baris 3–4 isi, rima a-b-a-b" },
+          { code: "2", text: "Empat baris sebait, keempat baris merupakan isi utuh, rima a-a-a-a" },
+          { code: "3", text: "Dua baris sebait, baris pertama syarat/sebab, baris kedua akibat/jawaban" },
+          { code: "4", text: "Karya sastra lama warisan Nusantara yang terikat aturan baris dan rima" }
+        ],
+        right: [
+          { code: "A", text: "Syair" },
+          { code: "B", text: "Gurindam" },
+          { code: "C", text: "Puisi Rakyat" },
+          { code: "D", text: "Pantun" }
+        ],
+        matchKey: { "1": "D", "2": "A", "3": "B", "4": "C" },
+        explanation: "1→D (Pantun), 2→A (Syair), 3→B (Gurindam), 4→C (Puisi Rakyat)."
+      },
+      {
+        no: 12, bab: "Materi 2: Puisi Rakyat", stim: "S4", type: "MCMA",
+        kisi: "Menyimpulkan pesan tersirat dan penerapan puisi rakyat dalam kehidupan sekolah",
+        stem: "Berdasarkan Teks A dan Teks B pada Stimulus 4, pesan tersirat mana sajakah yang DAPAT DITERAPKAN dalam kehidupan di sekolah? (Pilih semua jawaban yang benar)",
+        options: [
+          "Mengurangi penggunaan botol atau kemasan plastik sekali pakai demi menjaga kebersihan lingkungan dan sungai.",
+          "Membiasakan diri mengulang materi pelajaran setiap hari agar siap menghadapi asesmen di sekolah.",
+          "Menjaga kelestarian alam dimulai dari tindakan sederhana yang dilakukan secara konsisten sejak hari ini.",
+          "Menunda belajar hingga malam ujian karena mengulang pelajaran tidak memengaruhi pemahaman."
+        ],
+        key: "A,B,C",
+        explanation: "A dan C sesuai pesan Teks A; B sesuai pesan Teks B. D bertentangan dengan isi Teks B."
+      },
+      {
+        no: 13, bab: "Materi 2: Puisi Rakyat", stim: "S4", type: "BS",
+        kisi: "Menganalisis bagian sampiran-isi dan relevansi pesan puisi rakyat",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap analisis terhadap Teks A dan Teks B!",
+        rows: [
+          { code: "1", text: "Baris 'Pagi hari menanam melati / Disiram air dari telaga' pada Teks A berfungsi sebagai sampiran pengantar rima." },
+          { code: "2", text: "Membawa botol minum isi ulang (tumbler) ke sekolah merupakan penerapan nyata isi Teks A." },
+          { code: "3", text: "Teks B termasuk jenis pantun jenaka karena terdiri atas empat baris yang lucu." }
+        ],
+        bsKey: ["A", "A", "B"],
+        explanation: "1 Benar, 2 Benar (mengurangi plastik), 3 Salah (Teks B terdiri atas 2 baris berisi sebab-akibat sehingga merupakan gurindam)."
+      },
+      {
+        no: 14, bab: "Materi 2: Puisi Rakyat", stim: "S4", type: "MATCH",
+        kisi: "Memasangkan kutipan larik puisi dengan fungsi bagiannya",
+        stem: "Pasangkanlah kutipan larik pada Kolom Kiri dengan fungsi struktur yang tepat pada Kolom Kanan!",
+        left: [
+          { code: "1", text: "'Pagi hari menanam melati, / Disiram air dari telaga.'" },
+          { code: "2", text: "'Kurangi plastik mulai hari ini, / Agar sungai tetap terjaga.'" },
+          { code: "3", text: "'Jika malas mengulang pelajaran,'" },
+          { code: "4", text: "'Niscaya sulit saat ujian.'" }
+        ],
+        right: [
+          { code: "A", text: "Isi pantun (amanat/ajakan)" },
+          { code: "B", text: "Baris kedua gurindam (akibat/jawaban)" },
+          { code: "C", text: "Sampiran pantun (pengantar bunyi)" },
+          { code: "D", text: "Baris pertama gurindam (syarat/sebab)" }
+        ],
+        matchKey: { "1": "C", "2": "A", "3": "D", "4": "B" },
+        explanation: "1→C, 2→A, 3→D, 4→B."
+      },
+
+      // --- MATERI 3: CERITA FANTASI (No. 15 - 22) ---
+      {
+        no: 15, bab: "Materi 3: Cerita Fantasi", stim: "S5", type: "PG",
+        kisi: "Menentukan urutan peristiwa awal dalam cerita fantasi",
+        stem: "Peristiwa pertama yang dialami Arka sebelum memasuki gerbang kabut menuju Lembah Jam Pasir adalah...",
+        options: [
+          "Mengoleskan embun perak daun pakis biru pada roda gigi Menara Waktu.",
+          "Menemukan kompas perunggu tanpa jarum utara di balik tumpukan peta kuno.",
+          "Mendengarkan sindiran kurcaci penjaga bernama Tobi di depan menara.",
+          "Membersihkan lumut kristal yang menyumbat mesin jam raksasa."
+        ],
+        key: "B",
+        explanation: "Pada paragraf pertama dijelaskan secara runtut bahwa Arka mula-mula merapikan ruang arsip dan menemukan kompas perunggu di balik peta kuno."
+      },
+      {
+        no: 16, bab: "Materi 3: Cerita Fantasi", stim: "S5", type: "MCMA",
+        kisi: "Mengidentifikasi watak tokoh berdasarkan tindakan dalam cerita fantasi",
+        stem: "Watak tokoh Arka yang didukung oleh tindakannya dalam cerita 'Kompas Perunggu di Balik Lemari Arsip' adalah... (Pilih semua jawaban yang benar)",
+        options: [
+          "Berani menghadapi dunia asing dengan melangkah masuk ke gerbang cahaya.",
+          "Sabar dan tidak mudah terpancing emosi ketika disindir oleh Tobi.",
+          "Cerdik dan mau bertanya sebelum bertindak mencari solusi perbaikan.",
+          "Pemarah dan langsung merusak roda gigi Menara Waktu karena tersinggung."
+        ],
+        key: "A,B,C",
+        explanation: "A, B, dan C terbukti dari tindakan Arka di dalam teks. D bertentangan dengan sikap tenang Arka."
+      },
+      {
+        no: 17, bab: "Materi 3: Cerita Fantasi", stim: "S5", type: "BS",
+        kisi: "Mengidentifikasi kalimat langsung dan ungkapan sindiran dalam cerita",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap analisis kebahasaan pada cerita fantasi tersebut!",
+        rows: [
+          { code: "1", text: "Kalimat “Wah, cepat sekali pahlawan kesiangan ini datang!” merupakan kalimat langsung yang ditandai tanda petik ganda (“...”)." },
+          { code: "2", text: "Ucapan Tobi tersebut mengandung sindiran karena sebenarnya ia menilai Arka datang terlambat dan tampak kebingungan." },
+          { code: "3", text: "Penggunaan dialog langsung dalam cerita justru membuat pembaca semakin bingung memahami konflik antartokoh." }
+        ],
+        bsKey: ["A", "A", "B"],
+        explanation: "1 Benar, 2 Benar (majas sindiran/ironi), 3 Salah (kejelasan dialog membantu pembaca memahami watak dan konflik)."
+      },
+      {
+        no: 18, bab: "Materi 3: Cerita Fantasi", stim: "S5", type: "MATCH",
+        kisi: "Memasangkan peristiwa cerita fantasi dengan struktur alur (orientasi-resolusi)",
+        stem: "Pasangkanlah kutipan peristiwa pada Kolom Kiri dengan bagian struktur alur cerita fantasi pada Kolom Kanan!",
+        left: [
+          { code: "1", text: "Arka merapikan ruang arsip rumah kakeknya dan menemukan kompas perunggu." },
+          { code: "2", text: "Roda gigi Menara Waktu macet tertutup lumut kristal dan Tobi bersikap ketus." },
+          { code: "3", text: "Arka bertanya cara meluruhkan lumut lalu mengumpulkan embun pakis biru." },
+          { code: "4", text: "Embun dioleskan dan roda gigi Menara Waktu kembali berdetak normal." }
+        ],
+        right: [
+          { code: "A", text: "Komplikasi (Munculnya Masalah)" },
+          { code: "B", text: "Resolusi (Penyelesaian Masalah)" },
+          { code: "C", text: "Orientasi (Pengenalan Tokoh & Latar)" },
+          { code: "D", text: "Rangkaian Peristiwa Menuju Penyelesaian" }
+        ],
+        matchKey: { "1": "C", "2": "A", "3": "D", "4": "B" },
+        explanation: "1→C, 2→A, 3→D, 4→B."
+      },
+      {
+        no: 19, bab: "Materi 3: Cerita Fantasi", stim: "S6", type: "MCMA",
+        kisi: "Menganalisis perbedaan tindakan tokoh dan hubungan sebab-akibat konflik",
+        stem: "Berdasarkan cerita 'Lentera Angin untuk Penjaga Bukit Kabut', manakah analisis konflik dan tindakan tokoh yang TEPAT? (Pilih semua jawaban yang benar)",
+        options: [
+          "Tindakan yang membedakan Sari dan Bagas adalah Sari memilih berdialog secara santun, sedangkan Bagas ingin mengusir burung secara paksa.",
+          "Alasan burung hantu raksasa menghalangi jembatan adalah karena sarangnya kehilangan cahaya pemandu saat badai.",
+          "Penawaran lentera kunang-kunang oleh Sari menjadi jalan tengah yang menyelesaikan konflik tanpa kekerasan.",
+          "Burung hantu akhirnya menyingkir karena takut dipukul menggunakan ranting panjang oleh Bagas."
+        ],
+        key: "A,B,C",
+        explanation: "A, B, dan C sesuai isi cerita. D keliru karena burung hantu terharu oleh ketulusan Sari memberikan lentera."
+      },
+      {
+        no: 20, bab: "Materi 3: Cerita Fantasi", stim: "S6", type: "BS",
+        kisi: "Menilai pesan moral cerita fantasi",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap pesan moral yang sesuai dengan cerita 'Lentera Angin untuk Penjaga Bukit Kabut'!",
+        rows: [
+          { code: "1", text: "Mendengarkan alasan pihak lain dengan tenang dapat membuka jalan penyelesaian masalah." },
+          { code: "2", text: "Sikap empati dan kesediaan berbagi mampu meredakan ketegangan tanpa harus menggunakan kekerasan." },
+          { code: "3", text: "Ketika menghadapi penghalang di perjalanan, tindakan paling bijak adalah langsung menyerang tanpa bertanya." }
+        ],
+        bsKey: ["A", "A", "B"],
+        explanation: "1 Benar, 2 Benar, 3 Salah (justru dikritik melalui penolakan Sari terhadap rencana Bagas)."
+      },
+      {
+        no: 21, bab: "Materi 3: Cerita Fantasi", stim: "S6", type: "MATCH",
+        kisi: "Memasangkan unsur keajaiban & tindakan tokoh dengan maknanya dalam cerita",
+        stem: "Pasangkanlah kutipan pada Kolom Kiri dengan analisis unsur cerita fantasi pada Kolom Kanan!",
+        left: [
+          { code: "1", text: "Kupu-kupu bersayap perak dan burung hantu raksasa bermata zamrud" },
+          { code: "2", text: "Bagas hendak mengambil ranting panjang untuk mengusir burung" },
+          { code: "3", text: "Sari menyapa sopan dan menawarkan lentera kunang-kunang" },
+          { code: "4", text: "Burung hantu menyingkir dan mempersilakan mereka melintas" }
+        ],
+        right: [
+          { code: "A", text: "Tindakan impulsif yang berpotensi memperbesar konflik" },
+          { code: "B", text: "Unsur keajaiban / latar fantasi yang tidak ditemui di dunia nyata" },
+          { code: "C", text: "Hasil penyelesaian damai berkat empati tokoh" },
+          { code: "D", text: "Solusi kreatif berbasis dialog dan kepedulian" }
+        ],
+        matchKey: { "1": "B", "2": "A", "3": "D", "4": "C" },
+        explanation: "1→B, 2→A, 3→D, 4→C."
+      },
+      {
+        no: 22, bab: "Materi 3: Cerita Fantasi", stim: "S6", type: "MCMA",
+        kisi: "Membedakan cerita fantasi dengan teks nonfiksi / deskripsi nyata",
+        stem: "Mengapa teks 'Kompas Perunggu' (Stimulus 5) dan 'Lentera Angin' (Stimulus 6) dikategorikan sebagai teks cerita fantasi? (Pilih semua jawaban yang benar)",
+        options: [
+          "Memuat keajaiban atau peristiwa supranatural seperti gerbang kabut dari kompas dan burung hantu penjaga jembatan.",
+          "Memiliki rangkaian alur cerita berupa orientasi, munculnya konflik, hingga penyelesaian masalah tokoh.",
+          "Menampilkan tokoh dengan watak dan dialog yang berkembang menghadapi tantangan imajinatif.",
+          "Berisi petunjuk praktis merakit alat elektronik yang harus dipraktikkan persis sesuai standar pabrik."
+        ],
+        key: "A,B,C",
+        explanation: "A, B, dan C merupakan ciri utama cerita fantasi (narasi imajinatif). D adalah ciri teks prosedur."
+      },
+
+      // --- MATERI 4: TEKS PROSEDUR (No. 23 - 30) ---
+      {
+        no: 23, bab: "Materi 4: Teks Prosedur", stim: "S7", type: "PG",
+        kisi: "Menentukan tujuan utama infografik teks prosedur",
+        stem: "Tujuan utama penyajian infografik 'Mengolah Daun Kering Menjadi Kompos' pada Stimulus 7 adalah...",
+        options: [
+          "Mengajak warga sekolah membakar seluruh daun gugur di halaman belakang.",
+          "Menjelaskan langkah-langkah mengolah sampah daun kering menjadi pupuk organik yang bermanfaat.",
+          "Menampilkan daftar harga pupuk kompos siap pakai di toko pertanian.",
+          "Mengajarkan cara menanam pohon pelindung di sekitar lapangan upacara."
+        ],
+        key: "B",
+        explanation: "Bagian atas infografik mencantumkan tujuan jelas: mengurangi sampah daun sekolah menjadi pupuk organik melalui empat tahapan berurutan."
+      },
+      {
+        no: 24, bab: "Materi 4: Teks Prosedur", stim: "S7", type: "MCMA",
+        kisi: "Menganalisis urutan tindakan dan hubungan ilustrasi dalam infografik prosedur",
+        stem: "Berdasarkan infografik pembuatan kompos pada Stimulus 7, manakah pernyataan yang TEPAT? (Pilih semua jawaban yang benar)",
+        options: [
+          "Penomoran Langkah 1 hingga Langkah 4 membantu pembaca mengikuti urutan kerja secara sistematis.",
+          "Pemisahan sampah plastik/logam dan pencacahan daun dilakukan sebelum daun dimasukkan ke komposter.",
+          "Kompos dinyatakan siap panen setelah 4–6 minggu apabila berwarna cokelat kehitaman dan berbau seperti tanah.",
+          "Pembakaran daun kering dianjurkan pada Langkah 2 agar proses penguraian berlangsung lebih cepat."
+        ],
+        key: "A,B,C",
+        explanation: "A, B, dan C sesuai infografik. D bertentangan dengan peringatan 'Jangan membakar daun!' pada Langkah 2."
+      },
+      {
+        no: 25, bab: "Materi 4: Teks Prosedur", stim: "S7", type: "BS",
+        kisi: "Menilai kualitas penyajian informasi dan keamanan kerja dalam infografik",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap evaluasi kualitas penyajian informasi infografik kompos tersebut!",
+        rows: [
+          { code: "1", text: "Pencantuman anjuran memakai sarung tangan berfungsi menjaga kebersihan dan keselamatan kerja." },
+          { code: "2", text: "Pengadukan setiap 7 hari sekali dan penambahan aktivator EM4 merupakan bagian dari proses perawatan kompos." },
+          { code: "3", text: "Karena sudah diberi warna kotak berbeda, tulisan petunjuk pada infografik tidak lagi diperlukan." }
+        ],
+        bsKey: ["A", "A", "B"],
+        explanation: "1 Benar, 2 Benar, 3 Salah (teks dan elemen visual saling melengkapi kejelasan instruksi)."
+      },
+      {
+        no: 26, bab: "Materi 4: Teks Prosedur", stim: "S7", type: "MATCH",
+        kisi: "Memasangkan unsur penyajian prosedur dengan kriteria kualitasnya",
+        stem: "Pasangkanlah unsur penyajian pada Kolom Kiri dengan kriteria kualitas teks prosedur pada Kolom Kanan!",
+        left: [
+          { code: "1", text: "Urutan Langkah 1 sampai Langkah 4" },
+          { code: "2", text: "Peringatan 'Jangan membakar daun!' & 'Gunakan sarung tangan'" },
+          { code: "3", text: "Indikator cokelat kehitaman dan berbau tanah setelah 4–6 minggu" },
+          { code: "4", text: "Kalimat singkat per kotak tahapan" }
+        ],
+        right: [
+          { code: "A", text: "Keamanan dan keselamatan kerja" },
+          { code: "B", text: "Tolok ukur keberhasilan hasil akhir" },
+          { code: "C", text: "Keteraturan urutan prosedur" },
+          { code: "D", text: "Keterbacaan dan kejelasan petunjuk" }
+        ],
+        matchKey: { "1": "C", "2": "A", "3": "B", "4": "D" },
+        explanation: "1→C, 2→A, 3→B, 4→D."
+      },
+      {
+        no: 27, bab: "Materi 4: Teks Prosedur", stim: "S8", type: "MCMA",
+        kisi: "Mengidentifikasi jenis kalimat dalam teks prosedur (ajakan, larangan, inversi)",
+        stem: "Berdasarkan teks 'Prosedur Membuat Pembatas Buku dari Daun Kering Laminasi' (Stimulus 8), manakah identifikasi jenis kalimat yang TEPAT? (Pilih semua jawaban yang benar)",
+        options: [
+          "Kalimat “Pilihlah daun kering yang bentuk tulang daunnya masih utuh...” menggunakan pola inversi (kata kerja berpartikel -lah di awal).",
+          "Kalimat “Jangan menggunakan daun yang masih basah...” termasuk kalimat larangan untuk mencegah kegagalan produk.",
+          "Frasa keterangan 'secara perlahan' menjelaskan cara melapisi karton dengan plastik laminasi agar tidak bergelembung.",
+          "Kalimat “Simpan sisa karton di tempat kering” merupakan kalimat tanya yang memerlukan jawaban lisan."
+        ],
+        key: "A,B,C",
+        explanation: "A, B, dan C tepat sesuai kaidah kebahasaan teks prosedur. D keliru karena kalimat tersebut adalah kalimat perintah/anjuran."
+      },
+      {
+        no: 28, bab: "Materi 4: Teks Prosedur", stim: "S8", type: "BS",
+        kisi: "Menganalisis struktur teks prosedur dan pelesapan kata",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap pernyataan tentang struktur dan kebahasaan teks prosedur pada Stimulus 8!",
+        rows: [
+          { code: "1", text: "Bagian 'Tujuan' di awal teks menjelaskan manfaat kegiatan, yakni mengolah daun gugur menjadi pembatas buku artistik." },
+          { code: "2", text: "Pelesapan subjek (penghilangan kata 'kamu/pembaca') pada awal kalimat langkah membuat instruksi lebih ringkas dan efektif." },
+          { code: "3", text: "Penekanan daun menggunakan buku tebal selama dua hari bertujuan membuat daun menjadi basah dan berjamur." }
+        ],
+        bsKey: ["A", "A", "B"],
+        explanation: "1 Benar, 2 Benar (fungsi pelesapan dalam teks prosedur), 3 Salah (bertujuan agar permukaan daun rata dan kering)."
+      },
+      {
+        no: 29, bab: "Materi 4: Teks Prosedur", stim: "S8", type: "MATCH",
+        kisi: "Memasangkan kutipan kalimat prosedur dengan fungsi kebahasaannya",
+        stem: "Pasangkanlah kutipan kalimat pada Kolom Kiri dengan fungsi atau jenis kalimatnya pada Kolom Kanan!",
+        left: [
+          { code: "1", text: "“Memanfaatkan daun gugur menjadi pembatas buku yang awet...”" },
+          { code: "2", text: "“Pilihlah daun kering yang bentuk tulang daunnya masih utuh.”" },
+          { code: "3", text: "“Jangan menggunakan daun yang masih basah karena dapat berjamur.”" },
+          { code: "4", text: "“Simpan sisa karton di tempat kering.”" }
+        ],
+        right: [
+          { code: "A", text: "Kalimat inversi / perintah langsung" },
+          { code: "B", text: "Petunjuk penyimpanan bahan" },
+          { code: "C", text: "Pernyataan tujuan kegiatan" },
+          { code: "D", text: "Kalimat larangan disertai alasan" }
+        ],
+        matchKey: { "1": "C", "2": "A", "3": "D", "4": "B" },
+        explanation: "1→C, 2→A, 3→D, 4→B."
+      },
+      {
+        no: 30, bab: "Materi 4: Teks Prosedur", stim: "S8", type: "MCMA",
+        kisi: "Menganalisis fungsi kata keterangan (cara, waktu, ukuran) dalam teks prosedur",
+        stem: "Sebagai soal penutup Level 1, manakah fungsi kata keterangan yang TEPAT dari teks prosedur Stimulus 8? (Pilih semua jawaban yang benar)",
+        options: [
+          "Frasa 'selama dua hari' menjelaskan durasi waktu penekanan daun menggunakan buku tebal.",
+          "Frasa 'secara perlahan' menjelaskan cara melapisi permukaan karton agar tidak muncul gelembung udara.",
+          "Ukuran '5 cm × 15 cm' dan '3 milimeter' memberikan kepastian ukuran pemotongan bahan.",
+          "Kata 'gelembung udara' merupakan kata keterangan waktu yang menunjukkan kapan plastik digunting."
+        ],
+        key: "A,B,C",
+        explanation: "A, B, dan C tepat sesuai fungsi keterangan dalam teks prosedur. D keliru karena 'gelembung udara' adalah frasa benda."
+      }
+    ];
+
+    const STIMULI_L2 = {
+      L2_S1: {
+        title: "STIMULUS 1 (LEVEL 2) — TEKS DESKRIPSI (Sudut Literasi & Taman Obat)",
+        html: `
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-rose-500/30 space-y-2.5">
+            <h4 class="font-bold text-rose-300 text-base">Kebun Toga dan Lorong Baca di Samping Aula</h4>
+            <p>Di sisi timur aula sekolah, terhampar kebun tanaman obat keluarga (toga) yang tertata rapi dalam petak-petak bata merah. Rumpun serai wangi, kunyit, jahe merah, dan daun sirih hijau tumbuh subur tersiram cahaya matahari pagi. Aroma segar dedaunan herbal tercium lembut setiap kali angin berembus melewati lorong setapak berkerikil putih. Papan nama kecil bertuliskan nama latin dan khasiat tanaman tertancap di setiap sudut petak.</p>
+            <p>Setiap hari Jumat pagi, anggota kelompok ilmiah remaja bergantian menyiram tanaman dan mencatat pertumbuhannya pada buku jurnal. Di tepi kebun tersedia dua bangku kayu panjang tempat murid membaca majalah dinding bertema lingkungan. Bagi penulis, kebun toga tersebut adalah laboratorium hidup yang mengajarkan kepedulian terhadap alam sekaligus kesehatan warga sekolah.</p>
+          </div>`
+      },
+      L2_S2: {
+        title: "STIMULUS 2 (LEVEL 2) — TEKS DESKRIPSI BENDA & PENYUNTINGAN",
+        html: `
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-rose-500/30 space-y-2.5">
+            <h4 class="font-bold text-rose-300 text-base">Teropong Bintang Mini di Balkon Rumah</h4>
+            <p>Teropong bintang itu berdiri kokoh di atas penyangga berkaki tiga berbahan aluminium ringan. Tabung optiknya berwarna putih mutiara dengan garis perak melingkar di bagian tengah. Lensa objektif berdiameter tujuh puluh milimeter terpasang di ujung depan dan dilindungi penutup karet hitam. Roda pengatur fokus di sisi tabung berputar halus saat disesuaikan dengan jarak pandang mata.</p>
+            <p>Pada malam cerah tanpa awan, teropong itu menjadi jendela langit yang memperlihatkan kawah bulan dan gugus bintang dengan jelas. Setelah digunakan, lensa dibersihkan memakai kuas halus lalu disimpan di dalam kotak busa anti-lembap. Perawatan rutin menjaga kejernihan optik agar alat pengamatan tersebut tetap berfungsi optimal dalam jangka panjang.</p>
+          </div>`
+      },
+      L2_S3: {
+        title: "STIMULUS 3 (LEVEL 2) — PUISI RAKYAT (Analisis Struktur & Amanat)",
+        html: `
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-rose-500/30 grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+            <div class="p-3.5 rounded-xl bg-slate-950/70 border border-amber-500/30">
+              <div class="text-xs font-extrabold uppercase text-amber-400 mb-2">Puisi I</div>
+              <p class="italic text-slate-200 leading-relaxed">
+                Ke pasar baru membeli duku,<br>
+                Duku manis dimakan bersama.<br>
+                Rajinlah engkau membaca buku,<br>
+                Budi pekerti kian utama.
+              </p>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-950/70 border border-indigo-500/30">
+              <div class="text-xs font-extrabold uppercase text-indigo-400 mb-2">Puisi II</div>
+              <p class="italic text-slate-200 leading-relaxed">
+                Dengarlah wahai sahabat sejati,<br>
+                Tugas bersama jangan diingkari,<br>
+                Kerjakan tuntas sepenuh hati,<br>
+                Persahabatan kekal sampai nanti.
+              </p>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-950/70 border border-emerald-500/30">
+              <div class="text-xs font-extrabold uppercase text-emerald-400 mb-2">Puisi III</div>
+              <p class="italic text-slate-200 leading-relaxed">
+                Barang siapa memelihara lisan,<br>
+                Terhindar ia dari permusuhan.
+              </p>
+            </div>
+          </div>`
+      },
+      L2_S4: {
+        title: "STIMULUS 4 (LEVEL 2) — PUISI RAKYAT (Perbandingan Rima & Makna Tersirat)",
+        html: `
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-rose-500/30 grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+            <div class="p-3.5 rounded-xl bg-slate-950/70 border border-sky-500/30">
+              <div class="text-xs font-extrabold uppercase text-sky-400 mb-2">Bait Alpha</div>
+              <p class="italic text-slate-200 leading-relaxed">
+                Berjalan kaki ke tepi kali,<br>
+                Melihat ikan berenang rapi.<br>
+                Pilah sampah setiap hari,<br>
+                Sekolah bersih nyaman dihuni.
+              </p>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-950/70 border border-rose-500/30">
+              <div class="text-xs font-extrabold uppercase text-rose-400 mb-2">Bait Beta</div>
+              <p class="italic text-slate-200 leading-relaxed">
+                Hendaklah engkau berhati lurus,<br>
+                Bekerja jujur jangan terputus,<br>
+                Nasihat guru diingat terus,<br>
+                Agar perilakumu selalu bagus.
+              </p>
+            </div>
+          </div>`
+      },
+      L2_S5: {
+        title: "STIMULUS 5 (LEVEL 2) — CERITA FANTASI (Gerbang Kristal di Perpustakaan Tua)",
+        html: `
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-rose-500/30 space-y-2.5">
+            <h4 class="font-bold text-rose-300 text-base">Pembatas Buku Perak di Negeri Aksara</h4>
+            <p>Malam itu, Dira menemukan pembatas buku perak berbentuk bulu angsa di dalam kamus ensiklopedia tua. Saat menyentuh ukirannya, lembaran kamus berputar dan menarik Dira masuk ke Negeri Aksara. Di sana, sungai tinta mengalir melewati jembatan kertas menuju Menara Pustaka yang tampak redup.</p>
+            <p>Seekor rubah berekor tiga bernama Lira menjelaskan bahwa Kristal Bahasa telah diambil oleh gagak bayangan karena merasa tidak pernah diajak membaca bersama penghuni negeri. Di puncak menara, gagak bayangan berseru ketus, “Pergilah, anak manusia yang sok tahu!” Dira menahan diri dan tidak membalas bentakan itu. Ia justru mengajak gagak berdialog, mendengarkan rasa kesepiannya, lalu menawarkan untuk membacakan kisah petualangan setiap sore jika kristal dikembalikan. Gagak bayangan pun luluh dan menyerahkan kristal hingga Menara Pustaka kembali bercahaya.</p>
+          </div>`
+      },
+      L2_S6: {
+        title: "STIMULUS 6 (LEVEL 2) — CERITA FANTASI (Alur & Penyelesaian Konflik)",
+        html: `
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-rose-500/30 space-y-2.5">
+            <h4 class="font-bold text-rose-300 text-base">Biji Cahaya untuk Penjaga Lembah Angin</h4>
+            <p>Reno dan adiknya, Maya, menemukan batu biru berpendar di tepi sungai desa. Batu itu membuka jalan setapak menuju Lembah Angin yang seluruh tanamannya layu karena kincir awan berhenti berputar. Penjaga lembah, raksasa lumut bernama Gora, menolak siapa pun mendekati kincir karena takut manusia akan merusak tuas kayunya.</p>
+            <p>Reno ingin menerobos masuk saat Gora lengah, tetapi Maya melarangnya. Maya menjelaskan dengan jujur maksud kedatangan mereka dan menunjukkan buku sketsa mekanik milik ayah mereka untuk memperbaiki tuas yang patah tanpa merusak kincir. Gora tersentuh oleh kejujuran Maya, mengizinkan mereka bekerja sama, dan kincir awan kembali berputar menghadirkan hujan segar bagi lembah.</p>
+          </div>`
+      },
+      L2_S7: {
+        title: "STIMULUS 7 (LEVEL 2) — PAMFLET WISATA EDUKASI & EVALUASI INFORMASI",
+        html: `
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-rose-500/30 space-y-3">
+            <h4 class="font-bold text-emerald-300 text-base">Pamflet Wisata Edukasi: Taman Botani & Konservasi Kupu-Kupu</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+              <div class="p-3.5 rounded-xl bg-slate-950/80 border border-emerald-500/30 space-y-1.5">
+                <div class="font-bold text-emerald-300 uppercase">Informasi Utama Pamflet</div>
+                <p>• <strong>Lokasi:</strong> Desa Cibodas, Kecamatan Lembang, Kabupaten Bandung Barat.</p>
+                <p>• <strong>Jam Kunjungan:</strong> Pukul 08.00 – 16.00 WIB (Selasa–Minggu).</p>
+                <p>• <strong>Daya Tarik:</strong> Rumah kaca kupu-kupu endemik, jalur treking hutan pinus sejuk, dan kebun anggrek alam.</p>
+                <p>• <strong>Keselamatan:</strong> Gunakan sepatu antiselip, dilarang menangkap kupu-kupu, dan bawa kembali sampah pribadi.</p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-950/80 border border-amber-500/30 space-y-1.5">
+                <div class="font-bold text-amber-300 uppercase">Catatan Saran Pengembangan Pamflet</div>
+                <p>• Belum mencantumkan rincian harga tiket masuk pelajar dan umum.</p>
+                <p>• Belum dilengkapi peta rute transportasi umum dari pusat kota.</p>
+                <p>• Belum mencantumkan nomor kontak narahubung reservasi rombongan sekolah.</p>
+              </div>
+            </div>
+          </div>`
+      },
+      L2_S8: {
+        title: "STIMULUS 8 (LEVEL 2) — PERBANDINGAN DUA TEKS PETUNJUK (Nyata vs Imajinatif)",
+        html: `
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-rose-500/30 grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+            <div class="p-3.5 rounded-xl bg-slate-950/80 border border-sky-500/30 space-y-1.5">
+              <div class="font-bold text-sky-300 uppercase">PETUNJUK 1 — MENGGUNAKAN MIKROSKOP CAHAYA</div>
+              <p>1. Letakkan mikroskop di atas meja yang datar dan kokoh.</p>
+              <p>2. Atur cermin atau nyalakan lampu iluminator untuk memperoleh cahaya cukup.</p>
+              <p>3. Jepit kaca preparat pada meja benda dengan hati-hati.</p>
+              <p>4. Putar makrometer secara perlahan untuk mencari fokus bayangan. Jangan menurunkan lensa objektif terlalu cepat agar kaca tidak pecah.</p>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-950/80 border border-purple-500/30 space-y-1.5">
+              <div class="font-bold text-purple-300 uppercase">PETUNJUK 2 — MEMANGGIL KRISTAL PENJAGA AWAN</div>
+              <p>1. Carilah kerikil perak di tepi telaga saat bulan purnama penuh.</p>
+              <p>2. Letakkan kerikil tersebut di atas akar pohon beringin tertua.</p>
+              <p>3. Bisikkan harapan tulus sebanyak tiga kali ke arah angin timur.</p>
+              <p>4. Tunggulah hingga kristal melayang muncul dari balik kabut keemasan.</p>
+            </div>
+          </div>`
+      }
+    };
+
+    const QUESTIONS_L2 = [
+      // --- MATERI 1: TEKS DESKRIPSI LEVEL 2 (No. 1 - 7) ---
+      {
+        no: 1, bab: "Materi 1: Teks Deskripsi", stim: "L2_S1", type: "PG",
+        kisi: "Menentukan objek utama & sudut pandang perincian teks deskripsi",
+        stem: "Fokus utama yang dideskripsikan penulis dalam teks 'Kebun Toga dan Lorong Baca di Samping Aula' adalah...",
+        options: [
+          "Cara mengolah rimpang kunyit dan jahe merah menjadi minuman kesehatan.",
+          "Penataan kebun tanaman obat keluarga beserta kegiatan literasi warga sekolah di sekitarnya.",
+          "Sejarah pembangunan aula utama sekolah dan ruang laboratorium kimia.",
+          "Peraturan lomba kebersihan kelas yang diadakan setiap hari Jumat."
+        ],
+        key: "B",
+        explanation: "Paragraf 1 memerinci wujud fisik kebun toga dan lorong baca, sedangkan paragraf 2 memerinci aktivitas merawat tanaman dan membaca di sana."
+      },
+      {
+        no: 2, bab: "Materi 1: Teks Deskripsi", stim: "L2_S1", type: "MCMA",
+        kisi: "Mengidentifikasi kata khusus, kata sifat, dan majas dalam teks deskripsi",
+        stem: "Manakah analisis unsur kebahasaan yang TEPAT berdasarkan teks kebun toga tersebut? (Pilih semua jawaban yang benar)",
+        options: [
+          "Kata khusus kategori tanaman obat dalam teks meliputi 'serai wangi', 'kunyit', 'jahe merah', dan 'daun sirih'.",
+          "Frasa 'aroma segar dedaunan herbal tercium lembut' melibatkan pencitraan indra penciuman.",
+          "Ungkapan 'laboratorium hidup' merupakan ungkapan kiasan yang bermakna tempat belajar langsung dari alam.",
+          "Kata 'jurnal' dan 'bangku' merupakan kata sifat yang menjelaskan ukuran tanaman obat."
+        ],
+        key: "A,B,C",
+        explanation: "A, B, dan C tepat. D salah karena 'jurnal' dan 'bangku' adalah kata benda (nomina)."
+      },
+      {
+        no: 3, bab: "Materi 1: Teks Deskripsi", stim: "L2_S1", type: "BS",
+        kisi: "Menilai kesesuaian isi teks deskripsi dengan tujuan penulisan",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap pernyataan evaluasi teks deskripsi kebun toga!",
+        rows: [
+          { code: "1", text: "Pencantuman papan nama latin dan khasiat tanaman mendukung fungsi edukatif kebun toga bagi murid." },
+          { code: "2", text: "Kesan penulis di akhir paragraf kedua memperkuat gambaran bahwa kebun toga bermanfaat bagi pembelajaran." },
+          { code: "3", text: "Teks tersebut hanya berisi larangan keras agar siswa tidak mendekati area samping aula." }
+        ],
+        bsKey: ["A", "A", "B"],
+        explanation: "1 Benar, 2 Benar (peran kesan penulis dalam teks deskripsi), 3 Salah."
+      },
+      {
+        no: 4, bab: "Materi 1: Teks Deskripsi", stim: "L2_S1", type: "MATCH",
+        kisi: "Memasangkan kutipan rincian dengan kategori perincian objek",
+        stem: "Pasangkanlah kutipan teks pada Kolom Kiri dengan jenis perincian atau unsur kebahasaannya pada Kolom Kanan!",
+        left: [
+          { code: "1", text: "'...tertata rapi dalam petak-petak bata merah.'" },
+          { code: "2", text: "'Aroma segar dedaunan herbal tercium lembut...'" },
+          { code: "3", text: "'...murid membaca majalah dinding bertema lingkungan.'" },
+          { code: "4", text: "'...kebun toga tersebut adalah laboratorium hidup...'" }
+        ],
+        right: [
+          { code: "A", text: "Rincian aktivitas pemanfaatan ruang" },
+          { code: "B", text: "Ungkapan kiasan / metafora kesan penulis" },
+          { code: "C", text: "Rincian visual warna dan tata letak" },
+          { code: "D", text: "Pencitraan indra penciuman (olfaktori)" }
+        ],
+        matchKey: { "1": "C", "2": "D", "3": "A", "4": "B" },
+        explanation: "1→C, 2→D, 3→A, 4→B."
+      },
+      {
+        no: 5, bab: "Materi 1: Teks Deskripsi", stim: "L2_S2", type: "MCMA",
+        kisi: "Menganalisis makna kata teknis, kata sifat, dan kiasan pada deskripsi alat",
+        stem: "Berdasarkan teks 'Teropong Bintang Mini di Balkon Rumah', manakah simpulan kebahasaan yang BENAR? (Pilih semua jawaban yang benar)",
+        options: [
+          "Kelompok kata sifat dalam teks antara lain 'kokoh', 'ringan', 'halus', dan 'cerah'.",
+          "Ungkapan 'jendela langit' bermakna kias sebagai sarana untuk mengamati dan mengenal benda-benda angkasa.",
+          "Kata 'optimal' bermakna terbaik atau tertinggi sesuai dengan kapasitas kerja alat tersebut.",
+          "Frasa 'tujuh puluh milimeter' merupakan ungkapan sindiran karena ukuran lensanya sangat besar."
+        ],
+        key: "A,B,C",
+        explanation: "A, B, dan C tepat sesuai konteks teks. D keliru karena 'tujuh puluh milimeter' adalah ukuran spesifikasi nyata (kata bilangan + satuan)."
+      },
+      {
+        no: 6, bab: "Materi 1: Teks Deskripsi", stim: "L2_S2", type: "BS",
+        kisi: "Mengevaluasi struktur perincian bagian & perawatan benda",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap pernyataan berdasarkan teks teropong bintang!",
+        rows: [
+          { code: "1", text: "Paragraf pertama berfokus memerinci bagian fisik dan spesifikasi komponen teropong bintang." },
+          { code: "2", text: "Paragraf kedua memerinci fungsi pengamatan malam hari serta prosedur perawatan optik." },
+          { code: "3", text: "Lensa teropong disarankan dicuci dengan air sabun setiap selesai dipakai agar tidak berjamur." }
+        ],
+        bsKey: ["A", "A", "B"],
+        explanation: "1 Benar, 2 Benar, 3 Salah (dibersihkan memakai kuas halus dan disimpan di kotak busa anti-lembap)."
+      },
+      {
+        no: 7, bab: "Materi 1: Teks Deskripsi", stim: "L2_S2", type: "MATCH",
+        kisi: "Memasangkan kutipan deskripsi benda dengan keterangan penyuntingan ejaan/makna",
+        stem: "Pasangkanlah kutipan kalimat pada Kolom Kiri dengan keterangan penyuntingan yang tepat pada Kolom Kanan!",
+        left: [
+          { code: "1", text: "'Teropong bintang itu berdiri kokoh di atas penyangga...'" },
+          { code: "2", text: "'Tabung optiknya berwarna putih mutiara dengan garis perak...'" },
+          { code: "3", text: "'Roda pengatur fokus berputar halus saat disesuaikan...'" },
+          { code: "4", text: "'...teropong itu menjadi jendela langit...'" }
+        ],
+        right: [
+          { code: "A", text: "Pertahankan rincian cara kerja bagian alat" },
+          { code: "B", text: "Pertahankan ungkapan kiasan" },
+          { code: "C", text: "Pertahankan huruf kecil pada 'bintang' karena bukan nama diri" },
+          { code: "D", text: "Pertahankan rincian kombinasi warna benda" }
+        ],
+        matchKey: { "1": "C", "2": "D", "3": "A", "4": "B" },
+        explanation: "1→C, 2→D, 3→A, 4→B."
+      },
+
+      // --- MATERI 2: PUISI RAKYAT LEVEL 2 (No. 8 - 14) ---
+      {
+        no: 8, bab: "Materi 2: Puisi Rakyat", stim: "L2_S3", type: "PG",
+        kisi: "Mengidentifikasi isi inti pantun pada Stimulus 3",
+        stem: "Isi utama yang terkandung pada Puisi I (Pantun) dalam Stimulus 3 adalah...",
+        options: [
+          "Ajakan membeli buah duku manis di pasar baru bersama teman.",
+          "Nasihat untuk rajin membaca buku agar memiliki budi pekerti yang mulia.",
+          "Larangan berbicara kasar kepada sahabat sejati di sekolah.",
+          "Peringatan agar tidak mengingkari tugas kelompok."
+        ],
+        key: "B",
+        explanation: "Isi pantun terletak pada baris ke-3 dan ke-4: 'Rajinlah engkau membaca buku, / Budi pekerti kian utama.'"
+      },
+      {
+        no: 9, bab: "Materi 2: Puisi Rakyat", stim: "L2_S3", type: "MCMA",
+        kisi: "Menganalisis persamaan dan perbedaan Puisi I, II, dan III",
+        stem: "Manakah pernyataan perbandingan yang TEPAT mengenai Puisi I, Puisi II, dan Puisi III pada Stimulus 3? (Pilih semua jawaban yang benar)",
+        options: [
+          "Puisi I adalah pantun karena dua baris awalnya merupakan sampiran yang tidak berhubungan langsung dengan isi.",
+          "Puisi II adalah syair karena keempat barisnya merupakan rangkaian nasihat utuh berima sama.",
+          "Puisi III adalah gurindam karena terdiri atas dua baris yang menyatakan sebab-akibat menjaga ucapan.",
+          "Ketiga puisi tersebut sama-sama tidak menyampaikan pesan moral kepada pembacanya."
+        ],
+        key: "A,B,C",
+        explanation: "A, B, dan C tepat. D keliru karena ketiga bentuk puisi rakyat tersebut sarat akan nasihat/pesan moral."
+      },
+      {
+        no: 10, bab: "Materi 2: Puisi Rakyat", stim: "L2_S3", type: "BS",
+        kisi: "Menghubungkan amanat puisi rakyat dengan perilaku nyata siswa",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap penerapan pesan puisi rakyat Stimulus 3 dalam kehidupan sehari-hari!",
+        rows: [
+          { code: "1", text: "Menyelesaikan bagian tugas kelompok tepat waktu sesuai kesepakatan mencerminkan amanat Puisi II." },
+          { code: "2", text: "Berhati-hati memilih kata saat berkomentar agar tidak menyakiti teman sesuai dengan nasihat Puisi III." },
+          { code: "3", text: "Mengejek teman yang berbeda pendapat merupakan bentuk penerapan amanat Puisi III." }
+        ],
+        bsKey: ["A", "A", "B"],
+        explanation: "1 Benar, 2 Benar (memelihara lisan), 3 Salah."
+      },
+      {
+        no: 11, bab: "Materi 2: Puisi Rakyat", stim: "L2_S3", type: "MATCH",
+        kisi: "Memasangkan kutipan puisi rakyat dengan amanat utamanya",
+        stem: "Pasangkanlah jenis puisi pada Kolom Kiri dengan inti amanat yang disampaikannya pada Kolom Kanan!",
+        left: [
+          { code: "1", text: "Puisi I (Pantun)" },
+          { code: "2", text: "Puisi II (Syair)" },
+          { code: "3", text: "Puisi III (Gurindam)" },
+          { code: "4", text: "Sampiran Puisi I" }
+        ],
+        right: [
+          { code: "A", text: "Tanggung jawab terhadap tugas bersama memperkuat persahabatan" },
+          { code: "B", text: "Pengantar bunyi rima (-ku / -ma) sebelum masuk ke bagian isi" },
+          { code: "C", text: "Menjaga lisan mencegah timbulnya permusuhan" },
+          { code: "D", text: "Gemar membaca membentuk akhlak dan budi pekerti" }
+        ],
+        matchKey: { "1": "D", "2": "A", "3": "C", "4": "B" },
+        explanation: "1→D, 2→A, 3→C, 4→B."
+      },
+      {
+        no: 12, bab: "Materi 2: Puisi Rakyat", stim: "L2_S4", type: "MCMA",
+        kisi: "Menganalisis struktur rima dan pesan tersirat dua bait puisi rakyat",
+        stem: "Berdasarkan Bait Alpha dan Bait Beta pada Stimulus 4, manakah simpulan yang BENAR? (Pilih semua jawaban yang benar)",
+        options: [
+          "Bait Alpha memiliki sampiran pada dua baris awal dan mengajak pembaca memilah sampah setiap hari.",
+          "Bait Beta adalah syair karena seluruh barisnya berupa nasihat kejujuran dan kepatuhan pada nasihat guru.",
+          "Kedua bait sama-sama mendorong pembentukan kebiasaan positif dalam kehidupan sehari-hari.",
+          "Bait Alpha menyarankan agar sampah dibuang ke tepi kali supaya ikan dapat memakannya."
+        ],
+        key: "A,B,C",
+        explanation: "A, B, dan C tepat. D bertentangan dengan isi Bait Alpha ('Pilah sampah setiap hari')."
+      },
+      {
+        no: 13, bab: "Materi 2: Puisi Rakyat", stim: "L2_S4", type: "BS",
+        kisi: "Mengevaluasi kesesuaian perilaku dengan pesan tersirat puisi rakyat",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap analisis terhadap Bait Alpha dan Bait Beta!",
+        rows: [
+          { code: "1", text: "Kebiasaan kecil memilah sampah organik dan anorganik di kelas mendukung pesan Bait Alpha." },
+          { code: "2", text: "Mengakui kesalahan dengan jujur saat bekerja merupakan penerapan pesan Bait Beta." },
+          { code: "3", text: "Bait Beta memiliki pola rima silang a-b-a-b sehingga digolongkan sebagai pantun." }
+        ],
+        bsKey: ["A", "A", "B"],
+        explanation: "1 Benar, 2 Benar, 3 Salah (rima akhir lurus / sama: lurus-terputus-terus-bagus)."
+      },
+      {
+        no: 14, bab: "Materi 2: Puisi Rakyat", stim: "L2_S4", type: "MATCH",
+        kisi: "Memasangkan ciri puisi pada Stimulus 4 dengan analisisnya",
+        stem: "Pasangkanlah unsur pada Kolom Kiri dengan analisis yang tepat pada Kolom Kanan!",
+        left: [
+          { code: "1", text: "Bait Alpha baris 1–2" },
+          { code: "2", text: "Bait Alpha baris 3–4" },
+          { code: "3", text: "Bait Beta baris 1–4" },
+          { code: "4", text: "Pesan umum kedua bait" }
+        ],
+        right: [
+          { code: "A", text: "Isi pantun tentang kebersihan lingkungan" },
+          { code: "B", text: "Keseluruhan isi syair tentang kejujuran dan akhlak" },
+          { code: "C", text: "Sampiran pantun berlatar alam" },
+          { code: "D", text: "Pembiasaan karakter disiplin dan peduli" }
+        ],
+        matchKey: { "1": "C", "2": "A", "3": "B", "4": "D" },
+        explanation: "1→C, 2→A, 3→B, 4→D."
+      },
+
+      // --- MATERI 3: CERITA FANTASI LEVEL 2 (No. 15 - 22) ---
+      {
+        no: 15, bab: "Materi 3: Cerita Fantasi", stim: "L2_S5", type: "PG",
+        kisi: "Menentukan urutan peristiwa setelah tokoh memasuki dunia fantasi",
+        stem: "Urutan peristiwa yang tepat setelah Dira tiba di Negeri Aksara pada Stimulus 5 adalah...",
+        options: [
+          "Dira langsung memarahi gagak bayangan di puncak Menara Pustaka.",
+          "Rubah berekor tiga bernama Lira menjelaskan penyebab hilangnya Kristal Bahasa.",
+          "Dira pulang ke dunia nyata sambil membawa pembatas buku perak.",
+          "Menara Pustaka runtuh karena sungai tinta meluap ke jembatan kertas."
+        ],
+        key: "B",
+        explanation: "Setelah Dira tiba di Negeri Aksara, rubah berekor tiga (Lira) langsung menjelaskan masalah hilangnya Kristal Bahasa."
+      },
+      {
+        no: 16, bab: "Materi 3: Cerita Fantasi", stim: "L2_S5", type: "MCMA",
+        kisi: "Menganalisis ungkapan sindiran, dialog, dan penyelesaian konflik",
+        stem: "Manakah analisis unsur intrinsik dan kebahasaan yang TEPAT berdasarkan cerita 'Pembatas Buku Perak di Negeri Aksara'? (Pilih semua jawaban yang benar)",
+        options: [
+          "Kalimat “Pergilah, anak manusia yang sok tahu!” merupakan kalimat langsung bernada sindiran.",
+          "Tindakan Dira menahan diri dan mengajak berdialog menjadi kunci penyelesaian konflik secara damai.",
+          "Alasan gagak bayangan mengambil kristal adalah karena merasa kesepian dan tidak pernah diajak membaca bersama.",
+          "Dira berhasil merebut kristal dengan cara mengurung gagak bayangan di dalam sangkar besi."
+        ],
+        key: "A,B,C",
+        explanation: "A, B, dan C tepat sesuai isi teks. D keliru karena konflik selesai melalui empati dan janji membacakan kisah bersama."
+      },
+      {
+        no: 17, bab: "Materi 3: Cerita Fantasi", stim: "L2_S5", type: "BS",
+        kisi: "Menilai watak tokoh dan fungsi pilihan kata dalam dialog",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap analisis watak dan dialog pada Stimulus 5!",
+        rows: [
+          { code: "1", text: "Watak Dira yang tenang dan empatik ditunjukkan oleh kesediaannya mendengarkan perasaan gagak bayangan." },
+          { code: "2", text: "Penggunaan tanda petik ganda pada ujaran gagak bayangan menandai kalimat langsung dalam narasi." },
+          { code: "3", text: "Cerita tersebut mengajarkan bahwa kata-kata kasar harus selalu dibalas dengan makian yang lebih keras." }
+        ],
+        bsKey: ["A", "A", "B"],
+        explanation: "1 Benar, 2 Benar, 3 Salah (justru menunjukkan kekuatan kesantunan dan dialog)."
+      },
+      {
+        no: 18, bab: "Materi 3: Cerita Fantasi", stim: "L2_S5", type: "MATCH",
+        kisi: "Memasangkan peristiwa cerita dengan bagian alur fantasi",
+        stem: "Pasangkanlah kutipan peristiwa pada Kolom Kiri dengan bagian alur cerita pada Kolom Kanan!",
+        left: [
+          { code: "1", text: "Dira menemukan pembatas buku perak dan masuk ke Negeri Aksara" },
+          { code: "2", text: "Gagak bayangan mengambil Kristal Bahasa karena kesepian" },
+          { code: "3", text: "Dira mengajak gagak berdialog dan menawarkan membaca bersama" },
+          { code: "4", text: "Kristal dikembalikan dan Menara Pustaka kembali bercahaya" }
+        ],
+        right: [
+          { code: "A", text: "Komplikasi" },
+          { code: "B", text: "Resolusi" },
+          { code: "C", text: "Orientasi" },
+          { code: "D", text: "Upaya Penyelesaian Konflik" }
+        ],
+        matchKey: { "1": "C", "2": "A", "3": "D", "4": "B" },
+        explanation: "1→C, 2→A, 3→D, 4→B."
+      },
+      {
+        no: 19, bab: "Materi 3: Cerita Fantasi", stim: "L2_S6", type: "MCMA",
+        kisi: "Membandingkan sikap dua tokoh utama dalam menghadapi rintangan",
+        stem: "Berdasarkan cerita 'Biji Cahaya untuk Penjaga Lembah Angin' (Stimulus 6), manakah pernyataan yang BENAR? (Pilih semua jawaban yang benar)",
+        options: [
+          "Reno cenderung tergesa-gesa ingin menerobos masuk, sedangkan Maya mengutamakan kejujuran dan komunikasi.",
+          "Gora bersikap protektif terhadap kincir awan karena khawatir tuas kayunya akan dirusak manusia.",
+          "Kerja sama antara Maya, Reno, dan Gora berhasil memulihkan fungsi kincir awan hingga hujan turun.",
+          "Maya menipu Gora menggunakan buku sketsa palsu agar dapat mencuri batu biru."
+        ],
+        key: "A,B,C",
+        explanation: "A, B, dan C tepat sesuai isi cerita. D keliru karena Maya menjelaskan maksudnya dengan jujur."
+      },
+      {
+        no: 20, bab: "Materi 3: Cerita Fantasi", stim: "L2_S6", type: "BS",
+        kisi: "Menganalisis hubungan sebab-akibat dan amanat cerita fantasi",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap analisis hubungan sebab-akibat pada Stimulus 6!",
+        rows: [
+          { code: "1", text: "Berhentinya putaran kincir awan menyebabkan tanaman di Lembah Angin menjadi layu." },
+          { code: "2", text: "Kejujuran Maya menjelaskan tujuan kedatangan membuat Gora luluh dan bersedia bekerja sama." },
+          { code: "3", text: "Konflik dalam cerita diselesaikan dengan mengalahkan raksasa lumut melalui pertarungan." }
+        ],
+        bsKey: ["A", "A", "B"],
+        explanation: "1 Benar, 2 Benar, 3 Salah (selesai lewat dialog dan kerja sama memperbaiki tuas kincir)."
+      },
+      {
+        no: 21, bab: "Materi 3: Cerita Fantasi", stim: "L2_S6", type: "MATCH",
+        kisi: "Memasangkan tindakan tokoh dengan dampak terhadap alur cerita",
+        stem: "Pasangkanlah tindakan tokoh pada Kolom Kiri dengan dampaknya dalam cerita pada Kolom Kanan!",
+        left: [
+          { code: "1", text: "Reno berniat menerobos masuk saat Gora lengah" },
+          { code: "2", text: "Maya melarang Reno dan berbicara jujur kepada Gora" },
+          { code: "3", text: "Gora melihat buku sketsa mekanik ayah mereka" },
+          { code: "4", text: "Kincir awan kembali berputar normal" }
+        ],
+        right: [
+          { code: "A", text: "Membuka jalan komunikasi tanpa kecurigaan" },
+          { code: "B", text: "Menghadirkan kembali hujan segar bagi tanaman lembah" },
+          { code: "C", text: "Berisiko memicu kesalahpahaman dan kemarahan penjaga" },
+          { code: "D", text: "Meyakinkan Gora bahwa mereka mampu memperbaiki tuas" }
+        ],
+        matchKey: { "1": "C", "2": "A", "3": "D", "4": "B" },
+        explanation: "1→C, 2→A, 3→D, 4→B."
+      },
+      {
+        no: 22, bab: "Materi 3: Cerita Fantasi", stim: "L2_S6", type: "MCMA",
+        kisi: "Sintesis nilai karakter dari kedua teks cerita fantasi Level 2",
+        stem: "Kesamaan nilai karakter apa sajakah yang ditemukan pada tokoh Dira (Stimulus 5) dan Maya (Stimulus 6)? (Pilih semua jawaban yang benar)",
+        options: [
+          "Menahan diri dari tindakan gegabah atau kekerasan saat menghadapi penjaga yang bersikap keras.",
+          "Menggunakan dialog yang jujur dan empatik untuk memahami kekhawatiran pihak lain.",
+          "Menawarkan solusi nyata yang menguntungkan semua pihak dalam cerita.",
+          "Mengandalkan kekuatan sihir untuk menghukum penghuni dunia fantasi yang menghalangi jalan."
+        ],
+        key: "A,B,C",
+        explanation: "A, B, dan C merupakan benang merah pesan moral kedua cerita fantasi tersebut."
+      },
+
+      // --- MATERI 4: TEKS PROSEDUR LEVEL 2 (No. 23 - 30) ---
+      {
+        no: 23, bab: "Materi 4: Teks Prosedur", stim: "L2_S7", type: "PG",
+        kisi: "Menemukan informasi spesifik dalam pamflet wisata edukasi",
+        stem: "Berdasarkan pamflet pada Stimulus 7, informasi lokasi dan jam kunjungan Taman Botani & Konservasi Kupu-Kupu yang tepat adalah...",
+        options: [
+          "Desa Cibodas, Lembang, Kabupaten Bandung Barat; pukul 08.00 – 16.00 WIB (Selasa–Minggu).",
+          "Desa Cibeusi, Ciater, Kabupaten Subang; pukul 07.00 – 15.00 WIB setiap hari.",
+          "Desa Cikole, Lembang; buka 24 jam penuh termasuk hari Senin.",
+          "Kelurahan Cibiru, Kota Bandung; pukul 09.00 – 17.00 WIB."
+        ],
+        key: "A",
+        explanation: "Data tersurat pada kotak Informasi Utama Pamflet: Desa Cibodas, Kec. Lembang, Kab. Bandung Barat, pukul 08.00–16.00 WIB (Selasa–Minggu)."
+      },
+      {
+        no: 24, bab: "Materi 4: Teks Prosedur", stim: "L2_S7", type: "MCMA",
+        kisi: "Menyimpulkan daya tarik dan mengevaluasi kelengkapan pamflet",
+        stem: "Manakah simpulan yang TEPAT berdasarkan pamflet Taman Botani & Konservasi Kupu-Kupu? (Pilih semua jawaban yang benar)",
+        options: [
+          "Daya tarik utama tempat wisata mencakup rumah kaca kupu-kupu endemik, jalur hutan pinus, dan kebun anggrek.",
+          "Pengunjung diwajibkan menjaga kelestarian satwa dengan tidak menangkap kupu-kupu serta membawa pulang sampahnya.",
+          "Pamflet masih perlu dilengkapi rincian harga tiket masuk dan kontak reservasi rombongan sekolah.",
+          "Pamflet sudah memuat peta rute transportasi umum secara lengkap sehingga tidak perlu dikembangkan lagi."
+        ],
+        key: "A,B,C",
+        explanation: "A, B, dan C sesuai data pamflet. D bertentangan dengan bagian Catatan Saran Pengembangan Pamflet."
+      },
+      {
+        no: 25, bab: "Materi 4: Teks Prosedur", stim: "L2_S7", type: "BS",
+        kisi: "Menilai kelengkapan informasi dan panduan keselamatan pada pamflet",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap penilaian kualitas pamflet pada Stimulus 7!",
+        rows: [
+          { code: "1", text: "Anjuran memakai sepatu antiselip merupakan bagian dari panduan keselamatan pengunjung di jalur treking." },
+          { code: "2", text: "Pencantuman nomor narahubung penting ditambahkan agar sekolah mudah melakukan reservasi kunjungan." },
+          { code: "3", text: "Pamflet tersebut sudah menjelaskan rincian tarif tiket masuk untuk pelajar SMP." }
+        ],
+        bsKey: ["A", "A", "B"],
+        explanation: "1 Benar, 2 Benar, 3 Salah (tarif tiket belum tercantum)."
+      },
+      {
+        no: 26, bab: "Materi 4: Teks Prosedur", stim: "L2_S7", type: "MATCH",
+        kisi: "Memasangkan unsur pamflet dengan kategori kualitas penyajiannya",
+        stem: "Pasangkanlah unsur pamflet pada Kolom Kiri dengan kategori kualitas penyajiannya pada Kolom Kanan!",
+        left: [
+          { code: "1", text: "Desa Cibodas, Lembang & pukul 08.00–16.00 WIB" },
+          { code: "2", text: "Gunakan sepatu antiselip di jalur treking" },
+          { code: "3", text: "Rincian harga tiket dan nomor kontak pengelola" },
+          { code: "4", text: "Rumah kaca kupu-kupu endemik dan kebun anggrek" }
+        ],
+        right: [
+          { code: "A", text: "Panduan keamanan pengunjung" },
+          { code: "B", text: "Daya tarik utama destinasi" },
+          { code: "C", text: "Informasi dasar tempat dan waktu" },
+          { code: "D", text: "Informasi penting yang perlu ditambahkan" }
+        ],
+        matchKey: { "1": "C", "2": "A", "3": "D", "4": "B" },
+        explanation: "1→C, 2→A, 3→D, 4→B."
+      },
+      {
+        no: 27, bab: "Materi 4: Teks Prosedur", stim: "L2_S8", type: "MCMA",
+        kisi: "Membandingkan sifat dan ciri kebahasaan dua teks petunjuk",
+        stem: "Berdasarkan perbandingan Petunjuk 1 dan Petunjuk 2 pada Stimulus 8, manakah pernyataan yang BENAR? (Pilih semua jawaban yang benar)",
+        options: [
+          "Petunjuk 1 berisi prosedur nyata penggunaan alat laboratorium, sedangkan Petunjuk 2 bersifat khayalan/fantasi.",
+          "Kedua petunjuk sama-sama menggunakan kalimat perintah yang diawali kata kerja (seperti 'Letakkan', 'Atur', 'Carilah').",
+          "Kalimat “Jangan menurunkan lensa objektif terlalu cepat agar kaca tidak pecah” merupakan kalimat larangan disertai alasan keselamatan.",
+          "Petunjuk 2 merupakan teks laporan hasil percobaan fisika yang dapat diuji secara ilmiah di sekolah."
+        ],
+        key: "A,B,C",
+        explanation: "A, B, dan C tepat. D keliru karena Petunjuk 2 adalah petunjuk imajinatif/fantasi."
+      },
+      {
+        no: 28, bab: "Materi 4: Teks Prosedur", stim: "L2_S8", type: "BS",
+        kisi: "Menganalisis pelesapan, kata keterangan, dan kalimat larangan pada teks petunjuk",
+        stem: "Tentukan Benar (B) atau Salah (S) untuk setiap analisis kebahasaan pada Stimulus 8!",
+        rows: [
+          { code: "1", text: "Frasa 'di atas meja yang datar dan kokoh' berfungsi sebagai keterangan tempat dan syarat keamanan alat." },
+          { code: "2", text: "Frasa 'dengan hati-hati' dan 'secara perlahan' merupakan keterangan cara agar tindakan dilakukan cermat." },
+          { code: "3", text: "Urutan bernomor 1 sampai 4 pada Petunjuk 1 boleh dibolak-balik sesuka hati tanpa memengaruhi hasil pengamatan." }
+        ],
+        bsKey: ["A", "A", "B"],
+        explanation: "1 Benar, 2 Benar, 3 Salah (urutan langkah prosedur bersifat sistematis dan tidak boleh dibalik)."
+      },
+      {
+        no: 29, bab: "Materi 4: Teks Prosedur", stim: "L2_S8", type: "MATCH",
+        kisi: "Memasangkan kutipan petunjuk dengan jenis kalimat / keterangan",
+        stem: "Pasangkanlah kutipan pada Kolom Kiri dengan jenis kalimat atau keterangan yang tepat pada Kolom Kanan!",
+        left: [
+          { code: "1", text: "“Putar makrometer secara perlahan...”" },
+          { code: "2", text: "“Jangan menurunkan lensa objektif terlalu cepat...”" },
+          { code: "3", text: "“...saat bulan purnama penuh.”" },
+          { code: "4", text: "“...di atas meja yang datar dan kokoh.”" }
+        ],
+        right: [
+          { code: "A", text: "Kalimat larangan" },
+          { code: "B", text: "Keterangan waktu" },
+          { code: "C", text: "Kalimat perintah dengan keterangan cara" },
+          { code: "D", text: "Keterangan tempat" }
+        ],
+        matchKey: { "1": "C", "2": "A", "3": "B", "4": "D" },
+        explanation: "1→C, 2→A, 3→B, 4→D."
+      },
+      {
+        no: 30, bab: "Materi 4: Teks Prosedur", stim: "L2_S8", type: "MCMA",
+        kisi: "Sintesis kriteria teks prosedur efektif untuk panduan praktikum sekolah",
+        stem: "Sebagai soal penutup Level 2, prinsip penyusunan teks prosedur apa sajakah yang terbukti efektif pada Petunjuk 1 (Stimulus 8)? (Pilih semua jawaban yang benar)",
+        options: [
+          "Menyajikan langkah secara kronologis dengan penomoran yang runtut dari persiapan hingga pengaturan fokus.",
+          "Menyertakan peringatan keselamatan kerja yang jelas untuk mencegah kerusakan alat (kaca preparat pecah).",
+          "Menggunakan kalimat langsung yang ringkas dengan pelesapan subjek agar mudah dipahami pembaca.",
+          "Menggabungkan unsur cerita mistis agar siswa merasa takut saat menggunakan mikroskop."
+        ],
+        key: "A,B,C",
+        explanation: "A, B, dan C merangkum ciri teks prosedur yang efektif, sistematis, dan aman."
+      }
+    ];
+
+
+    // =========================================================================
+    // STATE APLIKASI & PROTEKSI KEAMANAN
+    // =========================================================================
+    let student = { nama: "", kelas: "", absen: "", mode: "" };
+    let currentLevel = 1;
+    let activeStimuli = STIMULI_L1;
+    let activeQuestions = QUESTIONS_L1;
+    let currentIndex = 0;
+    let userAnswers = new Array(30).fill(null);
+    let lastPayload = null;
+
+    let examActive = false;
+    let startTimeMs = 0;
+    let timerInterval = null;
+    let warningCount = 0;
+    let initialScreenHeight = window.innerHeight;
+
+    function getGasUrl() {
+      return localStorage.getItem("smpn28_gas_url") || DEFAULT_GAS_WEB_APP_URL;
+    }
+
+    function updateSyncBadge() {
+      const url = getGasUrl();
+      const dot = document.getElementById("syncDot");
+      const txt = document.getElementById("syncText");
+      if (url && url.startsWith("https://")) {
+        dot.className = "w-2 h-2 rounded-full bg-emerald-400 animate-pulse";
+        txt.textContent = "Terhubung ke Google Sheets";
+      } else {
+        dot.className = "w-2 h-2 rounded-full bg-amber-400";
+        txt.textContent = "Mode Lokal (URL Belum Diisi)";
+      }
+    }
+    updateSyncBadge();
+
+    function openModal(id) {
+      document.getElementById("gasUrlInput").value = getGasUrl();
+      document.getElementById(id).classList.remove("hidden");
+    }
+    function closeModal(id) {
+      document.getElementById(id).classList.add("hidden");
+    }
+    function saveGasUrl() {
+      const val = document.getElementById("gasUrlInput").value.trim();
+      localStorage.setItem("smpn28_gas_url", val);
+      updateSyncBadge();
+      closeModal("modalScript");
+      alert("URL Google Apps Script berhasil disimpan!");
+    }
+    function clearGasUrl() {
+      localStorage.removeItem("smpn28_gas_url");
+      document.getElementById("gasUrlInput").value = "";
+      updateSyncBadge();
+    }
+
+    async function testGasConnection() {
+      const url = document.getElementById("gasUrlInput").value.trim();
+      if (!url) return alert("Masukkan URL Web App terlebih dahulu.");
+      const dummy = {
+        level: 1,
+        timestamp: new Date().toLocaleString("id-ID"),
+        nama: "TES KONEKSI SISTEM KELAS 7",
+        kelas: "7-TEST",
+        absen: "00",
+        mode: "Uji Koneksi",
+        durasi_detik: 10,
+        peringatan_layar: 0,
+        terjawab: 30,
+        answers: Array.from({length: 30}, (_, i) => `TEST_${i+1}`)
+      };
+      try {
+        await fetch(url, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(dummy)
+        });
+        alert("Permintaan uji coba terkirim! Periksa tab 'Respon_Level_1' di Google Spreadsheets Anda.");
+      } catch (e) {
+        alert("Gagal menghubungi URL: " + e.message);
+      }
+    }
+
+    // =========================================================================
+    // PROTEKSI PINDAH TAB, SPLIT-SCREEN HP, & SHORTCUT SALIN
+    // =========================================================================
+    function triggerSecurityLock(reason) {
+      if (!examActive) return;
+      warningCount++;
+      document.getElementById("securityReason").textContent = reason;
+      document.getElementById("overlayWarnCount").textContent = warningCount;
+      document.getElementById("securityOverlay").classList.remove("hidden");
+    }
+
+    function dismissSecurityOverlay() {
+      initialScreenHeight = window.innerHeight;
+      document.getElementById("securityOverlay").classList.add("hidden");
+    }
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden && examActive) {
+        triggerSecurityLock("Kamu meninggalkan tab ujian atau membuka aplikasi lain di HP/Laptop.");
+      }
+    });
+
+    window.addEventListener("resize", () => {
+      if (!examActive) return;
+      if (initialScreenHeight > 400 && window.innerHeight < initialScreenHeight * 0.65) {
+        triggerSecurityLock("Terdeteksi mode Split-Screen / Jendela Mengambang. Tutup jendela kedua agar layar soal kembali penuh.");
+      }
+    });
+
+    document.addEventListener("copy", (e) => {
+      if (examActive) {
+        e.preventDefault();
+        triggerSecurityLock("Menyalin teks soal tidak diperbolehkan selama sesi CBT berlangsung.");
+      }
+    });
+
+    // =========================================================================
+    // MANAJEMEN LEVEL 1 & LEVEL 2
+    // =========================================================================
+    function startLevel(lvl, e) {
+      if (e) e.preventDefault();
+
+      if (lvl === 1) {
+        student.nama = document.getElementById("inputNama").value.trim();
+        student.kelas = document.getElementById("inputKelas").value;
+        student.absen = document.getElementById("inputAbsen").value.trim();
+        student.mode = document.getElementById("inputMode").value;
+      }
+
+      currentLevel = lvl;
+      activeStimuli = (lvl === 1) ? STIMULI_L1 : STIMULI_L2;
+      activeQuestions = (lvl === 1) ? QUESTIONS_L1 : QUESTIONS_L2;
+      currentIndex = 0;
+      userAnswers = new Array(activeQuestions.length).fill(null);
+      warningCount = 0;
+      initialScreenHeight = window.innerHeight;
+      startTimeMs = Date.now();
+      examActive = true;
+
+      const pill = document.getElementById("levelPill");
+      pill.classList.remove("hidden");
+      if (lvl === 1) {
+        pill.textContent = "LEVEL 1 • UTAMA";
+        pill.className = "px-3 py-1.5 rounded-lg text-xs font-extrabold bg-amber-500/20 border border-amber-400/40 text-amber-300";
+        document.getElementById("navTitle").textContent = "Navigasi Level 1 (1–30)";
+        document.getElementById("btnSubmitLevel").textContent = "Kirim Jawaban Level 1";
+        document.getElementById("submitHint").textContent = "Terekam ke tab Respon_Level_1 (Kolom Q01–Q30).";
+      } else {
+        pill.textContent = "LEVEL 2 • NILAI TAMBAH";
+        pill.className = "px-3 py-1.5 rounded-lg text-xs font-extrabold bg-rose-500/20 border border-rose-400/40 text-rose-300";
+        document.getElementById("navTitle").textContent = "Navigasi Level 2 (1–30)";
+        document.getElementById("btnSubmitLevel").textContent = "Kirim Jawaban Level 2";
+        document.getElementById("submitHint").textContent = "Terekam ke tab Respon_Level_2 (Kolom Q01–Q30).";
+      }
+
+      document.getElementById("displayUser").textContent = `${student.nama} (${student.kelas} • No. ${student.absen})`;
+      document.getElementById("viewLogin").classList.add("hidden");
+      document.getElementById("viewResult").classList.add("hidden");
+      document.getElementById("viewExam").classList.remove("hidden");
+
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        const elapsed = Math.floor((Date.now() - startTimeMs) / 1000);
+        const m = String(Math.floor(elapsed / 60)).padStart(2, "0");
+        const s = String(elapsed % 60).padStart(2, "0");
+        document.getElementById("timerDisplay").textContent = `${m}:${s}`;
+      }, 1000);
+
+      renderNavGrid();
+      goQuestion(0);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function isAnswered(idx) {
+      const q = activeQuestions[idx];
+      const ans = userAnswers[idx];
+      if (!ans) return false;
+      if (q.type === "PG") return typeof ans === "string" && ans.length > 0;
+      if (q.type === "MCMA") return Array.isArray(ans) && ans.length > 0;
+      if (q.type === "BS") return Array.isArray(ans) && ans.length === q.rows.length && ans.every(x => x === "A" || x === "B");
+      if (q.type === "MATCH") return typeof ans === "object" && Object.keys(ans).length === q.left.length && Object.values(ans).every(v => v !== "");
+      return false;
+    }
+
+    function renderNavGrid() {
+      const grid = document.getElementById("navGrid");
+      grid.innerHTML = "";
+      let answeredCount = 0;
+
+      activeQuestions.forEach((q, idx) => {
+        const done = isAnswered(idx);
+        if (done) answeredCount++;
+        const active = idx === currentIndex;
+
+        let cls = "bg-slate-900 border-slate-700 text-slate-300 hover:border-slate-500";
+        if (done) cls = "bg-emerald-500/20 border-emerald-500/60 text-emerald-300 font-bold";
+        if (active) cls = currentLevel === 1
+          ? "bg-amber-500 border-amber-400 text-slate-950 font-extrabold ring-2 ring-amber-400/40"
+          : "bg-rose-500 border-rose-400 text-white font-extrabold ring-2 ring-rose-400/40";
+
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = `h-9 rounded-lg border text-xs transition cursor-pointer ${cls}`;
+        btn.textContent = q.no;
+        btn.onclick = () => goQuestion(idx);
+        grid.appendChild(btn);
+      });
+
+      document.getElementById("progressCount").textContent = `${answeredCount} / 30 Terisi`;
+      document.getElementById("progressBar").style.width = `${Math.round((answeredCount / 30) * 100)}%`;
+    }
+
+    function goQuestion(idx) {
+      if (idx < 0 || idx >= activeQuestions.length) return;
+      currentIndex = idx;
+      const q = activeQuestions[idx];
+      const stim = activeStimuli[q.stim];
+
+      const typeLabelMap = {
+        PG: "Pilihan Ganda Tunggal",
+        MCMA: "PG Kompleks (Multi-Pilih)",
+        BS: "Analisis Benar / Salah",
+        MATCH: "Menjodohkan Konsep"
+      };
+
+      document.getElementById("badgeNo").textContent = `L${currentLevel} • SOAL ${q.no} / 30`;
+      document.getElementById("badgeBab").textContent = q.bab;
+      document.getElementById("badgeTipe").textContent = typeLabelMap[q.type];
+      document.getElementById("stimLabel").textContent = stim.title;
+      document.getElementById("stimContent").innerHTML = stim.html;
+      document.getElementById("questionStem").textContent = `${q.no}. ${q.stem}`;
+
+      document.getElementById("btnPrev").disabled = idx === 0;
+      document.getElementById("btnNext").disabled = idx === activeQuestions.length - 1;
+
+      renderAnswerArea(q, idx);
+      renderNavGrid();
+    }
+
+    function renderAnswerArea(q, idx) {
+      const container = document.getElementById("answerContainer");
+      container.innerHTML = "";
+      const letters = ["A", "B", "C", "D", "E"];
+
+      if (q.type === "PG") {
+        const current = userAnswers[idx] || "";
+        q.options.forEach((opt, i) => {
+          const code = letters[i];
+          const selected = current === code;
+          const div = document.createElement("button");
+          div.type = "button";
+          div.className = `w-full text-left p-3.5 rounded-xl border transition flex items-start gap-3 cursor-pointer ${
+            selected
+              ? "bg-amber-500/15 border-amber-400 text-white"
+              : "bg-slate-900/70 border-slate-700/80 text-slate-200 hover:border-slate-500"
+          }`;
+          div.innerHTML = `
+            <span class="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-extrabold shrink-0 ${
+              selected ? "bg-amber-500 text-slate-950" : "bg-slate-800 text-slate-300"
+            }">${code}</span>
+            <span class="text-sm leading-relaxed pt-0.5">${opt}</span>
+          `;
+          div.onclick = () => {
+            userAnswers[idx] = code;
+            renderAnswerArea(q, idx);
+            renderNavGrid();
+          };
+          container.appendChild(div);
+        });
+      }
+
+      else if (q.type === "MCMA") {
+        const current = Array.isArray(userAnswers[idx]) ? userAnswers[idx] : [];
+        q.options.forEach((opt, i) => {
+          const code = letters[i];
+          const checked = current.includes(code);
+          const div = document.createElement("button");
+          div.type = "button";
+          div.className = `w-full text-left p-3.5 rounded-xl border transition flex items-start gap-3 cursor-pointer ${
+            checked
+              ? "bg-indigo-500/20 border-indigo-400 text-white"
+              : "bg-slate-900/70 border-slate-700/80 text-slate-200 hover:border-slate-500"
+          }`;
+          div.innerHTML = `
+            <span class="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-extrabold shrink-0 border ${
+              checked ? "bg-indigo-500 border-indigo-400 text-white" : "bg-slate-800 border-slate-600 text-slate-300"
+            }">${checked ? "✓" : code}</span>
+            <span class="text-sm leading-relaxed pt-0.5"><strong class="text-indigo-300 mr-1">${code}.</strong> ${opt}</span>
+          `;
+          div.onclick = () => {
+            let next = [...current];
+            if (next.includes(code)) next = next.filter(c => c !== code);
+            else next.push(code);
+            next.sort();
+            userAnswers[idx] = next;
+            renderAnswerArea(q, idx);
+            renderNavGrid();
+          };
+          container.appendChild(div);
+        });
+      }
+
+      else if (q.type === "BS") {
+        const current = Array.isArray(userAnswers[idx]) ? userAnswers[idx] : new Array(q.rows.length).fill("");
+        const table = document.createElement("div");
+        table.className = "overflow-x-auto rounded-xl border border-slate-700";
+        let rowsHtml = "";
+        q.rows.forEach((r, rIdx) => {
+          const val = current[rIdx];
+          rowsHtml += `
+            <tr class="border-t border-slate-800 bg-slate-900/60">
+              <td class="px-3 py-3 text-xs font-bold text-slate-400 text-center">${r.code}</td>
+              <td class="px-3 py-3 text-sm text-slate-200 leading-relaxed">${r.text}</td>
+              <td class="px-3 py-3 text-center">
+                <button type="button" onclick="setBS(${idx}, ${rIdx}, 'A')" class="px-3 py-1.5 rounded-lg text-xs font-bold border transition cursor-pointer ${
+                  val === "A" ? "bg-emerald-500 border-emerald-400 text-slate-950" : "bg-slate-800 border-slate-600 text-slate-300 hover:border-emerald-400"
+                }">Benar</button>
+              </td>
+              <td class="px-3 py-3 text-center">
+                <button type="button" onclick="setBS(${idx}, ${rIdx}, 'B')" class="px-3 py-1.5 rounded-lg text-xs font-bold border transition cursor-pointer ${
+                  val === "B" ? "bg-rose-500 border-rose-400 text-white" : "bg-slate-800 border-slate-600 text-slate-300 hover:border-rose-400"
+                }">Salah</button>
+              </td>
+            </tr>
+          `;
+        });
+        table.innerHTML = `
+          <table class="w-full text-left">
+            <thead class="bg-slate-800/90 text-xs uppercase text-slate-300">
+              <tr>
+                <th class="px-3 py-2.5 text-center w-12">No</th>
+                <th class="px-3 py-2.5">Pernyataan Evaluatif</th>
+                <th class="px-3 py-2.5 text-center w-24">Benar (A)</th>
+                <th class="px-3 py-2.5 text-center w-24">Salah (B)</th>
+              </tr>
+            </thead>
+            <tbody>${rowsHtml}</tbody>
+          </table>
+        `;
+        container.appendChild(table);
+      }
+
+      else if (q.type === "MATCH") {
+        const current = (userAnswers[idx] && typeof userAnswers[idx] === "object") ? userAnswers[idx] : {};
+        const refBox = document.createElement("div");
+        refBox.className = "p-3.5 rounded-xl bg-slate-900/90 border border-slate-700/80 mb-3";
+        refBox.innerHTML = `
+          <div class="text-xs font-bold uppercase tracking-wider text-sky-400 mb-2">Pilihan Kolom Kanan (Pasangan):</div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-200">
+            ${q.right.map(item => `<div class="p-2 rounded-lg bg-slate-800/80 border border-slate-700"><strong class="text-amber-400 mr-1.5">${item.code}.</strong> ${item.text}</div>`).join("")}
+          </div>
+        `;
+        container.appendChild(refBox);
+
+        q.left.forEach(lItem => {
+          const chosen = current[lItem.code] || "";
+          const rowDiv = document.createElement("div");
+          rowDiv.className = "p-3.5 rounded-xl bg-slate-900/70 border border-slate-700/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3";
+          const optsHtml = q.right.map(rItem => `<option value="${rItem.code}" ${chosen === rItem.code ? "selected" : ""}>${rItem.code} — ${rItem.text}</option>`).join("");
+          rowDiv.innerHTML = `
+            <div class="text-sm text-slate-200 flex-1">
+              <span class="inline-block px-2 py-0.5 rounded bg-slate-800 text-amber-400 font-bold text-xs mr-2">${lItem.code}</span>
+              ${lItem.text}
+            </div>
+            <select onchange="setMatch(${idx}, '${lItem.code}', this.value)" class="sm:w-64 px-3 py-2 rounded-lg bg-slate-950 border ${chosen ? "border-sky-400 text-sky-300 font-semibold" : "border-slate-700 text-slate-400"} text-xs focus:outline-none">
+              <option value="">-- Pilih Pasangan --</option>
+              ${optsHtml}
+            </select>
+          `;
+          container.appendChild(rowDiv);
+        });
+      }
+    }
+
+    function setBS(qIdx, rIdx, val) {
+      const q = activeQuestions[qIdx];
+      const arr = Array.isArray(userAnswers[qIdx]) ? [...userAnswers[qIdx]] : new Array(q.rows.length).fill("");
+      arr[rIdx] = val;
+      userAnswers[qIdx] = arr;
+      renderAnswerArea(q, qIdx);
+      renderNavGrid();
+    }
+
+    function setMatch(qIdx, leftCode, rightCode) {
+      const q = activeQuestions[qIdx];
+      const obj = (userAnswers[qIdx] && typeof userAnswers[qIdx] === "object") ? { ...userAnswers[qIdx] } : {};
+      obj[leftCode] = rightCode;
+      userAnswers[qIdx] = obj;
+      renderAnswerArea(q, qIdx);
+      renderNavGrid();
+    }
+
+    function clearCurrentAnswer() {
+      userAnswers[currentIndex] = null;
+      renderAnswerArea(activeQuestions[currentIndex], currentIndex);
+      renderNavGrid();
+    }
+
+    function formatRawAnswer(idx) {
+      const q = activeQuestions[idx];
+      const ans = userAnswers[idx];
+      if (!ans) return "";
+      if (q.type === "PG") return ans;
+      if (q.type === "MCMA") return ans.join(",");
+      if (q.type === "BS") {
+        return q.rows.map((r, i) => {
+          const label = ans[i] === "A" ? "B" : (ans[i] === "B" ? "S" : "-");
+          return `${r.code}:${label}`;
+        }).join(",");
+      }
+      if (q.type === "MATCH") {
+        return q.left.map(l => `${l.code}:${ans[l.code] || "-"}`).join(",");
+      }
+      return "";
+    }
+
+    function getOfficialKeyString(q) {
+      if (q.type === "PG" || q.type === "MCMA") return q.key;
+      if (q.type === "BS") {
+        return q.rows.map((r, i) => `${r.code}:${q.bsKey[i] === "A" ? "B" : "S"}`).join(",");
+      }
+      if (q.type === "MATCH") {
+        return q.left.map(l => `${l.code}:${q.matchKey[l.code]}`).join(",");
+      }
+      return "";
+    }
+
+    async function submitAllAnswers() {
+      const answeredCount = activeQuestions.filter((_, idx) => isAnswered(idx)).length;
+      if (answeredCount < 30) {
+        const ok = confirm(`Baru ${answeredCount} dari 30 soal Level ${currentLevel} yang terisi lengkap. Yakin ingin mengirim jawaban sekarang?`);
+        if (!ok) return;
+      }
+
+      examActive = false;
+      if (timerInterval) clearInterval(timerInterval);
+      const durationSec = Math.max(1, Math.floor((Date.now() - startTimeMs) / 1000));
+      const rawArray = activeQuestions.map((_, idx) => formatRawAnswer(idx));
+
+      lastPayload = {
+        level: currentLevel,
+        timestamp: new Date().toLocaleString("id-ID"),
+        nama: student.nama,
+        kelas: student.kelas,
+        absen: student.absen,
+        mode: student.mode,
+        durasi_detik: durationSec,
+        peringatan_layar: warningCount,
+        terjawab: answeredCount,
+        answers: rawArray
+      };
+
+      document.getElementById("viewExam").classList.add("hidden");
+      document.getElementById("viewResult").classList.remove("hidden");
+
+      const m = Math.floor(durationSec / 60);
+      const s = durationSec % 60;
+      document.getElementById("resBadge").textContent = `✓ Level ${currentLevel} Selesai`;
+      document.getElementById("resTitle").textContent = `Rekap Pengiriman & Pembahasan Level ${currentLevel}`;
+      document.getElementById("resIdentity").textContent = `${student.nama} • Kelas ${student.kelas} • Absen ${student.absen} (${student.mode})`;
+      document.getElementById("resAnswered").textContent = `${answeredCount} / 30`;
+      document.getElementById("resDuration").textContent = `${m} mnt ${s} dtk`;
+      document.getElementById("resWarnings").textContent = `${warningCount} kali`;
+
+      const offerBox = document.getElementById("level2OfferBox");
+      if (currentLevel === 1) {
+        offerBox.classList.remove("hidden");
+      } else {
+        offerBox.classList.add("hidden");
+      }
+
+      const tbody = document.getElementById("rawTableBody");
+      const discList = document.getElementById("discussionList");
+      tbody.innerHTML = "";
+      discList.innerHTML = "";
+      let exactMatchCount = 0;
+
+      activeQuestions.forEach((q, idx) => {
+        const userStr = rawArray[idx] || "(Kosong)";
+        const keyStr = getOfficialKeyString(q);
+        const isExact = rawArray[idx] === keyStr;
+        if (isExact) exactMatchCount++;
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td class="px-3 py-2.5 font-mono font-bold text-amber-400">Q${String(q.no).padStart(2, "0")}</td>
+          <td class="px-3 py-2.5 text-slate-300">${q.bab}</td>
+          <td class="px-3 py-2.5 text-slate-400">${q.type}</td>
+          <td class="px-3 py-2.5 font-mono text-white font-semibold">${userStr}</td>
+          <td class="px-3 py-2.5 font-mono text-emerald-300">${keyStr}</td>
+          <td class="px-3 py-2.5">${isExact ? '<span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">Sesuai</span>' : '<span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300">Cek Pembahasan</span>'}</td>
+        `;
+        tbody.appendChild(tr);
+
+        const card = document.createElement("div");
+        card.className = "glass-card rounded-xl p-4 border border-slate-800";
+        card.innerHTML = `
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+            <span class="text-xs font-extrabold text-amber-400">LEVEL ${currentLevel} • SOAL ${q.no} (${q.bab})</span>
+            <span class="text-xs font-mono px-2.5 py-0.5 rounded bg-slate-800 text-emerald-300">Kunci: ${keyStr}</span>
+          </div>
+          <p class="text-sm text-white font-medium mb-2">${q.stem}</p>
+          <div class="text-xs text-slate-300 bg-slate-900/90 p-3 rounded-lg border border-slate-800 leading-relaxed">
+            <strong class="text-indigo-300">Bedah Konsep & Pembahasan:</strong> ${q.explanation}
+          </div>
+        `;
+        discList.appendChild(card);
+      });
+
+      document.getElementById("resCorrect").textContent = `${exactMatchCount} / 30`;
+
+      const targetTab = currentLevel === 1 ? "Respon_Level_1" : "Respon_Level_2";
+      const gasUrl = getGasUrl();
+      const statusBox = document.getElementById("gasStatusBox");
+      if (gasUrl && gasUrl.startsWith("https://")) {
+        statusBox.innerHTML = `<span class="text-amber-300 font-semibold">⏳ Sedang mengirim jawaban mentah Level ${currentLevel} (Q01–Q30) ke tab <strong>${targetTab}</strong>...</span>`;
+        try {
+          await fetch(gasUrl, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "text/plain;charset=utf-8" },
+            body: JSON.stringify(lastPayload)
+          });
+          statusBox.innerHTML = `<span class="text-emerald-400 font-bold">✓ Berhasil Terkirim ke Tab "${targetTab}"!</span> <span class="text-slate-300 text-xs block mt-1">Data identitas, durasi (${durationSec} detik), log layar (${warningCount}x), dan jawaban mentah Q01–Q30 sudah masuk ke Google Spreadsheets.</span>`;
+        } catch (err) {
+          statusBox.innerHTML = `<span class="text-rose-400 font-bold">⚠ Gagal mengirim otomatis:</span> <span class="text-slate-300 text-xs">${err.message}. Gunakan tombol <strong>Salin Baris Data</strong> atau <strong>Unduh CSV</strong>.</span>`;
+        }
+      } else {
+        statusBox.innerHTML = `<span class="text-amber-300 font-bold">ℹ Mode Lokal Aktif:</span> <span class="text-slate-300 text-xs block mt-1">URL Google Apps Script belum diisi pada menu <strong>⚙️ Setup Google Sheets</strong>.</span>`;
+      }
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function finishAllSessions() {
+      document.getElementById("level2OfferBox").innerHTML = `
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h4 class="text-base font-bold text-emerald-300">✓ Sesi Latihan Dicukupkan pada Level 1</h4>
+            <p class="text-xs text-slate-300 mt-0.5">Nilai utamamu sudah terekam. Silakan pelajari pembahasan di bawah bersama kelompokmu.</p>
+          </div>
+          <button onclick="startLevel(2)" class="px-4 py-2 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/40 text-xs font-bold cursor-pointer">
+            Berubah Pikiran? Buka Level 2
+          </button>
+        </div>
+      `;
+    }
+
+    function copyRowTSV() {
+      if (!lastPayload) return;
+      const row = [
+        lastPayload.timestamp,
+        lastPayload.nama,
+        lastPayload.kelas,
+        lastPayload.absen,
+        lastPayload.mode,
+        lastPayload.durasi_detik,
+        lastPayload.peringatan_layar,
+        lastPayload.terjawab,
+        ...lastPayload.answers
+      ].join("\t");
+      navigator.clipboard.writeText(row).then(() => {
+        alert(`1 baris lengkap Level ${lastPayload.level} berhasil disalin! Silakan tempel (Ctrl+V) pada baris kosong di tab Respon_Level_${lastPayload.level}.`);
+      });
+    }
+
+    function downloadCSV() {
+      if (!lastPayload) return;
+      const headers = ["Timestamp", "Nama_Siswa", "Kelas", "No_Absen", "Mode", "Durasi_Detik", "Peringatan_Layar", "Terjawab", ...Array.from({length: 30}, (_, i) => `Q${String(i+1).padStart(2, "0")}`)];
+      const values = [
+        lastPayload.timestamp,
+        lastPayload.nama,
+        lastPayload.kelas,
+        lastPayload.absen,
+        lastPayload.mode,
+        lastPayload.durasi_detik,
+        lastPayload.peringatan_layar,
+        lastPayload.terjawab,
+        ...lastPayload.answers
+      ].map(v => `"${String(v).replace(/"/g, '""')}"`);
+      const csv = headers.join(",") + "\n" + values.join(",");
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `Rekap_CBT_L${lastPayload.level}_${lastPayload.kelas}_${lastPayload.nama.replace(/\s+/g, "_")}.csv`;
+      a.click();
+    }
+  </script>
+</body>
+</html>
